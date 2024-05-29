@@ -1,0 +1,157 @@
+"use client";
+import BackModal from "@/app/components/BackModal";
+import { CountDown } from "@/app/components/CountDown";
+import { ProgressBar } from "@/app/components/Progressbar";
+import { SelectAnswer } from "@/app/components/SelectAnswer";
+import { SessionResult } from "@/app/components/SessionResult";
+import React, { useEffect, useState } from "react";
+
+export const Session = () => {
+  const [stage, setStage] = useState("countdown");
+  const [timer, setTimer] = useState(60);
+  const [showModal, setShowModal] = useState(false);
+  const [questions, setQuestions] = useState([
+    {
+      id: 1,
+      question:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+      choices: [
+        "This is the success variant with answer true.",
+        "This is the danger variant with answer false.",
+        "This is the default variant.",
+      ],
+      time: 1,
+      aplhabet: "A",
+      correctAnswer: "This is the default variant.",
+    },
+    {
+      id: 2,
+      question:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+      choices: [
+        "This is the success variant with answer true.",
+        "This is the danger variant with answer false.",
+        "This is the default variant.",
+      ],
+      time: 1,
+      aplhabet: "B",
+      correctAnswer: "This is the default variant.",
+    },
+    {
+      id: 4,
+      question:
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+      choices: [
+        "This is the success variant with answer true.",
+        "This is the danger variant with answer false.",
+        "This is the default variant.",
+      ],
+      time: 1,
+      aplhabet: "C",
+      correctAnswer: "This is the default variant.",
+    },
+  ]);
+  const [step, setStep] = useState(0);
+
+  useEffect(() => {
+    if (stage === "countdown") {
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+
+      if (timer === 0) {
+        clearInterval(interval);
+        setStage("optionSelection");
+      }
+
+      return () => clearInterval(interval);
+    }
+  }, [stage, timer]);
+
+  const handleContinue = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    if (stage === "countdown" || stage === "selectAnswer") {
+      const handleBeforeUnload = (event) => {
+        event.preventDefault();
+        event.returnValue = "";
+        setShowModal(true);
+      };
+
+      const handleBackNavigation = (event) => {
+        event.preventDefault();
+        setShowModal(true);
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+      window.history.pushState(null, null, window.location.pathname);
+      window.addEventListener("popstate", handleBackNavigation);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+        window.removeEventListener("popstate", handleBackNavigation);
+      };
+    }
+  }, [showModal, stage]);
+
+  const handleAnswerSelect = (answer) => {
+    alert(step);
+    setQuestions((prev) => {
+      const updatedQuestions = prev.map((question, index) => {
+        if (index === step) {
+          return { ...question, answer: answer };
+        }
+        return question;
+      });
+      return updatedQuestions;
+    });
+  };
+
+  const handleQuestionChange = () => {
+    setStep(step + 1);
+  };
+  const handleStageChange = () => {
+    setStage("sessionResult");
+  };
+
+  const progess = ((step + 1) / questions.length) * 100 - 1;
+  return (
+    <div className="relative">
+      {stage === "countdown" && (
+        <div className="pt-9 pb-3 lg:pb-7 px-6 lg:px-7">
+          <CountDown onComplete={() => setStage("selectAnswer")} />
+        </div>
+      )}
+      {stage === "selectAnswer" && (
+        <>
+          <div className="hidden md:block fixed w-full top-[78px] left-0 border-white w-full h-2 z-30 transition ease-in ">
+            <ProgressBar progress={progess} />
+          </div>
+          <div className="-mt-2 md:mt-0 pt-10 lg:pt-16  ">
+            <SelectAnswer
+              setSelectedOption={handleAnswerSelect}
+              handleQuestionChange={handleQuestionChange}
+              questions={questions}
+              step={step}
+              handleStageChange={handleStageChange}
+            />
+          </div>
+        </>
+      )}
+      {stage === "sessionResult" && (
+        <div className="pl-6 pr-6 pt-10 md:pl-14 md:pr-16">
+          <SessionResult />
+        </div>
+      )}
+      {showModal && (
+        <BackModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          onContinue={handleContinue}
+        />
+      )}
+    </div>
+  );
+};
