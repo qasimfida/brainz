@@ -13,7 +13,7 @@ export const Dashboard = () => {
   const { open, toggleOpen } = useNotification();
   console.log({ open });
   return (
-    <div className="text-white">
+    <div className="text-white bg-primary">
       <div className="bg-primary-350 pb-5 w-full rounded-[10px] mt-3 hidden md:block">
         <div className="flex flex-wrap items-center justify-between gap-3 px-8 pt-4">
           <h1 className="text-xl font-bold font-basement ">Live Games</h1>
@@ -54,7 +54,7 @@ export const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className="pb-4 bg-primary-350 ">
+      <div className="pb-0 lg:pb-4 bg-primary-350 ">
         <div className=" hidden md:block  w-full rounded-[10px] mt-4 mb-5">
           <h1 className="pl-8 pt-4 text-xl font-bold font-basement">
             Upcoming Games
@@ -74,7 +74,7 @@ export const Dashboard = () => {
         </div>
       </div>
       {/* Mobile Screen Tabs */}
-      <div className="pt-3 md:hidden">
+      <div className="pt-3 md:hidden ">
         <Tab.Group>
           <Tab.List className="flex justify-center w-full px-5">
             <Tab className={"w-full focus:outline-none"}>

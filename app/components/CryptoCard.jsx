@@ -11,7 +11,11 @@ const CryptoCard = ({ title, description, time, bgColor, shadow }) => {
         <p className="text-sm font-basement font-bold">{description}</p>
         <h2 className="text-sm font-basement font-bold mt-2.5">{time}</h2>
         <div className="mt-5">
-          <Button variant={"outlined text-sm"} className={"text-balance	"}>
+          <Button
+            variant={"outlined text-sm"}
+            className={"text-balance py-1 px-6"}
+            size="text-base"
+          >
             Remind me
           </Button>
         </div>

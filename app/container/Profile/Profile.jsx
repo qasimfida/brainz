@@ -17,6 +17,17 @@ export const Profile = () => {
             <Input label="Username" variant={"default"} />
           </div>
         </div>
+        <div className="mt-8 flex flex-wrap gap-12">
+          <div className="flex-1 max-w-full lg:max-w-[48%]">
+            <Input
+              label="Wallet Address"
+              variant={"copy"}
+              buttonText="Copy"
+              placeholder={"0x1234567890abcdef1234567890abcdef12345678"}
+              readOnlyInput={true}
+            />
+          </div>
+        </div>
         <div className="mt-8 flex flex-wrap gap-12 lg:gap-[110]">
           <div className="flex-1 min-w-[240px] ">
             <h1 className="font-basement font-bold text-lg lg:text-xl mb-[26px]">
@@ -49,17 +60,6 @@ export const Profile = () => {
           </div>
         </div>
         {/* ss */}
-        <div className="mt-8 flex flex-wrap gap-12">
-          <div className="flex-1 max-w-full lg:max-w-[48%]">
-            <Input
-              label="Wallet Address"
-              variant={"walletAddress"}
-              buttonText="Copy"
-              placeholder={"0x1234567890abcdef1234567890abcdef12345678"}
-              readOnlyInput={true}
-            />
-          </div>
-        </div>
       </div>
       <div className="mt-9">
         <WalletTabs />

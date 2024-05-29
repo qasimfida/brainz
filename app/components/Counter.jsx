@@ -64,25 +64,25 @@ export const Counter = ({
     <div className="w-full">
       <div className="flex gap-3 items-center justify-center">
         <div
-          className={`w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 rounded-[10px] flex items-center justify-center ${color}`}
+          className={`w-12 h-12 md:h-16 md:w-16 lg:h-20 lg:w-20 rounded-[10px] flex items-center justify-center ${color}`}
         >
-          <h1 className="text-3xl lg:text-5xl font-basement font-black text-dark">
+          <h1 className="text-lg sm:text-xl md:2xl lg:text-3xl font-basement font-black text-dark">
             {padZero(time.hours)}
           </h1>
         </div>
         <p className="font-basement font-black text-5xl text-white">:</p>
         <div
-          className={`w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24  rounded-[10px] flex items-center justify-center ${color}`}
+          className={`w-12 h-12 md:h-16 md:w-16 lg:h-20 lg:w-20 rounded-[10px] flex items-center justify-center ${color}`}
         >
-          <h1 className="text-3xl lg:text-5xl font-basement font-black text-dark">
+          <h1 className="text-lg sm:text-xl md:2xl lg:text-3xl font-basement font-black text-dark">
             {padZero(time.minutes)}
           </h1>
         </div>
         <p className="font-basement font-black text-5xl text-white">:</p>
         <div
-          className={`w-16 h-16 md:w-20 md:h-20 lg:w-24 lg:h-24  rounded-[10px] flex items-center justify-center ${color}`}
+          className={`w-12 h-12 md:h-16 md:w-16 lg:h-20 lg:w-20 rounded-[10px] flex items-center justify-center ${color}`}
         >
-          <h1 className="text-3xl lg:text-5xl font-basement font-black text-dark">
+          <h1 className="text-lg sm:text-xl md:2xl lg:text-3xl  font-basement font-black text-dark">
             {padZero(time.seconds)}
           </h1>
         </div>

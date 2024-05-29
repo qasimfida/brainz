@@ -7,14 +7,14 @@ export const SessionButton = ({
   badgeBg = "bg-success/30",
   titleStyles = "text-2xl",
   countSize = "text-2xl",
-  diamondSize = { width: "28", height: "26" },
+  diamondSize = { width: "22", height: "22" },
   svgFill = "#58FF69",
   hover,
   ...props
 }) => {
   return (
     <div
-      className={`transition  duration-200 ease-in-out rounded-[10px] ${mainStyles} pl-4 pt-2 pb-[12px] border border-[#051c2b] ${
+      className={`h-full transition  duration-200 ease-in-out rounded-[10px] ${mainStyles} px-2 lg:px-4 pt-2 pb-[12px] border border-[#051c2b] ${
         hover ? "hover:border-white" : ""
       }`}
       {...props}
@@ -25,7 +25,7 @@ export const SessionButton = ({
         </h1>
       </div>
       <div
-        className={`py-[6px] mt-[6px] flex items-center justify-center gap-4 rounded-full ${badgeBg} max-w-[106px]`}
+        className={`py-1.5 mt-[6px] flex items-center justify-center gap-4 rounded-full ${badgeBg} max-w-[100px]`}
       >
         <h1 className={`font-basement font-normal ${countSize} text-white`}>
           {count}

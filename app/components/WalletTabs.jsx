@@ -17,14 +17,18 @@ import DepositSelectDropdown from "./DepositSelectDropdown";
 
 const WalletTabs = () => {
   const defaultOption = "ETH";
+  const tokendefault = "ETH";
   const [selectedOption, setSelectedOption] = useState(defaultOption);
-  const options = [
+  const [selectedToken, setSelectedToken] = useState(tokendefault);
+  const tokenOptions = [
     { icon: <EthIcon width="20" height="20" />, price: 12.0503, label: "ETH" },
-    { icon: <BtcIcon width="21" height="20" />, price: 44.0503, label: "BTC" },
+    { icon: <BtcIcon width="21" height="22" />, price: 44.0503, label: "BTC" },
   ];
-
   const handleSelectChange = (value) => {
     setSelectedOption(value);
+  };
+  const handleTokenChange = (value) => {
+    setSelectedToken(value);
   };
   return (
     <Tab.Group>
@@ -207,9 +211,9 @@ const WalletTabs = () => {
                         </p>
                         <div className="w-full max-w-[206px]">
                           <TokenSelectDropdown
-                            options={options}
-                            onChange={handleSelectChange}
-                            defaultOption={options[1].label}
+                            options={tokenOptions}
+                            onChange={handleTokenChange}
+                            defaultOption={tokenOptions[1].label}
                           />
                         </div>
                       </div>
@@ -250,9 +254,9 @@ const WalletTabs = () => {
                       </p>
                       <div className="w-full max-w-[206px]">
                         <DepositSelectDropdown
-                          options={options}
+                          options={tokenOptions}
                           onChange={handleSelectChange}
-                          defaultOption={options[1].label}
+                          defaultOption={tokenOptions[1].label}
                         />
                       </div>
                     </div>

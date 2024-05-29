@@ -12,13 +12,13 @@ export const ConfettiBackground = () => {
           requestAnimationFrame(frame);
         }
 
-        confetti({
-          particleCount: 25,
-          angle: 60,
-          spread: 70,
-          origin: { x: 0 },
-        });
-      
+        // confetti({
+        //   particleCount: 25,
+        //   angle: 60,
+        //   spread: 70,
+        //   origin: { x: 0 },
+        // });
+
         confetti({
           particleCount: 25,
           angle: 120,
@@ -30,7 +30,7 @@ export const ConfettiBackground = () => {
       frame();
     };
 
-    const timeoutId = setTimeout(startConfetti, 1000);
+    const timeoutId = setTimeout(startConfetti, 100);
 
     return () => clearTimeout(timeoutId);
   }, []);

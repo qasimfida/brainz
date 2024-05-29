@@ -25,7 +25,7 @@ export const ParticipationsRankTable = ({
 
   return (
     <div
-      className={`mb-4 flex justify-between px-3 items-center pb-2.5 border-b border-gray-475 ${rankStyles} ${animationClass}`}
+      className={`mb-4 flex justify-between px-3 items-center pb-2.5 border-b border-grey-475 ${rankStyles} ${animationClass}`}
       {...rest}
     >
       <div className="flex items-center gap-1.5 mr-6">

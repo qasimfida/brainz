@@ -64,6 +64,7 @@ module.exports = {
       danger: {
         DEFAULT: "#FF1A1A",
         100: "#FF351A",
+        150: "#C53030",
         200: "#ED64A6",
       },
       info: {

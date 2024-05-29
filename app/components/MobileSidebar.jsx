@@ -118,26 +118,26 @@ export const MobileSidebar = ({ onNavLinkClick }) => {
             defaultOption={options[1].label}
           />
         </div>
-        {/* nav links */}
-        <ul className="flex flex-col items-center justify-center gap-4 mt-8 text-center">
-          {navLinks.map(({ title, url }, index) => (
-            <li
-              key={index}
-              className={`w-fit ${
-                title === activeLink ? "text-secondary" : "text-white"
-              }`}
-            >
-              <Link
-                href={url}
-                className="text-lg font-bold font-basement hover:text-secondary"
-                onClick={handleLinkClick}
-              >
-                {title}
-              </Link>
-            </li>
-          ))}
-        </ul>
       </div>
+      {/* nav links */}
+      <ul className="flex flex-col items-center justify-center gap-4 mt-8 text-center">
+        {navLinks.map(({ title, url }, index) => (
+          <li
+            key={index}
+            className={`w-fit ${
+              title === activeLink ? "text-secondary" : "text-white"
+            }`}
+          >
+            <Link
+              href={url}
+              className="text-lg font-bold font-basement hover:text-secondary"
+              onClick={handleLinkClick}
+            >
+              {title}
+            </Link>
+          </li>
+        ))}
+      </ul>
       <div className="w-full gap-2 px-3 pb-6 mt-8 bg-primary">
         <div>
           <div className="bg-primary-350 rounded-[10px]  px-5 py-4">

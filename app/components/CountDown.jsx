@@ -7,10 +7,10 @@ export const CountDown = ({ onComplete }) => {
   const handleTimerEnd = () => {
     onComplete();
   };
-
+  // gap-12 lg:gap-24
   return (
-    <div className="w-full flex flex-col gap-12 lg:gap-24 lg:flex-row md:flex-row sm:flex-col">
-      <div className="flex-1">
+    <div className="w-full flex flex-col lg:flex-row md:flex-row sm:flex-col">
+      <div className="flex-1  border-white px-0 lg:px-12">
         <div className="h-full justify-center text-white flex flex-col items-center ">
           <div className="text-center">
             <p className="font-basement mb-[20px] text-base lg:text-lg font-normal uppercase">
@@ -31,16 +31,16 @@ export const CountDown = ({ onComplete }) => {
               <p className="mb-3 text-lg lg:text-xl font-basement font-normal">
                 pot size
               </p>
-              <p className="font-basement font-bold text-2xl lg:text-[38px]">
+              <p className="font-basement font-bold text-2xl lg:text-3xl">
                 35,589usdt
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex-1 items-center flex-col text-white ">
+      <div className="px-0 lg:px-12 flex-1 items-center flex-col text-white  mt-6 lg:mt-0">
         <div className="flex flex-col justify-end">
-          <h2 className=" text-white font-basement font-bold text-2xl capitalize mb-7">
+          <h2 className=" text-white font-basement font-bold text-xl lg:text-2xl capitalize mb-5 lg:mb-7">
             rules
           </h2>
           <SessionTitleCard
@@ -51,7 +51,7 @@ export const CountDown = ({ onComplete }) => {
           />
         </div>
         <div className="w-full flex flex-col ">
-          <p className="mt-9 mb-[20px] text-white font-semibold text-2xl font-basement lg:flex lg:items-end">
+          <p className="mt-9 mb-[20px] text-white font-semibold text-xl lg:text-2xl font-basement lg:flex lg:items-end">
             You can only use 1 of these in session
           </p>
           <SessionTitleCard

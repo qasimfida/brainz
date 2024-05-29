@@ -83,17 +83,18 @@ export const SelectAnswer = ({
     }
   };
 
-  console.log({ table });
+  console.table({ table });
 
   return (
     <>
+      {/* Mobile-1 */}
       <div className="block md:hidden bg-primary-350 mb-7">
-        <div className="px-6 pt-7">
-          <div className="flex items-center justify-between w-full gap-4 mb-5 text-4xl rounded-lg">
-            <h1 className="text-xl font-bold text-white font-basement">
+        <div className="px-6 pt-5">
+          <div className=" flex items-center justify-between w-full gap-4 mb-5 text-4xl rounded-lg">
+            <h1 className="text-lg font-bold text-white font-basement">
               Title of the Session
             </h1>
-            <h1 className="text-3xl font-bold text-white font-basement">
+            <h1 className="text-xl font-bold text-white font-basement">
               {timeRemaining} s
             </h1>
           </div>
@@ -107,47 +108,47 @@ export const SelectAnswer = ({
           <ProgressBar progress={50} rounded />
         </div>
       </div>
-
-      <div className="flex flex-col gap-16 pl-6 pr-6 lg:flex-row md:pl-14 md:pr-9">
+      <div className="flex flex-col gap-16 pl-4 pr-4 lg:flex-row md:pl-14 md:pr-9">
         <div className="w-full lg:w-3/4 ">
-          <div className="flex gap-5 ">
-            <div className="w-[234px]">
+          <div className="mt-6 flex items-center gap-5">
+            <div className=" w-[200px] lg:w-[234px]">
               <SessionButton
                 title="50/50"
                 count={7}
                 mainStyles="bg-gradient-to-r from-[#2e414e] to-[#132836]"
                 badgeBg="bg-success/20"
-                titleStyles="text-xl md:text-[28px]"
-                countSize="text-xl"
+                titleStyles="text-base md:text-xl"
+                countSize="text-base"
                 hover
               />
             </div>
-            <div className="w-[234px]">
+            <div className="w-[200px] lg:w-[234px]">
               <SessionButton
                 title="Auto-correct"
                 svgFill="#1b5d3b"
                 count={8}
                 mainStyles="bg-gradient-to-r from-[#2e414e]/20 to-[#132836]/10"
                 badgeBg="bg-success/5  "
-                titleStyles="text-xl md:text-[28px] text-white/20"
-                countSize="text-xl text-white/10 "
+                titleStyles="text-base md:text-xl text-white/20"
+                countSize="text-base text-white/10 "
               />
             </div>
           </div>
 
           <div className="flex gap-4 text-white mt-12 max-w-[830px]">
             <div className="flex items-center gap-4 border-secondary">
-              <h1 className="text-2xl font-bold font-basement text-secondary">
+              <h1 className="text-lg lg:text-xl font-bold font-basement text-secondary">
                 {step + 1}
               </h1>
-              <LongArrowRightIcon />
+              <LongArrowRightIcon height="24" width="24" />
             </div>
-            <p className="text-xl font-semibold md:text-2xl font-inter ">
+            <p className="text-lg font-semibold md:text-xl lg:text-2xl font-inter">
               {question.question}
             </p>
           </div>
-          <div className="pb-5 md:pb-0 flex flex-col mt-11 gap-4 max-w-[784px]">
+          <div className="pb-5 md:pb-0 flex flex-col mt-6 lg:mt-11 gap-4 max-w-[784px]">
             {question.choices.map((choice, index) => {
+              console.log("choice:", choice);
               return (
                 <OptionSelect
                   key={index}
@@ -187,15 +188,15 @@ export const SelectAnswer = ({
         </div>
         <div className="hidden md:block w-full lg:w-[344px] space-y-6 block ">
           <div className="flex flex-col w-full text-4xl bg-gradient-to-r from-[#2e414e] to-[#132836] rounded-lg py-4 px-6">
-            <p className="text-xl font-normal font-basement text-secondary">
+            <p className="text-lg font-normal font-basement text-secondary">
               Time remaining
             </p>
-            <h1 className="text-4xl font-bold text-white font-basement">
+            <h1 className="text-3xl font-bold text-white font-basement">
               {timeRemaining} seconds
             </h1>
           </div>
           <div className="px-3 pt-5 bg-gradient-to-b from-[#061F30] to-[#061F30] rounded-lg">
-            <h1 className="pt2.5 font-basement font-bold text-lg text-white ">
+            <h1 className="pt-2.5 font-basement font-bold text-xl text-white ">
               Participants (122)
             </h1>
             <div className="mt-5">

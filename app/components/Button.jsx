@@ -9,7 +9,7 @@ export const Button = ({
     outlined:
       "outline-none	text-nowrap font-basement font-bold bg-transparent border border-secondary border-2 text-white font-bold py-2 rounded-full inline-flex items-center duration-200 hover:bg-secondary hover:text-dark px-10 py-1",
     contained:
-      "outline-none	text-nowrap font-basement font-bold bg-secondary border border-secondary text-dark font-bold py-2 rounded-full inline-flex items-center duration-200 px-10 py-1 hover:bg-secondary/75",
+      "outline-none	text-nowrap font-basement font-bold bg-secondary border border-secondary text-dark font-bold rounded-full inline-flex items-center duration-200 px-10 py-1 hover:bg-secondary/75",
     gradient:
       "text-nowrap text-base md:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] text-white font-bold rounded-[10px] inline-flex items-center duration-200 px-10 py-3 hover:opacity-75",
     outlinedWhite:

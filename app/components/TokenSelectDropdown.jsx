@@ -67,10 +67,10 @@ const TokenSelectDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
               <div className="flex items-center pb-2 pt-2.5 justify-between pl-3 lg:pl-6 pr-4">
                 <div className="flex gap-3 font-normal font-basement">
                   <span>{option.icon}</span>
-                  <p className="text-sm ">{option.label}</p>
+                  <p className="text-sm">{option.label}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm ">{option.price}</p>
+                  <p className="text-sm">{option.price}</p>
                 </div>
               </div>
             </div>

@@ -523,7 +523,7 @@ export const WarningIcon = ({
     </svg>
   );
 };
-export const LinkIcon = (props) => {
+export const LinkIcon = ({ className, ...props }) => {
   return (
     <svg
       width="24"
@@ -534,10 +534,12 @@ export const LinkIcon = (props) => {
       strokeWidth="2"
       strokeLinecap="round"
       strokeLinejoin="round"
+      className={className}
+      {...props}
     >
       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
       <polyline points="15 3 21 3 21 9"></polyline>
-      <line x1="10" y1="14" x2="21" y2="3" {...props}></line>
+      <line x1="10" y1="14" x2="21" y2="3"></line>
     </svg>
   );
 };
