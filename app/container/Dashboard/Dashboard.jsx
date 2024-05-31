@@ -11,7 +11,7 @@ import { useNotification } from "@/app/contexts/notification";
 
 export const Dashboard = () => {
   const { open, toggleOpen } = useNotification();
-  console.log({ open });
+  // console.log({ open });
   return (
     <div className="text-white bg-primary">
       <div className="bg-primary-350 pb-5 w-full rounded-[10px] mt-3 hidden md:block">
