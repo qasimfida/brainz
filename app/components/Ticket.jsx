@@ -19,7 +19,12 @@ const Ticket = ({
 }) => {
   const backgroundColor = bgColors[bgColor];
   const IconBackgroundColor = bgIconColors[bgColor];
-
+  const formatNumber = (number) => {
+    if (number >= 1000) {
+      return `${(number / 1000).toFixed(1)}k`;
+    }
+    return number.toString();
+  };
   return (
     <Link href={href} className="w-fit	 flex gap-2.5 group">
       <div
@@ -43,7 +48,9 @@ const Ticket = ({
         </div>
       </div>
       <div className="text-white">
-        <h1 className="text-base font-bold font-basement">{number}</h1>
+        <h1 className="text-base font-bold font-basement">
+          {formatNumber(number)}
+        </h1>
         <p className="text-sm font-basement">{label}</p>
       </div>
     </Link>

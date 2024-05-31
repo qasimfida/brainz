@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ArrowIcon } from "./Svgs";
+import { ArrowDownLightIcon, ArrowIcon } from "./Svgs";
 
 const PurchaseDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -37,12 +37,12 @@ const PurchaseDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
         onClick={toggleDropdown}
         className="flex items-center relative w-full leading-tight focus:outline-none focus:shadow-outline z-[11] "
       >
-        <div className=" bg-primary w-full flex items-center font-basement justify-between py-3 px-[32px] border border-primary-275 rounded-[10px] ">
+        <div className=" bg-primary w-full flex items-center font-basement justify-between py-3 px-6 md:px-8 border border-primary-275 rounded-[10px] ">
           <div className="text-start flex flex-col rounded font-bold text-grey-200">
-            <p className="font-basement font-normal text-[12px] mb-[4px] ">
+            <p className="font-basement font-normal text-xs mb-[4px] ">
               YOU PAY
             </p>
-            <h1 className="text-white">
+            <h1 className="text-white text-sm md:text-base ">
               {selectedOption.price || options[0].price}
             </h1>
           </div>
@@ -50,9 +50,12 @@ const PurchaseDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
             <span className="mr-2">
               {selectedOption.icon || options[0].icon}
             </span>
-            {selectedOption.label || options[0].label}
+            <h2 className="text-sm md:text-base ">
+              {selectedOption.label || options[0].label}
+            </h2>
+
             <div className="ml-2.5">
-              <ArrowIcon className={"text-grey-300"} />
+              <ArrowDownLightIcon className={"text-grey-300"} />
             </div>
           </div>
         </div>
@@ -71,11 +74,11 @@ const PurchaseDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
             >
               <div className="flex items-center pb-2 pt-2.5 justify-between pl-8 pr-[54px]">
                 <div className="flex font-basement font-normal">
-                  <p>{option.price}</p>
+                  <p className="text-sm md:text-base">{option.price}</p>
                 </div>
                 <div className="flex items-center gap-2">
                   <span>{option.icon}</span>
-                  <p>{option.label}</p>
+                  <p className="text-sm md:text-base">{option.label}</p>
                 </div>
               </div>
             </div>

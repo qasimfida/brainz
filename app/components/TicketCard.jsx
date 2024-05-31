@@ -23,23 +23,34 @@ export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
   };
 
   const options = [
-    { icon: <EthIcon />, price: 12.0503, label: "ETH" },
-    { icon: <BtcIcon />, price: 44.0503, label: "BTC" },
+    { icon: <EthIcon height="18" width="18" />, price: 12.0503, label: "ETH" },
+    { icon: <BtcIcon height="18" width="22" />, price: 44.0503, label: "BTC" },
   ];
   const handleSelectChange = (value) => {
     setSelectedOption(value);
   };
 
   return (
-    <div className="bg-primary-350 rounded-[20px] border border-primary-275 pt-[18px] pb-[14px] px-[18px] text-center 	w-full">
+    <div className="bg-primary-350 rounded-[20px] border border-primary-275 py-5 px-[18px] text-center w-full">
       <div className="flex items-center justify-center gap-[10px]">
-        <h1 className="text-3xl font-basement font-bold">{tickets}</h1>
+        <h1 className="text-xl lg:text-3xl font-basement font-bold">
+          {tickets}
+        </h1>
         <MainIcon className={iconColor} />
       </div>
-      <p className="font-basement font-normal text-grey-400 text-[14px]">For</p>
-      <h2 className="font-basement font-bold text-lg mt-2.5">{price}</h2>
+      <p className="my-2 font-basement font-normal text-grey-400 text-sm">
+        For
+      </p>
+      <h2 className="font-basement font-bold text-base lg:text-lg mt-2.5">
+        {price}
+      </h2>
       <div className="mt-[8px]">
-        <Button variant={"outlined"} onClick={openModal}>
+        <Button
+          variant={"outlined"}
+          size="text-sm lg:text-base"
+          className={"sm:px-5 py-1 md:px-6 lg:px-10"}
+          onClick={openModal}
+        >
           Buy now
         </Button>
       </div>
@@ -69,19 +80,19 @@ export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-[724px] text-center text-white transform overflow-hidden rounded-[20px] bg-primary-275 py-[26px] px-6 md:px-[50px] text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-[724px] text-center text-white transform overflow-hidden rounded-[20px] bg-primary-275 py-6 px-6 md:px-12 text-left align-middle shadow-xl transition-all">
                   {isPurchased ? (
                     <div>
-                      <h1 className="text-[26px] md:text-4xl font-basement font-bold">
+                      <h1 className="text-2xl lg:text-3xl font-basement font-bold">
                         Buy
                       </h1>
                       <div className="flex justify-center">
-                        <h2 className="text-lg  md:text-2xl font-basement font-bold mt-[42px] max-w-[458px]">
+                        <h2 className="text-lg  md:text-2xl font-basement font-bold mt-6 md:mt-10 max-w-[458px]">
                           You are purchasing 25 Tickets for 120 USDT.
                         </h2>
                       </div>
-                      <div className="flex justify-center mt-[140px] pb-[32px]">
-                        <p className="text-[15px] md:text-lg font-basement font-normal max-w-[458px] ">
+                      <div className="flex justify-center mt-[140px] pb-8">
+                        <p className="text-base md:text-lg font-basement font-normal max-w-[458px] ">
                           Your purchase was successful!
                         </p>
                       </div>
@@ -92,12 +103,12 @@ export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
                         Buy
                       </h1>
                       <div className="flex justify-center">
-                        <h2 className="text-lg  md:text-2xl font-basement font-bold  mt-[42px] max-w-[458px]">
+                        <h2 className="text-lg md:text-2xl font-basement font-bold mt-10 max-w-[458px]">
                           You are purchasing 25 Tickets for 120 USDT.
                         </h2>
                       </div>
                       <div className="flex justify-center mt-8">
-                        <p className="text-[15px]  md:text-lg font-basement font-normal max-w-[458px] ">
+                        <p className="text-sm md:text-base md:text-lg font-basement font-normal max-w-[458px] ">
                           Select USDT or Equivalen Token to purchase the bundles
                         </p>
                       </div>
@@ -111,14 +122,16 @@ export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
                         </div>
                         <div className="w-[370px] mt-5">
                           <div className="flex items-center relative w-full focus:outline-none focus:shadow-outline">
-                            <div className=" bg-primary w-full flex items-center font-basement justify-between py-3 px-[32px] border border-primary-275 rounded-[10px] ">
+                            <div className=" bg-primary w-full flex items-center font-basement justify-between py-3 px-6 md:px-8 border border-primary-275 rounded-[10px] ">
                               <div className="text-start flex flex-col rounded font-bold text-grey-200">
-                                <p className="font-basement font-normal text-[12px] mb-[4px] uppercase">
+                                <p className="font-basement font-normal text-xs mb-[4px] uppercase">
                                   Equivalent
                                 </p>
-                                <h1 className="text-white">0.123123</h1>
+                                <h1 className="text-white text-sm md:text-base">
+                                  0.123123
+                                </h1>
                               </div>
-                              <div className="text-white flex items-center uppercase	">
+                              <div className="text-white flex items-center uppercase	text-sm md:text-base ">
                                 <span className="mr-2">
                                   <UsdtIcon />
                                 </span>

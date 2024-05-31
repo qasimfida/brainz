@@ -36,6 +36,13 @@ export const MobileSidebar = ({ onNavLinkClick }) => {
     { title: "Support", url: "/dashboard/support" },
   ];
 
+  const formatNumber = (number) => {
+    if (number >= 1000) {
+      return `${(number / 1000).toFixed(1)}k`;
+    }
+    return number.toString();
+  };
+
   useEffect(() => {
     const active = navLinks.find((link) => link.url === pathname);
     if (active) setActiveLink(active.title);
@@ -93,7 +100,7 @@ export const MobileSidebar = ({ onNavLinkClick }) => {
                   className={"text-[#58FF69]"}
                 />
                 <h1 className="text-sm font-bold text-white font-basement">
-                  204
+                  {formatNumber(1500)}
                 </h1>
               </div>
             </Link>
