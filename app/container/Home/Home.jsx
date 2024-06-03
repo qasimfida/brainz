@@ -3,7 +3,7 @@ import Link from "next/link";
 import homeBanner from "../../../public/images/homebanner.png";
 import logo from "../../../public/images/Brainz-logo.png";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/app/components/Button";
 import { WinBox } from "@/app/components/WinBox";
 import { winBoxData } from "./data";
@@ -20,11 +20,15 @@ export const Home = () => {
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
+  const [token, setToken] = useState(null);
 
-  let token = null;
-  if (typeof window !== "") {
-    token = localStorage.getItem("token");
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+    }
+  }, [localStorage]);
+
   const openModal = () => {
     if (token) {
       router.push("/dashboard");
@@ -32,19 +36,24 @@ export const Home = () => {
       setIsOpen(true);
     }
   };
+
   const closeModal = () => setIsOpen(false);
+
   const handleAccept = () => {
     setIsAccepted(true);
     closeModal();
     localStorage.setItem("token", "user1234");
     router.push("/dashboard");
   };
+
   const toggleEffect = () => {
     setIsActive(!isActive);
   };
+
   const toggleNotification = () => {
     // toggleOpen(false);
   };
+
   return (
     <div>
       <div
