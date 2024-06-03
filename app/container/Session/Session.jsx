@@ -14,7 +14,7 @@ export const Session = () => {
     {
       id: 1,
       question:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+        "What is the significance of smart contracts in the Ethereum network, and how do they differ from traditional contracts?",
       choices: [
         "This is the success variant with answer true.",
         "This is the danger variant with answer false.",
@@ -27,7 +27,7 @@ export const Session = () => {
     {
       id: 2,
       question:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+        "How does Bitcoin differ from traditional fiat currencies, and what advantages does it offer over conventional money systems?",
       choices: [
         "This is the success variant with answer true.",
         "This is the danger variant with answer false.",
@@ -40,7 +40,7 @@ export const Session = () => {
     {
       id: 4,
       question:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?",
+        "What role do miners play in the cryptocurrency ecosystem, and how are they incentivized to maintain the network?",
       choices: [
         "This is the success variant with answer true.",
         "This is the danger variant with answer false.",
@@ -120,7 +120,7 @@ export const Session = () => {
   return (
     <div className="relative">
       {stage === "countdown" && (
-        <div className="pt-9 pb-3 lg:pb-7 px-6 lg:px-7">
+        <div className="pt-8 lg:pt-10 pb-3 lg:pb-7 px-6 lg:px-7">
           <CountDown onComplete={() => setStage("selectAnswer")} />
         </div>
       )}
@@ -129,7 +129,7 @@ export const Session = () => {
           <div className="hidden md:block fixed w-full top-[78px] left-0 border-white w-full h-2 z-30 transition ease-in ">
             <ProgressBar progress={progess} />
           </div>
-          <div className="-mt-2 md:mt-0 pt-10 lg:pt-16  ">
+          <div className="-mt-2 md:mt-0 pt-8 lg:pt-10  ">
             <SelectAnswer
               setSelectedOption={handleAnswerSelect}
               handleQuestionChange={handleQuestionChange}
@@ -141,7 +141,7 @@ export const Session = () => {
         </>
       )}
       {stage === "sessionResult" && (
-        <div className="pl-6 pr-6 pt-10 md:pl-14 md:pr-16">
+        <div className="pl-6 pr-6 pt-8 lg:pt-10 md:pl-14 md:pr-16">
           <SessionResult />
         </div>
       )}

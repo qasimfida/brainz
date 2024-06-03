@@ -59,7 +59,6 @@ export const Profile = () => {
             </div>
           </div>
         </div>
-        {/* ss */}
       </div>
       <div className="mt-9">
         <WalletTabs />

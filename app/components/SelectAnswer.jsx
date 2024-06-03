@@ -16,6 +16,7 @@ export const SelectAnswer = ({
   handleStageChange,
   handleQuestionChange,
 }) => {
+  console.log("questions:", questions[1]);
   const question = questions[step] || { choices: [] };
 
   const [table, setTable] = useState(usersRankData);

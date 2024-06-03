@@ -11,6 +11,8 @@ export const MobilePointsCard = () => {
           alt="profile"
           layout="fill"
           className="rounded-full"
+          draggable={false}
+          priority={true}
         />
       </div>
       <div>

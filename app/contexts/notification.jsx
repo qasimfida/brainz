@@ -57,6 +57,8 @@ const Notification = ({ open }) => {
                 layout="fill"
                 className="rounded-full"
                 objectFit="cover"
+                draggable={false}
+                priority={true}
               />
             </div>
             <p className="text-base lg:text-xl font-normal text-left text-wrap max-w-44">

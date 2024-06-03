@@ -13,7 +13,8 @@ export const SessionHeader = () => {
               alt="Logo"
               width={74}
               height={50}
-              draggable="false"
+              draggable={false}
+              priority={true}
             />
           </Link>
         </div>

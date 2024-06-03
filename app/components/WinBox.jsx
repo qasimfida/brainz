@@ -19,7 +19,7 @@ export const WinBox = ({ imageSrc, title, description, height, ...rest }) => {
           draggable={false}
           priority={true}
           className={`${!loaded ? "opacity-0" : "opacity-100"}`}
-          onLoadingComplete={() => setLoaded(true)}
+          onLoad={() => setLoaded(true)}
         />
         {!loaded && <ImageSkeleton height={"h-[180px] lg:h-[230px]"} />}
       </div>

@@ -82,6 +82,8 @@ const Header = () => {
                 alt="Logo"
                 fill={"layout"}
                 objectFit="contain"
+                draggable={false}
+                priority={true}
               />
             </Link>
             <div className="flex items-center gap-10 max-md:hidden">
@@ -127,6 +129,8 @@ const Header = () => {
                       layout="fill"
                       className="rounded-full"
                       objectFit="cover"
+                      draggable={false}
+                      placeholder="blur"
                     />
                   </div>
                   <p className="ml-2 text-sm font-normal text-white font-basement">

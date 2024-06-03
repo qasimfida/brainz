@@ -66,7 +66,8 @@ export const Home = () => {
               alt="Logo"
               fill={"layout"}
               objectFit="contain"
-              draggable={"false"}
+              draggable={false}
+              priority={true}
             />
           </Link>
           <h1 className="mt-6 text-3xl font-bold text-white font-basement md:text-4xl">

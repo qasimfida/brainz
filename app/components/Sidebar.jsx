@@ -49,6 +49,8 @@ export const Sidebar = () => {
                 width={90}
                 height={52}
                 objectFit="contain"
+                draggable={false}
+                priority={true}
               />
             </Link>
           </div>

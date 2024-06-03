@@ -33,11 +33,11 @@ export const OptionSelect = ({
       }  hover:border-[#C2CBD1] w-full rounded-[28px] border border-[1px] py-2 px-4 lg:px-5`}
     >
       <div className="py-1.5 py-1.5 lg:py-2.5 px-3 lg:px-5 flex items-center justify-center bg-primary text-white rounded-[8px] border border-primary-375">
-        <h1 className="text-xs sm:text-sm  lg:text-lg font-basement font-normal">
+        <h1 className="text-sm  lg:text-lg font-basement font-normal">
           {alphabet}
         </h1>
       </div>
-      <p className="text-xs sm:text-sm  md:text-lg font-basement font-normal text-white">
+      <p className="text-sm  md:text-lg font-basement font-normal text-white">
         {description}
       </p>
     </div>

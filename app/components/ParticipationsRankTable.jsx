@@ -47,6 +47,8 @@ export const ParticipationsRankTable = ({
             alt="profile"
             layout="fill"
             className="rounded-full"
+            draggable={false}
+            priority={true}
           />
         </div>
         <h1

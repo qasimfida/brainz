@@ -85,6 +85,8 @@ export const MobileSidebar = ({ onNavLinkClick }) => {
                 layout="fill"
                 className="rounded-full"
                 objectFit="cover"
+                draggable={false}
+                priority={true}
               />
             </div>
             <p className="ml-2 text-base font-normal text-white font-basement ">

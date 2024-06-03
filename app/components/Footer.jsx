@@ -14,7 +14,8 @@ const Footer = () => {
             alt="Logo"
             width={80}
             height={50}
-            draggable={"false"}
+            draggable={false}
+            priority={true}
           />
         </Link>
         <p className="max-w-[462px] text-white mt-2">

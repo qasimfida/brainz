@@ -62,7 +62,8 @@ const ConditionsModal = ({
                         alt="Logo"
                         width={104}
                         height={60}
-                        draggable={"false"}
+                        draggable={false}
+                        priority={true}
                       />
                     </Link>
                     <h1 className="font font-basement font-bold text-2xl md:text-3xl">

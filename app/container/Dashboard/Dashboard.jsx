@@ -108,7 +108,7 @@ export const Dashboard = () => {
           </Tab.List>
           <Tab.Panels className={"pb-0"}>
             <Tab.Panel>
-              <div className="flex flex-col gap-4 pl-6 pr-12 mt-10 text-center md:px-6">
+              <div className="flex flex-col gap-4 pl-6 pr-12 mt-10 text-center">
                 <div className="text-center">
                   <h1 className=" pl-0 md:pl-8 text-xl font-basement font-bold">
                     Starting in
@@ -149,7 +149,7 @@ export const Dashboard = () => {
               </div>
             </Tab.Panel>
             <Tab.Panel>
-              <div className="mt-10 w-full rounded-[10px] mb-5 px-10">
+              <div className="mt-10 w-full rounded-[10px] mb-5 pl-6 pr-10">
                 <h1 className="text-xl font-basement font-bold text-center">
                   Upcoming Games
                 </h1>

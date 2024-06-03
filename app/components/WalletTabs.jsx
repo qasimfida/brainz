@@ -190,7 +190,8 @@ const WalletTabs = () => {
                           alt="QR-CODE"
                           layout="fill"
                           objectFit="fill"
-                          draggable="false"
+                          draggable={false}
+                          placeholder="blur"
                         />
                       </div>
                       <h1 className="mt-5 text-base font-bold text-white font-basement lg:text-xl">
