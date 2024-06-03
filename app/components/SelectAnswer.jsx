@@ -8,7 +8,7 @@ import { ProgressBar } from "./Progressbar";
 import { SlickCarousel } from "./Carousel";
 import { MobilePointsCard } from "./MobilePointsCard";
 import { ParticipationsRankTable } from "./ParticipationsRankTable";
-
+const alphabets = ["A", "B", "C", "D"];
 export const SelectAnswer = ({
   setSelectedOption,
   questions = [],
@@ -16,7 +16,7 @@ export const SelectAnswer = ({
   handleStageChange,
   handleQuestionChange,
 }) => {
-  console.log("questions:", questions[1]);
+  console.log("###:", questions.choices);
   const question = questions[step] || { choices: [] };
 
   const [table, setTable] = useState(usersRankData);
@@ -149,11 +149,11 @@ export const SelectAnswer = ({
           </div>
           <div className="pb-5 md:pb-0 flex flex-col mt-6 lg:mt-11 gap-4 max-w-[784px]">
             {question.choices.map((choice, index) => {
-              console.log("choice:", choice);
+              // console.log("choice:", choice);
               return (
                 <OptionSelect
                   key={index}
-                  alphabet={choice.alphabet}
+                  alphabet={alphabets[index]}
                   description={choice}
                   isActive={question.answer === choice}
                   variant={getOptionVariant(

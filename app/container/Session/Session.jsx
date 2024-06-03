@@ -19,6 +19,7 @@ export const Session = () => {
         "This is the success variant with answer true.",
         "This is the danger variant with answer false.",
         "This is the default variant.",
+        "This is a standard variant.",
       ],
       time: 5,
       aplhabet: "A",
@@ -32,6 +33,7 @@ export const Session = () => {
         "This is the success variant with answer true.",
         "This is the danger variant with answer false.",
         "This is the default variant.",
+        "This is a standard variant.",
       ],
       time: 5,
       aplhabet: "B",
@@ -45,6 +47,7 @@ export const Session = () => {
         "This is the success variant with answer true.",
         "This is the danger variant with answer false.",
         "This is the default variant.",
+        "This is a standard variant.",
       ],
       time: 3,
       aplhabet: "C",
@@ -119,7 +122,21 @@ export const Session = () => {
   const progess = ((step + 1) / questions.length) * 100 - 1;
   return (
     <div className="relative">
-      {stage === "countdown" && (
+      <>
+        <div className="hidden md:block fixed w-full top-[78px] left-0 border-white w-full h-2 z-30 transition ease-in ">
+          <ProgressBar progress={progess} />
+        </div>
+        <div className="-mt-2 md:mt-0 pt-8 lg:pt-10  ">
+          <SelectAnswer
+            setSelectedOption={handleAnswerSelect}
+            handleQuestionChange={handleQuestionChange}
+            questions={questions}
+            step={step}
+            handleStageChange={handleStageChange}
+          />
+        </div>
+      </>
+      {/* {stage === "countdown" && (
         <div className="pt-8 lg:pt-10 pb-3 lg:pb-7 px-6 lg:px-7">
           <CountDown onComplete={() => setStage("selectAnswer")} />
         </div>
@@ -151,7 +168,7 @@ export const Session = () => {
           setShowModal={setShowModal}
           onContinue={handleContinue}
         />
-      )}
+      )} */}
     </div>
   );
 };

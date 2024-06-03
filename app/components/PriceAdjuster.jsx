@@ -3,7 +3,7 @@ import { useState } from "react";
 export const PriceAdjuster = ({ initialPrice = 120, currency = "ETH" }) => {
   const [price, setPrice] = useState(Number(initialPrice));
 
-  console.log("selectedOption:", currency);
+  // console.log("selectedOption:", currency);
 
   const updatePrice = (operation) => {
     const increment = 1;

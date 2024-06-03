@@ -13,7 +13,7 @@ import ConditionsModal from "@/app/components/ConditionsModal";
 import WaveAnimation from "@/app/components/Wave";
 import Footer from "@/app/components/Footer";
 import { useRouter } from "next/navigation";
-import { useNotification } from "@/app/contexts/notification";
+import { Notification } from "@/app/contexts/notification";
 
 export const Home = () => {
   const router = useRouter();
@@ -21,20 +21,23 @@ export const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
 
-  const { open, toggleOpen } = useNotification();
-
-  const openModal = () => setIsOpen(true);
+  let token = null;
+  if (typeof window !== "") {
+    token = localStorage.getItem("token");
+  }
+  const openModal = () => {
+    if (token) {
+      router.push("/dashboard");
+    } else {
+      setIsOpen(true);
+    }
+  };
   const closeModal = () => setIsOpen(false);
-
   const handleAccept = () => {
     setIsAccepted(true);
-    // toggleOpen(true);
     closeModal();
-
-    setTimeout(() => {
-      router.push("/dashboard");
-      // toggleOpen(false);
-    }, 1000);
+    localStorage.setItem("token", "user1234");
+    router.push("/dashboard");
   };
   const toggleEffect = () => {
     setIsActive(!isActive);
@@ -42,7 +45,6 @@ export const Home = () => {
   const toggleNotification = () => {
     // toggleOpen(false);
   };
-
   return (
     <div>
       <div
@@ -78,14 +80,11 @@ export const Home = () => {
             industry.
           </p>
           <div className="mt-9">
-            <Button
-              variant={"outlined"}
-              size="text-lg lg:text-2xl"
-              onClick={openModal}
-            >
-              {isAccepted ? "Dashboard" : "Connect"}
+            <Button variant={"outlined"} size="text-2xl" onClick={openModal}>
+              {token ? "Dashboard" : "Connect"}
             </Button>
           </div>
+          {token ? <Notification open={true} /> : null}
           <ConditionsModal
             isOpen={isOpen}
             closeModal={closeModal}
