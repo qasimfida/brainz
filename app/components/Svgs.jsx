@@ -578,3 +578,29 @@ export const TextCopyIcon = ({
     </svg>
   );
 };
+export const TextCopyTickIcon = ({
+  height = "16",
+  width = "16",
+  className,
+  ...props
+}) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      className={className}
+      {...props}
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="m5 14l3.5 3.5L19 6.5"
+        color="currentColor"
+      />
+    </svg>
+  );
+};

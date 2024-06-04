@@ -7,10 +7,8 @@ import { cryptoCardData } from "./data";
 import { Tab } from "@headlessui/react";
 import Link from "next/link";
 import CountdownTimer from "@/app/components/CountDownTimer";
-import { useNotification } from "@/app/contexts/notification";
 
 export const Dashboard = () => {
-  const { open, toggleOpen } = useNotification();
   // console.log({ open });
   return (
     <div className="text-white bg-primary">

@@ -24,7 +24,7 @@ export const Profile = () => {
               variant={"copy"}
               buttonText="Copy"
               placeholder={"0x1234567890abcdef1234567890abcdef12345678"}
-              readOnlyInput={true}
+              readOnlyInput
             />
           </div>
         </div>
@@ -36,7 +36,8 @@ export const Profile = () => {
             <Input
               label="Your referral link"
               variant={"copy"}
-              readOnlyInput={true}
+              buttonText="Copy"
+              readOnlyInput
               placeholder={"https://www.example.com/referral?code=123456"}
             />
           </div>
