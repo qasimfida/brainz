@@ -21,8 +21,8 @@ export const PriceAdjuster = ({ initialPrice = 120, currency = "ETH" }) => {
   };
 
   return (
-    <div className="px-[10px] lg:px-[22px] py-[14px] border border-primary-250 bg-primary flex gap-4 items-center justify-between w-full rounded-[20px]">
-      <div className=" w-full">
+    <div className="flex w-full md:w-60 px-[10px] lg:px-6 py-3.5 border border-primary-250 bg-primary flex gap-4 items-center justify-between rounded-3xl">
+      <div className="flex-2.5 flex ">
         <button
           onClick={() => updatePrice("decrement")}
           className="text-base lg:text-lg font-bold text-white font-basement hover:text-secondary"
@@ -30,7 +30,7 @@ export const PriceAdjuster = ({ initialPrice = 120, currency = "ETH" }) => {
           -
         </button>
         <input
-          className=" mx-4 lg:hidden  appearance-none font-basement font-bold text-base lg:text-lg  text-grey-650 bg-[transparent] outline-none focus:outline-none text-white"
+          className="w-full overflow-hidden border-secondary mx-4 appearance-none font-basement font-bold text-base lg:text-lg  text-grey-650 bg-[transparent] outline-none focus:outline-none text-white"
           type="number"
           placeholder="121"
           value={price}
@@ -39,13 +39,10 @@ export const PriceAdjuster = ({ initialPrice = 120, currency = "ETH" }) => {
               e.target.value === "" ? 0 : parseFloat(e.target.value);
             if (!isNaN(newPrice)) setPrice(newPrice);
           }}
-          style={{
-            minWidth: "max-content",
-          }}
         />
       </div>
-      <div className="flex items-center justify-between gap-[10px] relative">
-        <input
+      <div className="flex-1 flex items-center justify-end gap-3 relative ">
+        {/* <input
           className="hidden lg:block appearance-none font-basement font-bold text-base lg:text-lg  text-grey-650 bg-[transparent] outline-none focus:outline-none text-white"
           type="number"
           placeholder="121"
@@ -58,18 +55,18 @@ export const PriceAdjuster = ({ initialPrice = 120, currency = "ETH" }) => {
           style={{
             minWidth: "50px",
             width: `${(price.toString().length + 1) * 10}px`,
-          }} // Set min-width and adjust width based on content length
-        />
+          }} 
+        /> */}
         <h1 className="text-base lg:text-lg  font-bold font-basement text-secondary">
           {currency}
         </h1>
+        <button
+          onClick={() => updatePrice("increment")}
+          className="text-base lg:text-lg  font-bold text-white font-basement hover:text-secondary"
+        >
+          +
+        </button>
       </div>
-      <button
-        onClick={() => updatePrice("increment")}
-        className="text-base lg:text-lg  font-bold text-white font-basement hover:text-secondary"
-      >
-        +
-      </button>
     </div>
   );
 };

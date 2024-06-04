@@ -5,7 +5,7 @@ import WalletTabs from "@/app/components/WalletTabs";
 export const Profile = () => {
   return (
     <div className="mb-8">
-      <div className="bg-primary-350 pt-9 pb-12 w-full rounded-[10px] mt-6 pl-8 pr-12 text-white">
+      <div className="bg-primary-350 pt-9 pb-12 w-full rounded-[10px] mt-6 pl-6 pr-6 md:pl-8 md:pr-12 text-white">
         <h1 className="text-lg lg:text-xl font-basement font-bold ">
           Profile Settings
         </h1>

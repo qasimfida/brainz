@@ -32,11 +32,13 @@ const WalletTabs = () => {
   };
   return (
     <Tab.Group>
-      <Tab.List className={"flex flex-wrap gap-8"}>
+      <Tab.List
+        className={"px-3 md:px-0 flex flex-row gap-4 md:gap-6 lg:gap-8"}
+      >
         <Tab className="outline-none">
           {({ selected }) => (
             <div
-              className={`transition  duration-200 ease-in-out border border-[#132836] ml-[24px] md:ml-0 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-[41px] py-3  ${
+              className={`transition  duration-200 ease-in-out border border-[#132836]  py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3  ${
                 selected
                   ? "text-secondary border-[#132836]"
                   : "text-white hover:border-white"
@@ -47,10 +49,10 @@ const WalletTabs = () => {
           )}
         </Tab>
 
-        <Tab className={"outline-none ml-[24px] md:ml-0"}>
+        <Tab className={"outline-none md:ml-0"}>
           {({ selected }) => (
             <div
-              className={`transition  duration-200 ease-in-out border border-[#132836] px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-[41px] py-3   ${
+              className={`transition  duration-200 ease-in-out border border-[#132836] px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3   ${
                 selected
                   ? "text-secondary border-[#132836]"
                   : "text-white hover:border-white"
@@ -65,17 +67,17 @@ const WalletTabs = () => {
         <Tab.Panel className={"bg-primary-350  rounded-[10px] pb-6"}>
           <div className="pt-6 pl-6 pr-6 mt-6 md:pl-8 md:pr-16">
             <Tab.Group>
-              <Tab.List className={"flex gap-7 flex-wrap"}>
+              <Tab.List className={"flex flex-wrap gap-4 md:gap-7"}>
                 <Tab className={"outline-none"}>
                   {({ selected }) => (
                     <div
-                      className={`px-5 transition  duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 ${
+                      className={`px-6 md:px-8 transition  duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
                       } `}
                     >
-                      <div className="flex items-center justify-center bg-[#265670] w-10 h-10 rounded-[80px] mr-2.5">
+                      <div className="hidden md:flex items-center justify-center bg-[#265670] w-10 h-10 rounded-[80px] mr-2.5">
                         <PayementIcon />
                       </div>
                       Payments
@@ -85,13 +87,13 @@ const WalletTabs = () => {
                 <Tab className={"outline-none"}>
                   {({ selected }) => (
                     <div
-                      className={`transition px-5 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
+                      className={`transition px-6 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
                       }`}
                     >
-                      <div className="flex items-center justify-center bg-success/20 w-10 h-10 rounded-[80px] mr-2.5">
+                      <div className="hidden md:flex items-center justify-center bg-success/20 w-10 h-10 rounded-[80px] mr-2.5">
                         <DiamondIcon
                           width="26"
                           height="26"
@@ -105,13 +107,13 @@ const WalletTabs = () => {
                 <Tab className={"outline-none"}>
                   {({ selected }) => (
                     <div
-                      className={`transition px-5 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
+                      className={`transition px-6 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
                       }`}
                     >
-                      <div className="flex items-center justify-center bg-danger/20 w-10 h-10 rounded-[80px] mr-2.5">
+                      <div className="hidden md:flex  items-center justify-center bg-danger/20 w-10 h-10 rounded-[80px] mr-2.5">
                         <TicketIcon
                           width="26"
                           height="26"
@@ -145,11 +147,11 @@ const WalletTabs = () => {
         <Tab.Panel className={"bg-primary-350  rounded-[10px] pb-6"}>
           <div className="pt-6 pl-6 pr-6 mt-6 md:pl-8 md:pr-16">
             <Tab.Group>
-              <Tab.List className={"flex gap-7 flex-wrap"}>
+              <Tab.List className={"flex gap-4 md:gap-7 flex-row"}>
                 <Tab className={"outline-none peer"}>
                   {({ selected }) => (
                     <div
-                      className={`transition  duration-200 ease-in-out border border-primary-350 px-14 py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
+                      className={`transition  duration-200 ease-in-out border border-primary-350 px-6 md:px-14 py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
                        ${
                          selected
                            ? "bg-secondary/10 text-secondary "
@@ -163,7 +165,7 @@ const WalletTabs = () => {
                 <Tab className={"outline-none peer"}>
                   {({ selected }) => (
                     <div
-                      className={`transition  duration-200 ease-in-out border border-primary-350 px-11 py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
+                      className={`transition  duration-200 ease-in-out border border-primary-350 px-6 md:px-11 py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
                        ${
                          selected
                            ? "bg-secondary/10 text-secondary "
@@ -275,7 +277,7 @@ const WalletTabs = () => {
                       <h1 className="text-base lg:text-xl font-bold text-white font-basement ">
                         Withdrawal Amount
                       </h1>
-                      <div className="w-full md:w-fit mt-2.5">
+                      <div className=" mt-2.5">
                         <PriceAdjuster
                           initialPrice={120}
                           currency={selectedOption.label}
