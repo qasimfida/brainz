@@ -3,18 +3,17 @@ import winBoxImg from "@/public/images/winbox.png";
 export const winBoxData = [
   {
     imageSrc: winBoxImg.src,
-    title: "Register & Connect Wallet",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-  },
-  {
-    imageSrc: winBoxImg.src,
-    title: "Explore New Worlds",
+    title: "Join the next live session and take a seat",
     description: "Discover the unexplored vistas of our universe.",
   },
   {
     imageSrc: winBoxImg.src,
-    title: "Achieve Your Goals",
-    description: "Helping you meet your personal and professional milestones.",
+    title: "Connect your wallet or sign up with your email",
+    description: "Discover the unexplored vistas of our universe.",
+  },
+  {
+    imageSrc: winBoxImg.src,
+    title: "Win session and collect the entire pot",
+    description: "Discover the unexplored vistas of our universe.",
   },
 ];
