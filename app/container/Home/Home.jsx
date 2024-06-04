@@ -1,4 +1,3 @@
-"use client";
 import Link from "next/link";
 import homeBanner from "../../../public/images/homebanner.png";
 import logo from "../../../public/images/Brainz-logo.png";
@@ -27,7 +26,7 @@ export const Home = () => {
       const storedToken = localStorage.getItem("token");
       setToken(storedToken);
     }
-  }, [localStorage]);
+  }, []);
 
   const openModal = () => {
     if (token) {

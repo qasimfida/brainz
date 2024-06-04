@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import {
   BtcIcon,
@@ -29,12 +29,15 @@ export const MobileSidebar = ({ onNavLinkClick }) => {
     { title: "Play Game", checked: false },
   ]);
 
-  const navLinks = [
-    { title: "Home", url: "/dashboard" },
-    { title: "Shop", url: "/dashboard/shop" },
-    { title: "Profile", url: "/dashboard/profile" },
-    { title: "Support", url: "/dashboard/support" },
-  ];
+  const navLinks = useMemo(
+    () => [
+      { title: "Home", url: "/dashboard" },
+      { title: "Shop", url: "/dashboard/shop" },
+      { title: "Profile", url: "/dashboard/profile" },
+      { title: "Support", url: "/dashboard/support" },
+    ],
+    []
+  );
 
   const formatNumber = (number) => {
     if (number >= 1000) {
