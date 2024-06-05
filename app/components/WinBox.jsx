@@ -24,10 +24,10 @@ export const WinBox = ({ imageSrc, title, description, height, ...rest }) => {
         {!loaded && <ImageSkeleton height={"h-[180px] lg:h-[230px]"} />}
       </div>
 
-      <h1 className="mt-4 lg:mt-8 text-base lg:text-lg font-bold text-white font-basement">
+      <h1 className="px-4 lg:px-10 mt-4 lg:mt-8 text-base lg:text-lg font-bold text-white font-basement">
         {title}
       </h1>
-      <p className="pt-2 text-base lg:text-lg font-normal text-center font-inter text-grey-100">
+      <p className="px-2 lg:px-1 pt-2 text-base lg:text-lg font-normal text-center font-inter text-grey-100">
         {description}
       </p>
     </div>

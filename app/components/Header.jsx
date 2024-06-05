@@ -11,6 +11,7 @@ import {
   MenuIcon,
   NavbarCrossIcon,
   TextCopyIcon,
+  TextCopyTickIcon,
   TicketIcon,
 } from "./Svgs";
 import Ticket from "./Ticket";
@@ -19,16 +20,22 @@ import Profile from "@/public/images/avatar.jpeg";
 import Link from "next/link";
 import { MobileSidebar } from "./MobileSidebar";
 
+const textToCopy = "0x1234567890ABCDEF1234567890ABCDEF12345678";
+
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenProfile, setIsOpenProfile] = useState(false);
   const profileRef = useRef(null);
   const dropdownRef = useRef(null);
-  const [walletAddress] = useState(
-    "0x1234567890ABCDEF1234567890ABCDEF12345678"
-  );
+  const [isCopied, setIsCopied] = useState(false);
 
-  const toggleDropdown = () => setIsOpenProfile(!isOpenProfile);
+  const toggleDropdown = () => {
+    setIsOpenProfile(!isOpenProfile);
+    if (isOpenProfile == false) {
+      setIsCopied(false);
+    }
+  };
+
   const toggleMenu = () => setIsOpen(!isOpen);
 
   useEffect(() => {
@@ -65,7 +72,9 @@ const Header = () => {
   ];
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(walletAddress);
+    setIsCopied(true);
+    navigator.clipboard.writeText(textToCopy);
+    console.log("text copyied");
   };
 
   return (
@@ -146,16 +155,28 @@ const Header = () => {
                     className="font-basement absolute right-0 mt-[5px] bg-dark-100 text-grey-200 text-sm shadow-lg rounded-lg z-10 text-center flex justify-center flex-col px-5"
                   >
                     <div className="flex items-center justify-between pt-4 pb-2 text-sm text-grey-200">
-                      <p className="hover:text-white max-w-[120px] text-ellipsis whitespace-nowrap truncate overflow-hidden">
-                        {walletAddress}
+                      <p
+                        className={`hover:text-white max-w-[120px] text-ellipsis whitespace-nowrap truncate overflow-hidden ${
+                          !isCopied ? "" : "text-white"
+                        }`}
+                      >
+                        {textToCopy}
                       </p>
-                      <button onClick={copyToClipboard}>
-                        <TextCopyIcon
-                          className="hover:text-white text-grey-200"
+                      {isCopied ? (
+                        <TextCopyTickIcon
                           height="22"
                           width="24"
+                          className={"text-white"}
                         />
-                      </button>
+                      ) : (
+                        <button onClick={copyToClipboard}>
+                          <TextCopyIcon
+                            className="hover:text-white text-grey-200"
+                            height="22"
+                            width="24"
+                          />
+                        </button>
+                      )}
                     </div>
                     <div className="border-b border-grey-250" />
                     <Link

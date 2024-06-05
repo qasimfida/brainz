@@ -1,9 +1,8 @@
-"use client";
 import Link from "next/link";
 import homeBanner from "../../../public/images/homebanner.png";
 import logo from "../../../public/images/Brainz-logo.png";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/app/components/Button";
 import { WinBox } from "@/app/components/WinBox";
 import { winBoxData } from "./data";
@@ -20,11 +19,15 @@ export const Home = () => {
   const [isActive, setIsActive] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isAccepted, setIsAccepted] = useState(false);
+  const [token, setToken] = useState(null);
 
-  let token = null;
-  if (typeof window !== "") {
-    token = localStorage.getItem("token");
-  }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      setToken(storedToken);
+    }
+  }, []);
+
   const openModal = () => {
     if (token) {
       router.push("/dashboard");
@@ -32,19 +35,24 @@ export const Home = () => {
       setIsOpen(true);
     }
   };
+
   const closeModal = () => setIsOpen(false);
+
   const handleAccept = () => {
     setIsAccepted(true);
     closeModal();
     localStorage.setItem("token", "user1234");
     router.push("/dashboard");
   };
+
   const toggleEffect = () => {
     setIsActive(!isActive);
   };
+
   const toggleNotification = () => {
     // toggleOpen(false);
   };
+
   return (
     <div>
       <div
@@ -73,11 +81,10 @@ export const Home = () => {
             />
           </Link>
           <h1 className="mt-6 text-3xl font-bold text-white font-basement md:text-4xl">
-            Answer questions and win rewards
+            Play Trivia Game, Win Crypto Prizes
           </h1>
           <p className="mt-5 text-base font-normal lg:text-lg font-basement text-grey-100">
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry.
+            Use Any Crypto to Join a Session
           </p>
           <div className="mt-9">
             <Button variant={"outlined"} size="text-2xl" onClick={openModal}>
@@ -118,9 +125,8 @@ export const Home = () => {
           </div>
         </div>
       </div>
-      <div className="container px-4 mx-auto lg:px-0">
+      {/* <div className="container px-4 mx-auto lg:px-0">
         <div className="grid xs:grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-0 bg-primary-325 w-full rounded-[20px] py-6 px-4 lg:py-10 lg:px-24 justify-center items-center">
-          {/* box-1 */}
           <div className="text-center lg:border-r lg:border-grey-450 lg:pr-8 max-w-full flex flex-col items-center">
             <h1 className="text-center text-secondary font-basement font-bold text-2xl md:text-3xl lg:text-4xl">
               400k
@@ -129,7 +135,6 @@ export const Home = () => {
               Loved Trusted users & communities.
             </p>
           </div>
-          {/* box-2 */}
           <div className="text-center lg:border-r lg:border-grey-450 lg:px-8 max-w-full flex flex-col items-center">
             <h1 className="text-center text-secondary font-basement font-bold text-2xl md:text-3xl lg:text-4xl">
               500k
@@ -138,7 +143,6 @@ export const Home = () => {
               Loved Trusted users & communities.
             </p>
           </div>
-          {/* box-3 */}
           <div className="text-center lg:pl-8 max-w-full flex flex-col items-center">
             <h1 className="text-center text-secondary font-basement font-bold text-2xl md:text-3xl lg:text-4xl">
               800k
@@ -148,9 +152,9 @@ export const Home = () => {
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="mt-[86px] flex justify-center">
+      {/* <div className="mt-[86px] flex justify-center">
         <SlickCarousel slidesToShow={5} autoplay={true}>
           <TokkenCard />
           <TokkenCard />
@@ -162,23 +166,11 @@ export const Home = () => {
           <TokkenCard />
           <TokkenCard />
         </SlickCarousel>
-      </div>
-
-      <div className="mt-[104px] flex flex-col justify-center items-center text-center">
-        <p className="font-basement font-normal uppercase text-[14px] text-white">
-          industries
-        </p>
-        <div className="max-w-[820px] px-6 mt-6">
-          <h1 className="text-2xl	font-bold leading-10 text-white font-basement md:text-4xl	 ">
-            Automated messaging for
-            <span className="text-secondary"> any industry.</span>
-          </h1>
-        </div>
-      </div>
-      <div className="w-full overflow-hidden mt-[12px] ">
+      </div> */}
+      <div className="w-full overflow-hidden ">
         <WaveAnimation />
       </div>
-      <div className="mt-8 border-t border-grey-250">
+      <div className="m-2 border-t border-grey-250">
         <Footer />
       </div>
     </div>

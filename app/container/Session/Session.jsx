@@ -122,21 +122,7 @@ export const Session = () => {
   const progess = ((step + 1) / questions.length) * 100 - 1;
   return (
     <div className="relative">
-      <>
-        <div className="hidden md:block fixed w-full top-[78px] left-0 border-white w-full h-2 z-30 transition ease-in ">
-          <ProgressBar progress={progess} />
-        </div>
-        <div className="-mt-2 md:mt-0 pt-8 lg:pt-10  ">
-          <SelectAnswer
-            setSelectedOption={handleAnswerSelect}
-            handleQuestionChange={handleQuestionChange}
-            questions={questions}
-            step={step}
-            handleStageChange={handleStageChange}
-          />
-        </div>
-      </>
-      {/* {stage === "countdown" && (
+      {stage === "countdown" && (
         <div className="pt-8 lg:pt-10 pb-3 lg:pb-7 px-6 lg:px-7">
           <CountDown onComplete={() => setStage("selectAnswer")} />
         </div>
@@ -168,7 +154,7 @@ export const Session = () => {
           setShowModal={setShowModal}
           onContinue={handleContinue}
         />
-      )} */}
+      )}
     </div>
   );
 };
