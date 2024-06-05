@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useEffect, useState } from "react";
 import { OptionSelect } from "./OptionSelect";
 import { LongArrowRightIcon } from "./Svgs";
@@ -17,11 +17,14 @@ export const SelectAnswer = ({
   handleQuestionChange,
 }) => {
   console.log("###:", questions.choices);
-  const question = questions[step] || { choices: [] };
+  // const question = questions[step] || { choices: [] };
+  const question = useMemo(
+    () => questions[step] || { choices: [] },
+    [questions, step]
+  );
 
   const [table, setTable] = useState(usersRankData);
   const [timeRemaining, setTimeRemaining] = useState(-1);
-
   useEffect(() => {
     if (question.time && !question.answer) {
       setTimeRemaining(question.time);
@@ -71,7 +74,7 @@ export const SelectAnswer = ({
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, [timeRemaining]);
+  }, [timeRemaining, handleQuestionChange, handleStageChange, moveUser]);
 
   const getOptionVariant = (answer, wrong) => {
     if (timeRemaining > 0) return "default";

@@ -130,8 +130,8 @@ const ConditionsModal = ({
                             account held by a Registered Customer.
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
-                            <span>1.3.</span>"Competition Excluded
-                            Jurisdiction(s)" means:
+                            <span>1.3.</span>&quot;Competition Excluded
+                            Jurisdiction(s)&quot; means:
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
                             <span>1.3.0.</span>Afghanistan, Algeria, Angola,
@@ -163,8 +163,8 @@ const ConditionsModal = ({
                             for a period exceeding 12 consecutive months.
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
-                            <span> 1.7. </span>"Mail-in Member" means a
-                            registered user who has completed Mail-In
+                            <span> 1.7. </span>&quot;Mail-in Member&quot; means
+                            a registered user who has completed Mail-In
                             Registration (AMOE).
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -659,7 +659,8 @@ const ConditionsModal = ({
                             discovered may result in the removal from the
                             Competition draw and a closure of your PlayBrainz
                             account. This includes but not limited to
-                            hotswapping an NFT to access 'Holders Only' games.
+                            hotswapping an NFT to access &quot;Holders
+                            Only&quot; games.
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
                             <span>5.0.22.</span>Some competitions will display
