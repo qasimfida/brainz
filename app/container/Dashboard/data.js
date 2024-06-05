@@ -1,23 +1,50 @@
+import SessionImage from "@/public/images/football-kick.png";
 export const cryptoCardData = [
   {
-    title: "CRYPTO",
-    description: "Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.",
-    time: "3 Sessions | 3min",
+    id: 1,
+    title: "Title of the Game",
+    subTitle: ["Session 1", "Session 2", "Session 3"],
     bgColor: "bg-primary-100",
     shadow: "shadow-cryptoCardOne",
+    timePeriod: [
+      {
+        month: "June",
+        date: 5,
+        time: "7pm UTC",
+      },
+    ],
   },
   {
-    title: "CRYPTO",
-    description: "Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.",
-    time: "3 Sessions | 3min",
+    id: 2,
+    title: "Title of the Game",
+    subTitle: ["Session 1", "Session 2", "Session 3"],
     bgColor: "bg-danger-200",
     shadow: "shadow-cryptoCardTwo",
+    timePeriod: [
+      {
+        month: "July",
+        date: 10,
+        time: "7pm UTC",
+      },
+    ],
   },
   {
-    title: "CRYPTO",
-    description: "Lorem ipsum dolor sit amit. Lorem ipsum dolor sit amit.",
-    time: "3 Sessions | 3min",
+    id: 3,
+    title: "Title of the Game",
+    subTitle: ["Session 1", "Session 2", "Session 3"],
     bgColor: "bg-info",
     shadow: "shadow-cryptoCardThree",
+    timePeriod: [
+      {
+        month: "August",
+        date: 20,
+        time: "7pm UTC",
+      },
+    ],
   },
 ];
+export const sessionCardData = {
+  title: "Game Title",
+  gamesCategories: ["Crypto", "Sports", "Science"],
+  gameImage: SessionImage,
+};

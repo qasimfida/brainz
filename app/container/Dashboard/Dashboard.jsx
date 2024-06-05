@@ -12,10 +12,12 @@ export const Dashboard = () => {
   // console.log({ open });
   return (
     <div className="text-white bg-primary">
-      <div className="bg-primary-350 pb-5 w-full rounded-[10px] mt-3 hidden md:block">
-        <div className="flex flex-wrap items-center justify-between gap-3 px-8 pt-4">
-          <h1 className="text-xl font-bold font-basement ">Live Games</h1>
-          <h1 className="text-2xl font-bold font-basement">
+      <div className="bg-primary-350  pb-5 w-full rounded-[10px] mt-3 hidden md:block">
+        <div className=" flex flex-wrap gap-14 items-center justify-between px-8 pt-4">
+          <h1 className="flex-1 text-xl font-bold font-basement ">
+            Live Games
+          </h1>
+          <h1 className="flex-1 text-2xl font-bold font-basement pl-1">
             Starting in
             <CountdownTimer initialMinutes={1} initialSeconds={35} />
           </h1>
@@ -45,28 +47,22 @@ export const Dashboard = () => {
                 width={18}
                 className={"text-danger-100"}
               />
-              <p className="text-base font-normal">
-                01 Tickets Required to attend session
+              <p className="flex gap-1 text-base font-normal">
+                <span>01</span>
+                Ticket Required to attend session
               </p>
             </div>
           </div>
         </div>
       </div>
-      <div className="pb-0 lg:pb-4 bg-primary-350 ">
+      <div className="pb-0 lg:pb-4 bg-primary-350 rounded-[10px]">
         <div className=" hidden md:block  w-full rounded-[10px] mt-4 mb-5">
           <h1 className="pl-8 pt-4 text-xl font-bold font-basement">
             Upcoming Games
           </h1>
           <div className="px-14 grid grid-cols-1 md:grid-cols-1 gap-14 mt-8 lg:grid-cols-2 xl:grid-cols-3">
-            {cryptoCardData.map((card, index) => (
-              <CryptoCard
-                key={index}
-                title={card.title}
-                description={card.description}
-                time={card.time}
-                bgColor={card.bgColor}
-                shadow={card.shadow}
-              />
+            {cryptoCardData.map((card, id) => (
+              <CryptoCard key={id} data={card} />
             ))}
           </div>
         </div>
@@ -152,15 +148,8 @@ export const Dashboard = () => {
                   Upcoming Games
                 </h1>
                 <div className="flex flex-col mt-4 gap-9 lg:flex-row">
-                  {cryptoCardData.map((card, index) => (
-                    <CryptoCard
-                      key={index}
-                      title={card.title}
-                      description={card.description}
-                      time={card.time}
-                      bgColor={card.bgColor}
-                      shadow={card.shadow}
-                    />
+                  {cryptoCardData.map((card, id) => (
+                    <CryptoCard key={id} data={card} />
                   ))}
                 </div>
               </div>
