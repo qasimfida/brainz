@@ -150,9 +150,9 @@ export const Dashboard = () => {
             </Tab.Panel>
             <Tab.Panel>
               <div className="mt-10 w-full rounded-[10px] mb-5 pl-6 pr-10">
-                <h1 className="text-xl font-basement font-bold text-center">
+                {/* <h1 className="text-xl font-basement font-bold text-center">
                   Upcoming Games
-                </h1>
+                </h1> */}
                 <div className="flex flex-col mt-4 gap-9 lg:flex-row">
                   {cryptoCardData.map((card, index) => (
                     <CryptoCard

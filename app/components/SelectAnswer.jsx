@@ -111,7 +111,7 @@ export const SelectAnswer = ({
       </div>
       <div className="flex flex-col gap-16 pl-4 pr-4 lg:flex-row md:pl-14 md:pr-9">
         <div className="w-full lg:w-3/4 ">
-          <div className="mt-6 flex items-center gap-5">
+          <div className="flex items-center gap-5">
             <div className=" w-[200px] lg:w-[234px]">
               <SessionButton
                 title="50/50"
