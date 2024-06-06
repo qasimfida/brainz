@@ -13,7 +13,7 @@ export const SessionResult = () => {
   return (
     <div className="content">
       <ConfettiBackground />
-      <div className="flex flex-wrap gap-10 lg:gap-16 border-secondary">
+      <div className="flex flex-wrap gap-6 lg:gap-16 border-secondary">
         <div className="flex-1 text-center lg:text-start">
           <ResultCard
             title="You ranked"
@@ -37,9 +37,9 @@ export const SessionResult = () => {
           />
         </div>
       </div>
-      <div className="flex-col lg:flex-row flex flex-wrap gap-10 lg:gap-16 justify-center bg-gradient-to-r from-[#3a4d56]/80 to-[#152c3a]/90 rounded-[10px] mt-10 py-6 lg:py-11 px-6">
+      <div className="flex-col lg:flex-row flex flex-wrap gap-10 lg:gap-16 justify-center bg-gradient-to-r from-[#3a4d56]/80 to-[#152c3a]/90 rounded-[10px] mt-6 lg:mt-10 py-4 lg:py-11 px-4 lg:px-6">
         <div className="flex-1 items-center flex">
-          <h1 className="w-full text-base text-center lg:text-start  lg:text-3xl font-black text-white font-basement">
+          <h1 className="w-full text-lg text-center lg:text-start  lg:text-3xl font-black text-white font-basement">
             Next Session Starting in
           </h1>
         </div>
@@ -47,23 +47,21 @@ export const SessionResult = () => {
           <Counter hours={2} minutes={1} seconds={34} />
         </div>
         <div className="flex-1 flex flex-wrap flex-row lg:flex-col items-center justify-center gap-4 lg:gap-8 ">
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex gap-4 justify-center flex-row lg:flex-col items-center">
             <Link href={"/dashboard/session"} className="flex justify-center">
               <Button
                 variant={"outlined"}
-                size="text-base lg:text-2xl"
-                className={"px-[24px] lg:px-9 w-fit"}
+                size="text-sm lg:text-2xl"
+                className={"px-6 lg:px-9 w-full"}
               >
                 Take a seat
               </Button>
             </Link>
-          </div>
-          <div className="flex justify-center items-center">
-            <Link href={"/dashboard"} className="w-fit">
+            <Link href={"/dashboard"} className="w-full">
               <Button
                 variant={"outlinedWhite"}
-                size="text-base lg:text-2xl"
-                className={"px-[48px] lg:px-[76px]"}
+                size="text-sm lg:text-2xl"
+                className={"w-full px-12 lg:px-9"}
               >
                 Home
               </Button>
