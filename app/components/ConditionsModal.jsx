@@ -1436,10 +1436,10 @@ const ConditionsModal = ({
                             regarding our Platform (including any game), you may
                             contact us via Discord-Arena and open a ticket. If
                             your ticket is a complaint, please include the word
-                            &quot;complaint&quot; at the beginning of the "How
-                            can we help you?" section. Any tickets which do not
-                            include this will NOT be treated as an official
-                            complaint.
+                            &quot;complaint&quot; at the beginning of the
+                            &quot;How can we help you?&quot; section. Any
+                            tickets which do not include this will NOT be
+                            treated as an official complaint.
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
                             <span>17.1.</span>TO PROTECT YOUR PRIVACY, ANY EMAIL
