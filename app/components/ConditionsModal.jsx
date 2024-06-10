@@ -1006,9 +1006,9 @@ const ConditionsModal = ({
                             not situated in a country that is subject to the
                             United States government embargo, or has been
                             designated by the United States government as a
-                            "terrorist supporting" country, and (ii) you are not
-                            listed on any United States government list of
-                            prohibited or restricted parties.
+                            &quot;terrorist supporting&quot; country, and (ii)
+                            you are not listed on any United States government
+                            list of prohibited or restricted parties.
                           </p>
                           <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             MEMBER ELIGIBILITY & WARRANTIES Subject To
@@ -1018,12 +1018,12 @@ const ConditionsModal = ({
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
                             You are subject to the laws of the country, state,
                             city, or other legal entity (collectively
-                            "Jurisdiction(s)") in which you reside and/or from
-                            which you access the Services. Access to the
-                            Services may not be legal for some Jurisdictions or
-                            for all residents of, or persons present in, certain
-                            Jurisdictions. We have installed filtering systems
-                            designed to limit access from known Excluded
+                            &quot;Jurisdiction(s)&quot;) in which you reside
+                            and/or from which you access the Services. Access to
+                            the Services may not be legal for some Jurisdictions
+                            or for all residents of, or persons present in,
+                            certain Jurisdictions. We have installed filtering
+                            systems designed to limit access from known Excluded
                             Jurisdictions.
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -1310,7 +1310,8 @@ const ConditionsModal = ({
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
                             Initial Resolution: If unsatisfied with our Support
-                            Team's resolution, you may escalate your complaint.
+                            Team&apos;s resolution, you may escalate your
+                            complaint.
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
                             Operations Team Escalation:
@@ -1435,9 +1436,10 @@ const ConditionsModal = ({
                             regarding our Platform (including any game), you may
                             contact us via Discord-Arena and open a ticket. If
                             your ticket is a complaint, please include the word
-                            "complaint" at the beginning of the "How can we help
-                            you?" section. Any tickets which do not include this
-                            will NOT be treated as an official complaint.
+                            &quot;complaint&quot; at the beginning of the "How
+                            can we help you?" section. Any tickets which do not
+                            include this will NOT be treated as an official
+                            complaint.
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
                             <span>17.1.</span>TO PROTECT YOUR PRIVACY, ANY EMAIL
