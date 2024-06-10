@@ -13,11 +13,11 @@ export const Dashboard = () => {
   return (
     <div className="text-white bg-primary">
       <div className="bg-primary-350  pb-5 w-full rounded-[10px] mt-3 hidden md:block">
-        <div className=" flex flex-wrap gap-14 items-center justify-between px-8 pt-4">
+        <div className="flex flex-wrap items-center justify-between px-8 pt-4 gap-14">
           <h1 className="flex-1 text-xl font-bold font-basement ">
             Live Games
           </h1>
-          <h1 className="flex-1 text-2xl font-bold font-basement pl-1">
+          <h1 className="flex-1 pl-1 text-2xl font-bold font-basement">
             Starting in
             <CountdownTimer initialMinutes={1} initialSeconds={35} />
           </h1>
@@ -57,12 +57,12 @@ export const Dashboard = () => {
       </div>
       <div className="pb-0 lg:pb-4 bg-primary-350 rounded-[10px]">
         <div className=" hidden md:block  w-full rounded-[10px] mt-4 mb-5">
-          <h1 className="pl-8 pt-4 text-xl font-bold font-basement">
+          <h1 className="pt-4 pl-8 text-xl font-bold font-basement">
             Upcoming Games
           </h1>
-          <div className="px-14 grid grid-cols-1 md:grid-cols-1 gap-14 mt-8 lg:grid-cols-2 xl:grid-cols-3">
-            {cryptoCardData.map((card, id) => (
-              <CryptoCard key={id} data={card} />
+          <div className="grid grid-cols-1 mt-8 px-14 md:grid-cols-1 gap-14 lg:grid-cols-2 xl:grid-cols-3">
+            {cryptoCardData.map((card, index) => (
+              <CryptoCard key={index} data={card} />
             ))}
           </div>
         </div>
@@ -104,7 +104,7 @@ export const Dashboard = () => {
             <Tab.Panel>
               <div className="flex flex-col gap-4 pl-6 pr-12 mt-10 text-center">
                 <div className="text-center">
-                  <h1 className=" pl-0 md:pl-8 text-xl font-basement font-bold">
+                  <h1 className="pl-0 text-xl font-bold md:pl-8 font-basement">
                     Starting in
                     <CountdownTimer initialMinutes={1} initialSeconds={35} />
                   </h1>
@@ -116,7 +116,7 @@ export const Dashboard = () => {
                   <p className="text-lg lg:text-xl pl-[5px] font-basement font-normal">
                     1 of 3 Session | 13min
                   </p>
-                  <p className="text-lg lg:text-xl font-normal font-basement pt-5 lg:pt-9">
+                  <p className="pt-5 text-lg font-normal lg:text-xl font-basement lg:pt-9">
                     Pot Size
                   </p>
                   <h1 className="text-xl lg:text-[26px] font-basement font-bold mt-3 lg:mt-4 mb-6">
@@ -144,12 +144,12 @@ export const Dashboard = () => {
             </Tab.Panel>
             <Tab.Panel>
               <div className="mt-10 w-full rounded-[10px] mb-5 pl-6 pr-10">
-                {/* <h1 className="text-xl font-basement font-bold text-center">
+                {/* <h1 className="text-xl font-bold text-center font-basement">
                   Upcoming Games
                 </h1> */}
                 <div className="flex flex-col mt-4 gap-9 lg:flex-row">
-                  {cryptoCardData.map((card, id) => (
-                    <CryptoCard key={id} data={card} />
+                  {cryptoCardData.map((card, index) => (
+                    <CryptoCard key={index} data={card} isFirst={index === 0} />
                   ))}
                 </div>
               </div>

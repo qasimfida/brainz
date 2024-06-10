@@ -149,3 +149,29 @@ export const fiveToTenUsersRankData = [
     myRank: true,
   },
 ];
+export const mobileScreenUsersRankData = [
+  {
+    rank: "1",
+    username: "User9850",
+    points: "10 pts",
+    profileImage: profile,
+  },
+  {
+    rank: "2",
+    username: "User9850",
+    points: "9 pts",
+    profileImage: profile,
+  },
+  {
+    rank: "3",
+    username: "User9850",
+    points: "8 pts",
+    profileImage: profile,
+  },
+  {
+    rank: "4",
+    username: "User9850",
+    points: "5 pts",
+    profileImage: profile,
+  },
+];

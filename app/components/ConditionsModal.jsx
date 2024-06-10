@@ -42,7 +42,7 @@ const ConditionsModal = ({
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex items-center justify-center min-h-full text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -52,8 +52,8 @@ const ConditionsModal = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full p-[16px] md:p-[0] max-w-[1176px] text-center text-white transform overflow-hidden rounded-[20px] bg-primary-350  text-left align-middle shadow-xl transition-all">
-                <div className="md:h-[100%] h-[580px] py-4 pr-4 md:px-[50px] scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-full scrollbar-thumb-[#104061] overflow-y-scroll">
+              <Dialog.Panel className="w-full md:p-[0] max-w-[1176px] text-center text-white transform overflow-hidden rounded-[20px] bg-primary-350  text-left align-middle shadow-xl transition-all">
+                <div className="md:h-[682px] h-[580px] py-4 pr-4 md:px-[50px] scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-full scrollbar-thumb-[#104061] overflow-y-scroll">
                   <div className="flex flex-col justify-center items-center pt-[0] md:pt-7">
                     <Link href={"/"}>
                       <Image
@@ -65,28 +65,28 @@ const ConditionsModal = ({
                         priority={true}
                       />
                     </Link>
-                    <h1 className="font font-basement font-bold text-2xl md:text-3xl">
+                    <h1 className="text-2xl font-bold font font-basement md:text-3xl">
                       Terms & Conditions
                     </h1>
-                    <p className="font-inter font-normal text-base text-grey-100">
+                    <p className="text-base font-normal font-inter text-grey-100">
                       You agree to our Terms of Use and License Terms.
                     </p>
                     <div className="text-grey-100 text-start rounded-[10px] pl-4 pr-[6px] py-3 mt-6  border border-[#51626e] ">
-                      <div className="pr-[14px] h-52 scrollbar scrollbar-w-[6px] scrollbar-thumb-rounded-full scrollbar-thumb-[#104061] overflow-y-scroll">
-                        <h1 className="font-inter font-bold text-lg mb-4">
+                      <div className="pr-[14px] h-64 scrollbar scrollbar-w-[6px] scrollbar-h-[16px] scrollbar-thumb-rounded-full scrollbar-thumb-[#104061] overflow-y-scroll">
+                        <h1 className="mb-4 text-lg font-bold font-inter">
                           Terms of Service - PlayBrainz.com
                         </h1>
-                        <h1 className="font-inter font-normal text-lg mb-5">
+                        <h1 className="mb-5 text-lg font-normal font-inter">
                           Issued on June 4 2024
                         </h1>
-                        <p className="text-base font-inter font-normal mb-4">
+                        <p className="mb-4 text-base font-normal font-inter">
                           These Terms and Conditions form a binding legal
                           agreement between You and Us and apply to your use of
                           our Platform, Website or games in any way, through any
                           electronic device (web, mobile, tablet or any other
                           device).
                         </p>
-                        <p className="text-base font-inter font-normal mb-4">
+                        <p className="mb-4 text-base font-normal font-inter">
                           Please note that these Terms and Conditions include a
                           provision waiving the right to pursue any class, group
                           or representative claim and requiring You to pursue
@@ -94,7 +94,7 @@ const ConditionsModal = ({
                           through PlayBrainz’s escalation process unless You opt
                           out within the specified time frame.
                         </p>
-                        <p className="text-base font-inter font-normal mb-6">
+                        <p className="mb-6 text-base font-normal font-inter">
                           You must read these Terms and Conditions carefully in
                           their entirety before checking the box for acceptance.
                           By checking the box for acceptance during the
@@ -110,7 +110,7 @@ const ConditionsModal = ({
                         </p>
                         <ul
                           role="list"
-                          class="marker:text-sky-400 list-disc pl-4"
+                          class="marker:text-sky-400 list-disc pl-5"
                         >
                           <li className="uppercase">DEFINITIONS</li>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal my-4">
@@ -226,10 +226,10 @@ const ConditionsModal = ({
                             sites operated by Us and all subdomains, subpages
                             and successor sites thereof.
                           </p>
-                          <h1 className="font-inter font-normal text-lg mb-5 mt-8 uppercase">
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             2. YOUR PARTICIPATION
                           </h1>
-                          <p className="text-base font-inter font-normal mb-4">
+                          <p className="mb-4 text-base font-normal font-inter">
                             Restrictions
                           </p>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -327,7 +327,7 @@ const ConditionsModal = ({
                             of its partners, or respective directors, officers
                             or employees in relation to any losses You incur.
                           </p>
-                          <h1 className="font-inter font-normal text-lg mb-5 mt-8 uppercase">
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             3. LICENCE
                           </h1>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -361,7 +361,7 @@ const ConditionsModal = ({
                             refrain from accessing, the Platform or relevant
                             Game.
                           </p>
-                          <h1 className="font-inter font-normal text-lg mb-5 mt-8 uppercase">
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             4. YOUR CUSTOMER ACCOUNT
                           </h1>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -502,7 +502,7 @@ const ConditionsModal = ({
                             see the Self-Exclusion Policy for further
                             information.
                           </p>
-                          <h1 className="font-inter font-normal text-lg mb-5 mt-8 uppercase">
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             5. GAMES
                           </h1>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -803,7 +803,7 @@ const ConditionsModal = ({
                             <span>7.5.</span>Note that withdrawals include an
                             additional 0.005 ETH fee to cover transactional gas.
                           </p>
-                          <h1 className="font-inter font-normal text-lg mb-5 mt-8 uppercase">
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             8. PROMOTIONS
                           </h1>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -843,7 +843,7 @@ const ConditionsModal = ({
                             you post or publish as part of a promotion, contest
                             or competition.
                           </p>
-                          <h1 className="font-inter font-normal text-lg mb-5 mt-8 uppercase">
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             9. FINANCIAL TERMS OF USE
                           </h1>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -909,7 +909,7 @@ const ConditionsModal = ({
                             property of PlayBrainz and will be deducted from
                             your Customer Account at the earliest opportunity.
                           </p>
-                          <h1 className="font-inter font-normal text-lg mb-5 mt-8 uppercase">
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
                             10. FRAUDULENT CONDUCT
                           </h1>
                           <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
@@ -964,18 +964,1062 @@ const ConditionsModal = ({
                             and lease documents) for the purpose of misleading
                             PlayBrainz as to a Player’s identity.
                           </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>10.1.</span>You must not use the Platform for
+                            any unlawful or fraudulent activity or prohibited
+                            transaction (including Fraudulent Conduct) under the
+                            laws of any jurisdiction that applies to you. We
+                            monitor all transactions in order to prevent money
+                            laundering.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>10.2.</span>If PlayBrainz suspects that you
+                            may be engaging in, or have engaged in fraudulent,
+                            unlawful or improper activity, including money
+                            laundering activities or any conduct which violates
+                            these Terms and Conditions, your access to the
+                            Services will be deactivated immediately and your
+                            Customer Account may be suspended. If your Customer
+                            Account is deactivated or suspended under such
+                            circumstances, PlayBrainz is under no obligation to
+                            reverse any purchases you have made. In addition,
+                            PlayBrainz may pass any necessary information on to
+                            the relevant authorities, other online service
+                            providers, banks, credit card companies, electronic
+                            payment providers or other financial institutions.
+                            You will cooperate fully with any PlayBrainz
+                            investigation into such activity.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>10.3.</span>If you suspect any unlawful or
+                            fraudulent activity or prohibited transaction by
+                            another Player, please notify us immediately via the
+                            means of communication listed in the Customer
+                            Complaints procedure (described in clause 15.).
+                          </p>
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            UNITED STATES LEGAL COMPLIANCE:
+                          </h1>
+
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            You hereby represent and warrant that (i) you are
+                            not situated in a country that is subject to the
+                            United States government embargo, or has been
+                            designated by the United States government as a
+                            "terrorist supporting" country, and (ii) you are not
+                            listed on any United States government list of
+                            prohibited or restricted parties.
+                          </p>
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            MEMBER ELIGIBILITY & WARRANTIES Subject To
+                            Applicable Laws.
+                          </h1>
+
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            You are subject to the laws of the country, state,
+                            city, or other legal entity (collectively
+                            "Jurisdiction(s)") in which you reside and/or from
+                            which you access the Services. Access to the
+                            Services may not be legal for some Jurisdictions or
+                            for all residents of, or persons present in, certain
+                            Jurisdictions. We have installed filtering systems
+                            designed to limit access from known Excluded
+                            Jurisdictions.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            It is your responsibility to comply with law in your
+                            Jurisdiction. We do not make any representation or
+                            warranty, express or implied, as to the lawfulness
+                            of your participation in the Games, or that
+                            materials on the Platform are appropriate for your
+                            use. The information contained in the Agreement or
+                            on the Platform does not constitute an offer,
+                            solicitation, or invitation by us for the use of any
+                            service in any Excluded Jurisdiction.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            We further reserve the right to require you to
+                            provide proof that you are eligible to participate
+                            on the Platform at any point in time. We also
+                            reserve the right to refuse service and access to
+                            any potential participant where we reasonably
+                            believe that such participant is based in an
+                            Excluded Jurisdiction or has otherwise breached or
+                            is likely to breach the Agreement.
+                          </p>
+                          <h1 className="mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            VOID WHERE PROHIBITED OR RESTRICTED BY LAW.
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            If you open an Account and/or participate in any
+                            Game offered on the Platform while located in an
+                            Excluded Jurisdiction, you will be in violation of
+                            the law of such jurisdiction and these Terms of
+                            Service and will be subject to having your Account
+                            suspended or terminated, and you will NOT BE
+                            ELIGIBLE to claim any Prizes won.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>11.</span>INTELLECTUAL PROPERTY
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>11.0.</span>The computer software, the
+                            computer graphics, the Platform and the user
+                            interface that we make available to you is owned by,
+                            or licensed to, PlayBrainz or its associates and
+                            protected by copyright laws. You may only use the
+                            software for your own personal, recreational uses in
+                            accordance with all rules, terms and conditions we
+                            have established and in accordance with all
+                            applicable laws, rules and regulations.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>11.1.</span>You acknowledge that PlayBrainz is
+                            the proprietor or authorised licensee of all
+                            intellectual property in relation to any Content.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>11.2.</span>Your use of the Games and Platform
+                            does not provide you with any intellectual property
+                            rights in the Content, Games or Platform.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>11.3.</span>You grant Us, and represent and
+                            warrant that you have the right to grant us, an
+                            irrevocable, perpetual, worldwide, non-exclusive,
+                            royalty-free licence to use in whatever way we see
+                            fit, any information, images, videos, comments,
+                            messages, music or profiles you publish or upload to
+                            any website or social media page controlled and
+                            operated by PlayBrainz.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>11.4.</span>You must not reproduce or modify
+                            the Content in any way, including by removing any
+                            copyright or trademark notice.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>11.5.</span>All trademarks and logos displayed
+                            in the Games and Platform are the property of their
+                            respective owners and are protected by applicable
+                            trademark and copyright laws.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>12.</span>THIRD PARTY WEBSITES AND LINKS
+                          </h1>
+
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.0.</span>You acknowledge and agree that
+                            PlayBrainz:
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.0.0.</span>Is not responsible for Third
+                            Party Websites; and
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.0.1.</span>Makes no guarantee as to the
+                            content, functionality, or accuracy of any Third
+                            Party Website.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.1.</span>You further acknowledge that some
+                            Third Party Websites may be fraudulent in nature,
+                            offering rewards which the operators of those
+                            websites are not authorised to provide, in an effort
+                            to induce you to reveal personal information
+                            (including passwords, account information and credit
+                            card details). You agree that PlayBrainz is not
+                            responsible for any actions you take at the request
+                            or direction of these, or any other Third Party
+                            Websites.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.2.</span>Third Party Websites are subject
+                            to the terms and conditions outlined by that third
+                            party.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.3.</span>Any links to Third Party Websites
+                            do not:
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.3.0.</span>Indicate a relationship between
+                            PlayBrainz and the third party; or
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.3.1.</span>Indicate any endorsement or
+                            sponsorship by PlayBrainz of the Third Party
+                            Website, or the goods or services it provides,
+                            unless specifically indicated by PlayBrainz.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.4.</span>Where a website controlled and
+                            operated by PlayBrainz contains links to various
+                            social networking sites, such as Facebook®,
+                            Instagram®, Discord® and Twitter®, you acknowledge
+                            and agree that:
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.4.0.</span>Any comments or content that you
+                            post on such social networking sites are subject to
+                            the terms and conditions of that particular social
+                            networking site;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.4.1.</span>You will not post any comments
+                            that are false, misleading or deceptive or
+                            defamatory to us, our employees, agents, officers or
+                            other players; and
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>12.4.2.</span>We are not responsible or liable
+                            for any comments or content that you or others post
+                            on social networking sites.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>13.</span>DISRUPTIONS AND CHANGE
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.0.</span>No warranties
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            The Platform is provided on an “as is” basis and to
+                            the fullest extent permitted by law, we make no
+                            warranty or representation, whether express or
+                            implied, in relation to the satisfactory quality,
+                            fitness for purpose, completeness or accuracy of the
+                            Platform (including the Games and Content).
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.1.</span>Malfunctions
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.1.</span>PlayBrainz is not liable for any
+                            downtime, server disruptions, lagging, or any
+                            technical or political disturbance to Game play, nor
+                            attempts by you to Participate by methods, means or
+                            ways not intended by us.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.1.1.</span>PlayBrainz accepts no liability
+                            for any damages or losses which are deemed or
+                            alleged to have arisen out of or in connection with
+                            any Platform or its content including, without
+                            limitation, delays or interruptions in operation or
+                            transmission, loss or corruption of data,
+                            communication or lines failure, any person’s misuse
+                            of a Platform or its content or any errors or
+                            omissions in content.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.1.2.</span>In the event of a Platform
+                            system malfunction all Game play on that Platform is
+                            void.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.1.3.</span>In the event a Game is started
+                            but fails to conclude because of a failure of the
+                            system, PlayBrainz will use commercially reasonable
+                            methods to reinstate the amount of funds played in
+                            the Game to you by crediting it to your Customer
+                            Account. PlayBrainz reserves the right to alter
+                            Player balances and account details to correct such
+                            mistakes.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.1.4.</span>PlayBrainz reserves the right to
+                            remove any part of the Games from the Platform at
+                            any time. Any part of the Games that indicate
+                            incorrect behaviour affecting game data, balances,
+                            that may be due to misconfiguration or a bug, will
+                            be cancelled and removed from the Platform. Player
+                            balances and account details may be altered by
+                            PlayBrainz in such cases in order to correct any
+                            mistake.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.1.4.</span>PlayBrainz reserves the right to
+                            suspend, modify, remove or add Content to the
+                            Platform at its sole discretion with immediate
+                            effect and without notice to you. We will not be
+                            liable to you for any loss suffered as a result of
+                            any changes made or for any modification or
+                            suspension of or discontinuance of the Platform
+                            (including any game thereon) and you will have no
+                            claims against PlayBrainz in such regard.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.2.</span>Service Suspension
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            We may temporarily suspend the whole or any part of
+                            the Platform for any reason at our sole discretion.
+                            We may, but will not be obliged to, give you notice
+                            of such suspension. We will restore the Platform, as
+                            soon as is practicable in our sole discretion, after
+                            such temporary suspension.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>13.3.</span>Changes to Jurisdiction Regulation
+                            PlayBrainz monitors legal changes taking place
+                            across the world. In the event of any proposed legal
+                            change in any region, we reserve the right to
+                            immediately suspend all access to the Website for
+                            any user playing from where the proposed changes are
+                            occurring. In the event of such a change, all funds
+                            shall be void with no financial compensation
+                            offered.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>14.</span>VIRUSES
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>14.0.</span>Although we take all reasonable
+                            measures to ensure that the Platform is free from
+                            computer viruses we cannot and do not guarantee that
+                            the Platform is free of such problems. It is your
+                            responsibility to protect your systems and have in
+                            place the ability to reinstall any data or programs
+                            lost due to a virus.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>15.</span>PRIVACY POLICY
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>15.0.</span>PlayBrainz is committed to
+                            protecting and respecting your privacy and complying
+                            with all applicable data protection and privacy
+                            laws.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>15.1.</span>Our Privacy Policy is inseparably
+                            linked to these Terms and Conditions and its
+                            acceptance is a prerequisite to account
+                            registration.
+                          </p>
+
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>15.2.</span>If you have given consent when
+                            registering to receive marketing communications from
+                            PlayBrainz in respect of its offerings by way of
+                            email, post, SMS and telephone notifications, you
+                            may unsubscribe at any time by contacting Customer
+                            Support via Discord-Arena and opening a ticket,
+                            alternatively you may use the contact preferences
+                            facility available online.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            Initial Resolution: If unsatisfied with our Support
+                            Team's resolution, you may escalate your complaint.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            Operations Team Escalation:
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            Your complaint will be reviewed by the Operations
+                            Team upon request. If their response is
+                            unsatisfactory, further escalation is available.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            Senior Management Escalation: The final escalation
+                            level is a review by Senior Management. Their
+                            decision on the complaint is final.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>16.</span>USE OF LIVE CHAT SERVICES
+                          </h1>
+
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.0.</span>We may provide you with a Live
+                            Chat service to talk to our Customer Support
+                            representatives or to talk to other Players. This
+                            may include use of our Facebook® wall. It is your
+                            responsibility to use these services only for their
+                            intended purposes. You are not permitted to use our
+                            Live Chat services for illegal purposes.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.1.</span>Be careful what you post on any
+                            Live Chat service. We review and moderate chats and
+                            keep a log and record of statements. Your use of the
+                            Live Chat service should be for recreational and
+                            social purposes only.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.2.</span>Spamming on Live Chat is
+                            prohibited. You are prohibited from intimidating,
+                            harassing, or abusing other Players or PlayBrainz
+                            employees and representatives.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.3.</span>You will not use any Live Chat
+                            service to engage in any form of harassment or
+                            offensive behaviour, including but not limited to,
+                            threatening, derogatory, abusive or defamatory
+                            statements, or racist, sexually explicit,
+                            pornographic, obscene, hate speech, or offensive
+                            language.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.4.</span>You will not use any Live Chat
+                            service to infringe the privacy rights, property
+                            rights, or any other rights of any person.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.5.</span>You will not submit any kind of
+                            material or information on any Live Chat service
+                            that is fraudulent or otherwise unlawful or violates
+                            any law.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.6.</span>You will not use any Live Chat
+                            service to distribute, promote or otherwise publish
+                            any material containing any solicitation for funds,
+                            advertising or solicitation for goods or services of
+                            other forums.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.7.</span>You will not use any Live Chat
+                            service to distribute, promote or otherwise publish
+                            any kind of malicious code or do anything else that
+                            might cause harm to the Platform or to other
+                            Player’s systems in any way.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.8.</span>We reserve the right to monitor
+                            anything and everything submitted by you to any Live
+                            Chat service to ensure that it conforms to content
+                            guidelines that are monitored by us and subject to
+                            change from time to time.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.9.</span>If you breach any of the
+                            provisions relating to a Live Chat service, we may
+                            ban you from using that Live Chat service or all
+                            Live Chat services and/or suspend or deactivate your
+                            Customer Account.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.10.</span>We reserve the right to remove
+                            the Live Chat service from any Platform if abused.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.11.</span>We will not be liable if damage
+                            arises out of the Live Chat service.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.12.</span>You agree to indemnify us against
+                            any damage arising out of your illegal, unlawful or
+                            inappropriate conduct or arising out of violation of
+                            the provisions in this clause or any other rules on
+                            the Platform applying to the Live Chat service.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.12.</span>You will not collude in any way
+                            through the Live Chat service. Players are
+                            encouraged to report any suspicious behaviour to
+                            Customer Support via email.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>16.12.</span>You will not collude in any way
+                            through the Live Chat service. Players are
+                            encouraged to report any suspicious behaviour to
+                            Customer Support via email.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>17.</span>COMPLAINTS AND CUSTOMER SUPPORT
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.0.</span>If you would like to contact our
+                            Customer Support department or have a complaint
+                            regarding our Platform (including any game), you may
+                            contact us via Discord-Arena and open a ticket. If
+                            your ticket is a complaint, please include the word
+                            "complaint" at the beginning of the "How can we help
+                            you?" section. Any tickets which do not include this
+                            will NOT be treated as an official complaint.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.1.</span>TO PROTECT YOUR PRIVACY, ANY EMAIL
+                            COMMUNICATIONS BETWEEN YOU AND PLAYBRAINZ SHOULD BE
+                            CARRIED OUT USING THE EMAIL ADDRESS THAT YOU HAVE
+                            REGISTERED AGAINST YOUR CUSTOMER ACCOUNT HELD WITH
+                            PLAYBRAINZ. FAILURE TO DO SO MAY RESULT IN OUR
+                            RESPONSE BEING DELAYED.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.2.</span>The following information must be
+                            included in any written communication with
+                            PlayBrainz (including a complaint):
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.2.0.</span>your username;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.2.1.</span>your first and last name, as
+                            registered on your Customer Account;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.2.2.</span>a detailed explanation of the
+                            complaint/claim; and
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.2.3.</span>Any specific dates and times
+                            associated with the complaint/claim (if applicable).
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.3.</span>Failure to submit a written
+                            communication with the information outlined above
+                            may result in a delay in our ability to identify and
+                            respond to your complaint/claim in a timely manner.
+                            The Customer Support department will investigate
+                            official complaints immediately. The Customer
+                            Support department will endeavour to respond to any
+                            official complaints within 5 calendar days of
+                            lodgement. The receipt of any compliants will be
+                            clearly acknowledged by the team. Complaint will be
+                            dealt with as soon as possible, but no later than
+                            within eight weeks.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.4.</span>In some circumstances, the
+                            Customer Support department will require up to 10
+                            days to respond to a complaint. In this case, the
+                            player will be informed of the delay within 3 days
+                            of lodging the complaint.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>17.5.</span>You will be informed in writing
+                            and duly substantiated of the findings following an
+                            official complaint and of the conclusions will be
+                            attached thereto.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>18.</span>DEACTIVATION / SUSPENSION OF ACCOUNT
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.0.</span>PlayBrainz hereby reserves the
+                            right to deactivate or suspend your Customer Account
+                            for any reason whatsoever at any time without
+                            notifying you.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.</span>Without limiting clause 19.1., we
+                            hereby reserve the right, at our sole discretion, to
+                            deactivate or suspend your Customer Account
+                            (notwithstanding any other provision contained in
+                            these Terms and Conditions) where we have reason to
+                            believe that you have engaged or are likely to
+                            engage in any of the following activities:
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.0.</span>You breached, or assisted
+                            another party to breach, any provision of these
+                            Terms and Conditions, or we have a reasonable ground
+                            to suspect such breach;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.1.</span>You have more than one Customer
+                            Account, including any Inactive Account, on any
+                            Platform;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.2.</span>The details registered on your
+                            Customer Account does not match the details on the
+                            financial/bank account and/or the credit/debit
+                            card(s) used to make purchases on the said Customer
+                            Account;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.3.</span>Your communication with us
+                            consists of harassment or offensive behaviour,
+                            including (but not limited to) threatening,
+                            derogatory, abusive or defamatory statements, or
+                            racist, sexually explicit, pornographic, obscene or
+                            offensive language;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.4.</span>Your Customer Account is deemed
+                            to be an Inactive Account;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.5.</span>You become bankrupt;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.6.</span>You provide incorrect or
+                            misleading information while registering a Customer
+                            Account;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.7.</span>Your identity cannot be
+                            verified;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.8.</span>You attempt to use your Customer
+                            Account through a VPN, proxy or similar service that
+                            masks or manipulates the identification of your real
+                            location, or by otherwise providing false or
+                            misleading information regarding your citizenship,
+                            location or place of residence, or by playing Games
+                            using the Platform through a third party or on
+                            behalf of a third party;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.9.</span>You are not over 18 years of
+                            age;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.10.</span>You are located in a
+                            jurisdiction where Participation is illegal;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.11.</span>You have allowed or permitted
+                            (whether intentionally or unintentionally) someone
+                            else to Participate using your Customer Account;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.12.</span>You have played in tandem with
+                            other Player(s) as part of a club, group, etc., or
+                            played the Games in a coordinated manner with other
+                            Player(s) involving the same (or materially the
+                            same) selections;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.13.</span>You have failed our due
+                            diligence procedures, or are found to be colluding,
+                            cheating, money laundering or undertaking any kind
+                            of fraudulent activity; or
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.14.</span>It is determined by PlayBrainz
+                            that you have employed or made use of a system
+                            (including machines, computers, software or other
+                            automated systems such as bots) designed
+                            specifically to gain an unfair advantage.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.15.</span>Where PlayBrainz determines
+                            that it is under a legal obligation or to protect
+                            PlayBrainz, you, other players, or other third
+                            parties.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.16.</span>If PlayBrainz deactivates or
+                            suspends your Customer Account for any of the
+                            reasons referred to in clause 16.1. above, you will
+                            be liable for any and all claims, losses,
+                            liabilities, damages, costs and expenses incurred or
+                            suffered by PlayBrainz (together “Claims”) arising
+                            therefrom and you will indemnify and hold PlayBrainz
+                            harmless on demand for such Claims.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.17.</span>If we have reasonable grounds
+                            to believe that you have participated in any of the
+                            activities set out in clause 16.1. above then we
+                            reserve the right to withhold all or part of the
+                            balance and/or recover from your Customer Account
+                            any funds that are attributable to any of the
+                            activities contemplated in clause 16.1. In such
+                            circumstances, your details may be passed on to any
+                            applicable regulatory authority, regulatory body or
+                            any other relevant external third parties.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.18.</span>If your Customer Account is
+                            deactivated as a result of closure of the Platform
+                            or similar event, any temporary licences granted to
+                            You shall immediately be terminated and no refunds
+                            for purchases shall be due.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>18.1.19.</span>The rights set out in clause
+                            16. are without prejudice to any other rights that
+                            we may have against you under these Terms and
+                            Conditions or otherwise.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>19.</span>INDEMNITY AND LIMITATION OF
+                            LIABILITY
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.0.</span>Indemnity
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            You hereby agree to indemnify and hold harmless us,
+                            our directors, officers, employees, shareholders,
+                            agents and affiliates, our ultimate parent and
+                            parent companies and any of our subsidiaries against
+                            any and all costs, expenses, liabilities and damages
+                            (whether direct, indirect, special, consequential,
+                            exemplary or punitive or other, including attorney’s
+                            fees arising from any participation by you,
+                            including without limitation:
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.0.0.</span>Accessing or using the platform;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.0.1.</span>Re-use of any content at, or
+                            obtained from, the platforms or any other source
+                            whatsoever;
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.0.2.</span>Facilitating or making a payment
+                            into your customer account;d. Playing the games
+                            through any delivery mechanism offered; and
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.0.3.</span>Acceptance and use of any prize.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.1.</span>Limitation of Liability
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.1.0.</span>To the maximum extent permitted
+                            by applicable law, under no circumstances whatever
+                            will we or our affiliates, subsidiaries, partners,
+                            officers, directors, employees, shareholders,
+                            agents, licensors, subcontractors and suppliers, be
+                            responsible or liable to you or to any other entity,
+                            even if advised of the possibility of such damages,
+                            under any legal theory, whether contract, tort or
+                            otherwise, for any indirect, incidental,
+                            consequential, special, exemplary, or punitive
+                            damages, including any lost profits and lost
+                            business opportunities, business interruption, lost
+                            revenue, income, goodwill, use of data or other
+                            intangible losses, in each case that result from or
+                            relate in any manner to your participation or any
+                            other act or omission by us.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.1.1.</span>To the fullest extent permitted
+                            by applicable law, under no circumstances will we,
+                            our affiliates, subsidiaries, partners, officers,
+                            directors, employees, shareholders, agents,
+                            licensors, subcontractors or suppliers, be liable to
+                            you for more than the amount you have paid us in the
+                            thirty (30) days immediately preceding the date on
+                            which you first assert any such claim. You
+                            acknowledge and agree that if you have not paid us
+                            any amounts in the thirty (30) days immediately
+                            preceding the date on which you first assert any
+                            such claim, your sole and exclusive remedy for any
+                            dispute with us is to stop using the platform and to
+                            close your Customer Account.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.1.2.</span>You recognize and agree that the
+                            warranty disclaimers in clauses 13. and 13.2., and
+                            the indemnities and limitations of liability in this
+                            clause 19., are material and bargained-for bases of
+                            these terms and that they have been taken into
+                            account and reflected in the decision by you to
+                            enter into these terms and conditions. Depending on
+                            where you reside and use the Platform, some of the
+                            limitations contained in this clause 19 may not be
+                            permissible. In such case, they will not apply to
+                            you, solely to the extent that they are prohibited.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.2.</span>Negligence and Wilful Misconduct
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            Nothing in these Terms and Conditions will operate
+                            so as to exclude any liability of PlayBrainz for
+                            death or personal physical injury that is directly
+                            and proximately caused by PlayBrainz’s gross
+                            negligence or wilful misconduct.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>19.3.</span>Survival of ObligationsClause 19.
+                            survives the termination of these Terms and
+                            Conditions for any reason.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>20.</span>PLAYBRAINZ NOT A FINANCIAL
+                            INSTITUTION
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>20.0.</span>Interest
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            You will not receive any interest on your balance
+                            and you will not treat PlayBrainz as a financial
+                            institution.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>20.0.</span>You will not receive any interest
+                            on your balance and you will not treat PlayBrainz as
+                            a financial institution.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>20.1.</span>No legal or tax advice
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            PlayBrainz does not provide advice regarding tax
+                            and/or legal matters. Players who wish to obtain
+                            advice regarding tax and legal matters are advised
+                            to contact appropriate advisors. Players are
+                            responsible for any and all tax liability from the
+                            use of the Website.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>21.</span>DISPUTE RESOLUTION
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            Please read this clause 21. carefully as it requires
+                            you to escalate certain disputes and claims on an
+                            individual basis and limits the manner in which you
+                            can seek relief from PlayBrainz. 
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>21.0.</span>By agreeing to these Terms and
+                            Conditions, you agree that any and all past, present
+                            and future disputes, claims or causes of action
+                            between you and PlayBrainz which arise out of, or
+                            are related to, these Terms and Conditions, the
+                            formation of these Terms and Conditions, the
+                            validity or scope of these Terms and Conditions,
+                            including this clause 21., your Participation or
+                            other access to or use of the Platform, or any other
+                            dispute between You and PlayBrainz, and whether
+                            arising prior to or after your agreement to this
+                            clause 21. (Dispute Resolution) (collectively,
+                            “Disputes”), will be governed by the procedure set
+                            out below.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>21.1.</span>Dispute Resolution
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>21.1.0.</span>We want to address any concerns
+                            you may have without needing a formal legal case.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>21.1.1.</span>Before filing a claim against
+                            PlayBrainz, you agree to try to resolve any
+                            complaint in accordance with clause 15.. If your
+                            complaint is not resolved after exhausting the
+                            internal complaints process outlined in clause 15.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>21.1.2.</span>PlayBrainz agrees that it will
+                            take all reasonable efforts to contact you and
+                            resolve any claim it may possess prior to taking any
+                            formal action.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>22.</span>REFERRALS
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.1.</span>A referral qualifies if registered
+                            through the custom URL associated with your
+                            PlayBrainz account and if the friend has
+                            participated in at least 1 Competition.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.2.</span>You will be rewarded with 2.5% of
+                            your referral’s entries (minus gas) on paid
+                            Competition entries only.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.3.</span>The minimum eligible withdrawal
+                            amount of ETH accumulated from the Refer a Friend
+                            program is 0.1 ETH.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.4.</span>Withdrawals can be requested on
+                            the withdrawals page (coming soon)
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.5.</span>You only have 1 active Referral
+                            URL associated with your account.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.6.</span>It is not PlayBrainz’s
+                            responsibility if the Referral URL was not used
+                            correctly.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.7.</span>PlayBrainz will not retroactively
+                            assign referred status to any accounts.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.8.</span>Any referrals associated with your
+                            PlayBrainz account via IP address or wallet transfer
+                            do not qualify for Referral status.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.9.</span>PlayBrainz reserves the right to
+                            refuse Referral payouts if it is discovered that
+                            attempts have been made to circumvent the rules,
+                            this includes but is not limited to the purchase of
+                            ad space, or sponsorship using your unique referral
+                            URL.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.10.</span>PlayBrainz reserves the right to
+                            change or withdraw the promotion at any time.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.11.</span>PlayBrainz’s general terms and
+                            conditions apply.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>22.11.</span>PlayBrainz’s general terms and
+                            conditions apply.
+                          </p>
+                          <h1 className="flex flex-nowrap gap-1.5  mt-8 mb-5 text-lg font-normal uppercase font-inter">
+                            <span>23.</span>OTHER
+                          </h1>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.0.</span>Entire Agreement
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            These Terms and Conditions constitute the entire
+                            agreement between You and Us with respect to your
+                            Participation and, save in the case of fraud,
+                            supersede all prior or contemporaneous
+                            communications and proposals, whether electronic,
+                            oral or written, between You and Us with respect to
+                            your Participation.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.1.</span>Amendments
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.1.0.</span>PlayBrainz hereby reserves the
+                            right to amend these Terms and Conditions, or to
+                            implement or amend any procedures, at any time. Any
+                            amendments will be published on the Platform and
+                            such changes will be binding and effective
+                            immediately.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.1.1.</span>Whenever we amend these Terms
+                            and Conditions in a way that would limit your
+                            current rights or which may be to your detriment, we
+                            will notify you upon your next visit to the Platform
+                            and you will be required to re-confirm your
+                            acceptance prior to playing any Games. If you do not
+                            agree to the amended Terms and Conditions, you must
+                            stop using the Platform.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.2.</span>Tax
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            You are solely responsible for any taxes applicable
+                            from your Participation.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.3.</span>Force Majeure
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            PlayBrainz will not be liable or responsible for any
+                            failure to perform, or delay in performance of, any
+                            of our obligations under these Terms and Conditions
+                            that are caused by events outside of our reasonable
+                            control.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.4.</span>No agency
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            Nothing in these Terms and Conditions will be
+                            construed as creating any agency, partnership, trust
+                            arrangement, fiduciary relationship or any other
+                            form of joint enterprise between You and Us.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.5.</span>Severability
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            If any of the Terms and Conditions are determined by
+                            any competent authority to be invalid, unlawful or
+                            unenforceable to any extent, such term, condition or
+                            provision will, to that extent, be severed from
+                            these Terms and Conditions. All remaining terms,
+                            conditions and provisions will continue to be valid
+                            to the fullest extent permitted by law. In such
+                            cases, the part deemed invalid or unenforceable will
+                            be amended in a manner consistent with the
+                            applicable law to reflect, as closely as possible,
+                            PlayBrainz’s original intent.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.6.</span>Explanation of Terms and
+                            Conditions
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.6.0.</span>We consider these Terms and
+                            Conditions to be open and fair. If you need any
+                            explanation regarding these Terms and Conditions or
+                            any other part of our Platform contact Customer
+                            Support via Discord-Arena and open a ticket.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.6.1.</span>The Terms and Conditions prevail
+                            over any communication via email or chat.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.6.2.</span>All correspondence, telephone or
+                            video conferences, and live chats between You and Us
+                            may be recorded and retained and you consent to such
+                            recording and retention.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.7.</span>Assignment These Terms and
+                            Conditions are personal to You, and are not
+                            assignable, transferable or sub-licensable by You
+                            except with Our prior written consent. We reserve
+                            the right to assign, transfer or delegate any of Our
+                            rights and obligations hereunder to any third party
+                            without notice to You.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.8.</span>Business Transfers In the event of
+                            a change of control, merger, acquisition, or sale of
+                            assets of PlayBrainz, your Customer Account and
+                            associated data may be part of the assets
+                            transferred to the purchaser or acquiring party. In
+                            such an event, we will provide You with notice via
+                            email or via Our Platform explaining your options
+                            with regard to the transfer of your Customer
+                            Account.
+                          </p>
+                          <p className="flex flex-nowrap gap-1.5 text-base font-inter font-normal mb-4">
+                            <span>23.9.</span>LanguageThese Terms and Conditions
+                            may be published in several languages for
+                            information purposes and ease of access by players
+                            but will all reflect the same principles. It is only
+                            the English version that is the legal basis of the
+                            relationship between You and Us and in case of any
+                            discrepancy between a non-English version and the
+                            English version of these Terms and Conditions, the
+                            English version will prevail.
+                          </p>
                         </ul>
+                        <p className="w-full mb-3 text-base font-normal text-center mt-14 font-inter">
+                          Copyright © 2024 PLAYBRAINZ
+                        </p>
+                        <p className="w-full text-base font-normal text-center font-inter">
+                          Persons under the age of 18 are NOT permitted to
+                          create accounts and/or participate in the games.
+                        </p>
                       </div>
                     </div>
                     <form onSubmit={handleContinue}>
-                      <div class="bg-primary-400 pl-4 pr-[36px] py-6 w-full mt-4 rounded-[10px]">
-                        <div className=" relative flex items-center">
+                      <div class="bg-primary-400 pl-4 pr-[36px] py-4 w-full mt-4 rounded-[10px]">
+                        <div className="relative flex items-center ">
                           <CustomCheckbox
                             checked={checkedOne}
                             setChecked={setCheckedOne}
                           />
                           <div className="ml-[16px]">
-                            <p className="font-inter font-normal text-start">
+                            <p className="font-normal font-inter text-start">
                               You agree to our Terms of Use and License Terms.
                               In our Privacy Policy, we explain how we process
                               your personal data and what rights you have.
@@ -988,7 +2032,7 @@ const ConditionsModal = ({
                             setChecked={setCheckedTwo}
                           />
                           <div className="ml-[16px]">
-                            <p className="font-inter font-normal text-start">
+                            <p className="font-normal font-inter text-start">
                               You agree to our Terms of Use and License Terms.
                               In our Privacy Policy, we explain how we process
                               your personal data and what rights you have.
@@ -996,11 +2040,11 @@ const ConditionsModal = ({
                           </div>
                         </div> */}
                       </div>
-                      <div className="pt-[40px] pb-[14px]">
+                      <div className="pt-8 pb-[14px]">
                         <Button
                           type="submit"
                           variant={"outlined"}
-                          size="text-xl"
+                          size="text-lg"
                         >
                           Continue
                         </Button>

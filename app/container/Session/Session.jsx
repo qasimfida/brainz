@@ -3,6 +3,7 @@ import BackModal from "@/app/components/BackModal";
 import { CountDown } from "@/app/components/CountDown";
 import { ProgressBar } from "@/app/components/Progressbar";
 import { SelectAnswer } from "@/app/components/SelectAnswer";
+import { SessionHeader } from "@/app/components/SessionHeader";
 import { SessionResult } from "@/app/components/SessionResult";
 import React, { useEffect, useState } from "react";
 
@@ -122,31 +123,59 @@ export const Session = () => {
   const progess = ((step + 1) / questions.length) * 100 - 1;
   return (
     <div className="relative">
-      {stage === "countdown" && (
-        <div className="pt-8 lg:pt-10 pb-3 lg:pb-7 px-6 lg:px-7">
-          <CountDown onComplete={() => setStage("selectAnswer")} />
+      <>
+        <div className="hidden md:block">
+          <SessionHeader />
         </div>
+        <div className="hidden md:block fixed w-full top-[76px] left-0 w-full h-2 z-30 transition ease-in">
+          <ProgressBar progress={progess} step={step + 1} />
+        </div>
+        <div className="mt-0 md:mt-8 lg:mt-10">
+          <SelectAnswer
+            setSelectedOption={handleAnswerSelect}
+            handleQuestionChange={handleQuestionChange}
+            questions={questions}
+            step={step}
+            progress={progess}
+            handleStageChange={handleStageChange}
+          />
+        </div>
+      </>
+      {/* {stage === "countdown" && (
+        <>
+          <SessionHeader />
+          <div className="px-6 pt-8 pb-3 lg:pt-10 lg:pb-7 lg:px-7">
+            <CountDown onComplete={() => setStage("selectAnswer")} />
+          </div>
+        </>
       )}
       {stage === "selectAnswer" && (
         <>
-          <div className="hidden md:block fixed w-full top-[78px] left-0 border-white w-full h-2 z-30 transition ease-in ">
-            <ProgressBar progress={progess} />
+          <div className="hidden md:block">
+            <SessionHeader />
           </div>
-          <div className="-mt-2 md:mt-0 pt-8 lg:pt-10  ">
+          <div className="hidden md:block fixed w-full top-[76px] left-0 w-full h-2 z-30 transition ease-in">
+            <ProgressBar progress={progess} step={step + 1} />
+          </div>
+          <div className="mt-0 md:mt-8 lg:mt-10">
             <SelectAnswer
               setSelectedOption={handleAnswerSelect}
               handleQuestionChange={handleQuestionChange}
               questions={questions}
               step={step}
+              progress={progess}
               handleStageChange={handleStageChange}
             />
           </div>
         </>
       )}
       {stage === "sessionResult" && (
-        <div className="pl-6 pr-6 pt-8 lg:pt-10 md:pl-14 md:pr-16">
-          <SessionResult />
-        </div>
+        <>
+          <SessionHeader />
+          <div className="pt-8 pl-6 pr-6 lg:pt-10 md:pl-14 md:pr-16">
+            <SessionResult />
+          </div>
+        </>
       )}
       {showModal && (
         <BackModal
@@ -154,7 +183,7 @@ export const Session = () => {
           setShowModal={setShowModal}
           onContinue={handleContinue}
         />
-      )}
+      )} */}
     </div>
   );
 };

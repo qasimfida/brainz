@@ -8,9 +8,9 @@ export const CountDown = ({ onComplete }) => {
     onComplete();
   };
   return (
-    <div className="w-full flex flex-col lg:flex-row md:flex-row sm:flex-col">
-      <div className="w-full lg:w-2/3 px-0 lg:px-12 ">
-        <div className="h-full justify-center text-white flex flex-col items-center ">
+    <div className="flex flex-col w-full lg:flex-row md:flex-row sm:flex-col">
+      <div className="w-full px-0 lg:w-2/3 lg:px-12 ">
+        <div className="flex flex-col items-center justify-center h-full text-white">
           <div className="text-center">
             <p className="font-basement mb-[20px] text-base lg:text-lg font-normal uppercase">
               starting in
@@ -23,11 +23,11 @@ export const CountDown = ({ onComplete }) => {
                 seconds={10}
               />
             </div>
-            <div className="lg:mt-9 mt-3 flex flex-col items-center justify-between">
-              <p className="mb-3 text-lg lg:text-xl font-basement font-normal">
+            <div className="flex flex-col items-center justify-between mt-3 lg:mt-9">
+              <p className="mb-3 text-lg font-normal lg:text-xl font-basement">
                 pot size
               </p>
-              <p className="font-basement font-bold text-2xl lg:text-3xl">
+              <p className="text-2xl font-bold font-basement lg:text-3xl">
                 35,589usdt
               </p>
             </div>
@@ -35,13 +35,13 @@ export const CountDown = ({ onComplete }) => {
         </div>
       </div>
       {/* second grid */}
-      <div className="flex flex-col items-center text-white mt-6 lg:mt-0">
-        <div className="flex flex-col justify-end w-full">
-          <h2 className="text-white font-basement font-bold text-xl lg:text-2xl capitalize mb-5 lg:mb-7">
+      <div className="flex flex-col items-center mt-6 text-white lg:mt-0">
+        <div className="w-full">
+          <h2 className="mb-5 text-xl font-bold text-white capitalize font-basement lg:text-2xl lg:mb-7">
             Rules
           </h2>
-          <div className="flex flex-col lg:flex-row">
-            <div className="w-full lg:w-1/2 mb-4 lg:mb-0">
+          <div className="flex flex-col w-full lg:flex-row">
+            <div className="w-full mb-4 lg:w-1/2 lg:mb-0">
               <SessionTitleCard
                 title="Speed Matters"
                 speed="17:02"
@@ -53,11 +53,11 @@ export const CountDown = ({ onComplete }) => {
             <div className="flex-1"></div>
           </div>
         </div>
-        <div className="w-full flex flex-col mt-4 lg:mt-9">
-          <p className="mb-5 text-white font-semibold text-xl lg:text-2xl font-basement lg:flex lg:items-end">
+        <div className="w-full mt-4 lg:mt-9">
+          <p className="mb-5 text-xl font-semibold text-white lg:text-2xl font-basement lg:flex lg:items-end">
             You can only use 1 of these in session
           </p>
-          <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex flex-col w-full gap-4 lg:flex-row">
             <div className="flex-1 mb-4 lg:mb-0">
               <SessionTitleCard
                 title="50/50"

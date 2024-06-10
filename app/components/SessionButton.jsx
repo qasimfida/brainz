@@ -25,7 +25,7 @@ export const SessionButton = ({
         </h1>
       </div>
       <div
-        className={`py-1.5 mt-[6px] flex items-center justify-center gap-4 rounded-full ${badgeBg} max-w-[100px]`}
+        className={`py-1.5 mt-[6px] flex items-center justify-center gap-4 rounded-full ${badgeBg} max-w-[80px] md:max-w-[100px]`}
       >
         <h1 className={`font-basement font-normal ${countSize} text-white`}>
           {count}

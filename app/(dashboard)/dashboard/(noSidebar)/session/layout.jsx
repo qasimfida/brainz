@@ -22,7 +22,7 @@ export default function RootLayout({ children }) {
         <main>
           <NotificationContext>
             <div>
-              <SessionHeader />
+              {/* <SessionHeader /> */}
               {children}
             </div>
           </NotificationContext>

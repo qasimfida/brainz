@@ -31,6 +31,7 @@ module.exports = {
       },
       secondary: {
         DEFAULT: "#FFE61A",
+        100: "#E9AB0D",
       },
       white: {
         DEFAULT: "#FFFFFF",
@@ -93,6 +94,8 @@ module.exports = {
         "rgba(161, 65, 112, 1) 11px 6px, rgba(79, 39, 58, 1) 19px 11px",
       cryptoCardThree:
         "rgba(78, 61, 113, 1) 11px 6px, rgba(54, 42, 79, 1) 19px 11px",
+      progressBar:
+        "rgba(233, 171, 13, 0.2) 0px 0 6px, rgba(233, 171, 13, 0.2) 0 0 6px",
     },
     extend: {
       spacing: {

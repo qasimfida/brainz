@@ -33,12 +33,14 @@ const WalletTabs = () => {
   return (
     <Tab.Group>
       <Tab.List
-        className={"px-3 md:px-0 flex flex-row gap-4 md:gap-6 lg:gap-8"}
+        className={
+          "justify-center md:justify-start px-3 md:px-0 flex flex-row gap-4 md:gap-6 lg:gap-8"
+        }
       >
-        <Tab className="outline-none">
+        <Tab className="w-full outline-none max-w-40 md:max-w-fit">
           {({ selected }) => (
             <div
-              className={`transition  duration-200 ease-in-out border border-[#132836]  py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3  ${
+              className={`transition duration-200 ease-in-out border border-[#132836] text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3  ${
                 selected
                   ? "text-secondary border-[#132836]"
                   : "text-white hover:border-white"
@@ -49,10 +51,10 @@ const WalletTabs = () => {
           )}
         </Tab>
 
-        <Tab className={"outline-none md:ml-0"}>
+        <Tab className={"outline-none md:ml-0 w-full max-w-40 md:max-w-fit"}>
           {({ selected }) => (
             <div
-              className={`transition  duration-200 ease-in-out border border-[#132836] px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3   ${
+              className={`w-full justify-center transition duration-200 ease-in-out border border-[#132836] text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3   ${
                 selected
                   ? "text-secondary border-[#132836]"
                   : "text-white hover:border-white"
@@ -65,13 +67,17 @@ const WalletTabs = () => {
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel className={"bg-primary-350  rounded-[10px] pb-6"}>
-          <div className="pt-6 pl-6 pr-6 mt-6 md:pl-8 md:pr-16">
+          <div className="pt-6 pl-0 pr-0 mt-6 md:pl-8 md:pr-16">
             <Tab.Group>
-              <Tab.List className={"flex flex-wrap gap-4 md:gap-7"}>
-                <Tab className={"outline-none"}>
+              <Tab.List
+                className={
+                  "flex flex-wrap justify-center md:justify-start gap-2 md:gap-7"
+                }
+              >
+                <Tab className={"outline-none w-full max-w-28 md:max-w-fit"}>
                   {({ selected }) => (
                     <div
-                      className={`px-6 md:px-8 transition  duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 ${
+                      className={`w-full px-0 justify-center md:px-8 transition  duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
@@ -84,10 +90,10 @@ const WalletTabs = () => {
                     </div>
                   )}
                 </Tab>
-                <Tab className={"outline-none"}>
+                <Tab className={"outline-none w-full max-w-28 md:max-w-fit"}>
                   {({ selected }) => (
                     <div
-                      className={`transition px-6 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
+                      className={`w-full justify-center transition px-0 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
@@ -104,10 +110,10 @@ const WalletTabs = () => {
                     </div>
                   )}
                 </Tab>
-                <Tab className={"outline-none"}>
+                <Tab className={"outline-none w-full max-w-28 md:max-w-fit"}>
                   {({ selected }) => (
                     <div
-                      className={`transition px-6 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
+                      className={`w-full justify-center transition px-0 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
@@ -126,8 +132,8 @@ const WalletTabs = () => {
                 </Tab>
               </Tab.List>
               <Tab.Panels>
-                <Tab.Panel>
-                  <div className="mb-8 mt-14">
+                <Tab.Panel className={"px-4 md:px-0"}>
+                  <div className="mt-8 mb-8 md:mt-14">
                     <h1 className="text-xl font-bold text-white font-basement">
                       Transactions
                     </h1>
@@ -137,8 +143,12 @@ const WalletTabs = () => {
                   </div>
                   <TransactionsTable />
                 </Tab.Panel>
-                <Tab.Panel>Content 2</Tab.Panel>
-                <Tab.Panel>Content 3</Tab.Panel>
+                <Tab.Panel className={"text-white px-4 md:px-0 mt-8 md:mt-14"}>
+                  Content 2
+                </Tab.Panel>
+                <Tab.Panel className={"text-white px-4 md:px-0 mt-8 md:mt-14"}>
+                  Content 3
+                </Tab.Panel>
               </Tab.Panels>
             </Tab.Group>
           </div>
@@ -147,11 +157,17 @@ const WalletTabs = () => {
         <Tab.Panel className={"bg-primary-350  rounded-[10px] pb-6"}>
           <div className="pt-6 pl-6 pr-6 mt-6 md:pl-8 md:pr-16">
             <Tab.Group>
-              <Tab.List className={"flex gap-4 md:gap-7 flex-row"}>
-                <Tab className={"outline-none peer"}>
+              <Tab.List
+                className={
+                  "flex justify-center md:justify-start gap-2 md:gap-7 flex-row"
+                }
+              >
+                <Tab
+                  className={"outline-none peer w-full max-w-28 md:max-w-fit"}
+                >
                   {({ selected }) => (
                     <div
-                      className={`transition  duration-200 ease-in-out border border-primary-350 px-6 md:px-14 py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
+                      className={`w-full justify-center md:justify-start transition  duration-200 ease-in-out border border-primary-350 px-0 md:px-14 py-2.5 md:py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
                        ${
                          selected
                            ? "bg-secondary/10 text-secondary "
@@ -162,10 +178,12 @@ const WalletTabs = () => {
                     </div>
                   )}
                 </Tab>
-                <Tab className={"outline-none peer"}>
+                <Tab
+                  className={"outline-none peer w-full max-w-28 md:max-w-fit"}
+                >
                   {({ selected }) => (
                     <div
-                      className={`transition  duration-200 ease-in-out border border-primary-350 px-6 md:px-11 py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
+                      className={`w-full justify-center md:justify-start transition  duration-200 ease-in-out border border-primary-350 px-0 md:px-11 py-2.5 md:py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
                        ${
                          selected
                            ? "bg-secondary/10 text-secondary "
@@ -179,12 +197,12 @@ const WalletTabs = () => {
               </Tab.List>
               <Tab.Panels>
                 <Tab.Panel>
-                  <div className="mb-8 mt-14">
-                    <h1 className="text-lg lg:text-xl font-bold text-white font-basement">
+                  <div className="mt-8 mb-8 md:mt-14">
+                    <h1 className="text-lg font-bold text-white lg:text-xl font-basement">
                       Deposit USDT
                     </h1>
                   </div>
-                  <div className="mt-8 lg:mt-0 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 ">
+                  <div className="grid grid-cols-1 gap-12 mt-8 lg:mt-0 lg:grid-cols-2 lg:gap-20 ">
                     <div>
                       <div className="relative w-full h-[270px] lg:h-[420px]">
                         <Image
@@ -201,7 +219,7 @@ const WalletTabs = () => {
                       </h1>
                     </div>
                     <div>
-                      <h1 className="text-lg lg:text-xl font-bold text-white font-basement ">
+                      <h1 className="text-lg font-bold text-white lg:text-xl font-basement ">
                         Deposit USDT
                       </h1>
                       <p className="lg:text-base text-grey-600 font-inter font-normal lg:text-lg mt-4 max-w-[500px] ">
@@ -221,7 +239,7 @@ const WalletTabs = () => {
                         </div>
                       </div>
                       <div className="mt-8 max-w-[420px]">
-                        <label className="text-sm lg:text-lg font-medium font-inter text-grey-550 ">
+                        <label className="text-sm font-medium lg:text-lg font-inter text-grey-550 ">
                           Your Personal USDT Deposit Address
                         </label>
                         <input
@@ -234,7 +252,7 @@ const WalletTabs = () => {
                           Copy Address
                         </Button>
                       </div>
-                      <p className="mt-8 text-base lg:text-lg font-normal text-grey-600 font-inter">
+                      <p className="mt-8 text-base font-normal lg:text-lg text-grey-600 font-inter">
                         Send the amount of USDT of your choice to the following
                         Address to receive the equivalent in the account.
                       </p>
@@ -242,8 +260,8 @@ const WalletTabs = () => {
                   </div>
                 </Tab.Panel>
                 <Tab.Panel>
-                  <div className="mt-14">
-                    <h1 className="text-base font-bold text-white font-basement lg:text-xl">
+                  <div className="mt-8 md:mt-14">
+                    <h1 className="text-lg font-bold text-white font-basement lg:text-xl">
                       Withdraw Balance
                     </h1>
                     <p className="text-grey-600 font-inter font-normal text-base lg:text-lg mt-4 max-w-[712px] ">
@@ -264,7 +282,7 @@ const WalletTabs = () => {
                       </div>
                     </div>
                     <div className="mt-8 max-w-[712px]">
-                      <label className="text-base lg:text-xl font-bold text-white font-basement ">
+                      <label className="text-base font-bold text-white lg:text-xl font-basement ">
                         Receiving USDT Address
                       </label>
                       <input
@@ -274,7 +292,7 @@ const WalletTabs = () => {
                       />
                     </div>
                     <div className="mt-7">
-                      <h1 className="text-base lg:text-xl font-bold text-white font-basement ">
+                      <h1 className="text-base font-bold text-white lg:text-xl font-basement ">
                         Withdrawal Amount
                       </h1>
                       <div className=" mt-2.5">

@@ -1,11 +1,11 @@
 import Image from "next/image";
 import React from "react";
-import profileImage from "@/public/images/avatar.jpeg";
 
-export const MobilePointsCard = () => {
+export const MobilePointsCard = ({ data }) => {
+  const { profileImage, rank, points, username } = data;
   return (
-    <div className="w-full flex gap-[14px] items-center bg-gradient-to-r from-white/20 to-[#C6C6C6]/10 rounded-[4px] px-[10px] py-[6px]">
-      <div className="relative w-[24px] h-[24px] rounded-full border border-secondary">
+    <div className="w-full flex gap-3 items-center bg-gradient-to-r from-white/20 to-[#C6C6C6]/10 rounded-[4px] px-2.5 py-1.5">
+      <div className="relative border rounded-full min-w-6 min-h-6 border-secondary">
         <Image
           src={profileImage}
           alt="profile"
@@ -16,8 +16,11 @@ export const MobilePointsCard = () => {
         />
       </div>
       <div>
-        <h1 className="text-secondary font-basement font-bold">R1 : 5 pts</h1>
-        <h1 className="text-white font-basement font-normal">User9850</h1>
+        <h1 className="flex gap-3 font-bold text-secondary font-basement">
+          <span> R{rank}:</span>
+          {points}
+        </h1>
+        <h1 className="font-normal text-white font-basement">{username}</h1>
       </div>
     </div>
   );
