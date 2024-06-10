@@ -13,9 +13,9 @@ import { ParticipationsRankTable } from "./ParticipationsRankTable";
 import { GameCarousel } from "./GameCarousel";
 
 const alphabets = ["A", "B", "C", "D"];
-const loading_time = 10 * 1000;
-const next_question_time = 8 * 1000;
-const skeleton_start_time = 3 * 1000;
+const loading_time = 5 * 1000;
+// const next_question_time = 8 * 1000;
+// const skeleton_start_time = 3 * 1000;
 
 export const SelectAnswer = ({
   setSelectedOption,
