@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import Header from "@/app/components/Header";
 import { SessionHeader } from "@/app/components/SessionHeader";
 import { NotificationContext } from "@/app/contexts/notification";
+import { SkeletonTheme } from "react-loading-skeleton";
 
 const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -21,10 +22,12 @@ export default function RootLayout({ children }) {
       <body>
         <main>
           <NotificationContext>
-            <div>
-              {/* <SessionHeader /> */}
-              {children}
-            </div>
+            <SkeletonTheme baseColor="#5a646b" highlightColor="#858f96">
+              <div>
+                {/* <SessionHeader /> */}
+                {children}
+              </div>
+            </SkeletonTheme>
           </NotificationContext>
         </main>
       </body>

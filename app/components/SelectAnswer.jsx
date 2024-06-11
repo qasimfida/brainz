@@ -11,11 +11,11 @@ import { ProgressBar } from "./Progressbar";
 import { MobilePointsCard } from "./MobilePointsCard";
 import { ParticipationsRankTable } from "./ParticipationsRankTable";
 import { GameCarousel } from "./GameCarousel";
+import "react-loading-skeleton/dist/skeleton.css";
+import Skeleton from "react-loading-skeleton";
 
 const alphabets = ["A", "B", "C", "D"];
-const loading_time = 5 * 1000;
-// const next_question_time = 8 * 1000;
-// const skeleton_start_time = 3 * 1000;
+const loading_time = 8;
 
 export const SelectAnswer = ({
   setSelectedOption,
@@ -25,8 +25,6 @@ export const SelectAnswer = ({
   handleQuestionChange,
   progress,
 }) => {
-  // console.log("###:", questions.choices);
-  // const question = questions[step] || { choices: [] };
   const question = useMemo(
     () => questions[step] || { choices: [] },
     [questions, step]
@@ -34,6 +32,10 @@ export const SelectAnswer = ({
 
   const [table, setTable] = useState(usersRankData);
   const [timeRemaining, setTimeRemaining] = useState(-1);
+  const [loading, setLoading] = useState(false);
+  const [loadingTime, setLoadingTime] = useState(loading_time);
+  const [nextState, setNextState] = useState(false);
+
   useEffect(() => {
     if (question.time && !question.answer) {
       setTimeRemaining(question.time);
@@ -59,7 +61,7 @@ export const SelectAnswer = ({
       if (currentIndex > targetIndex) {
         setTimeout(() => {
           moveUser(currentIndex - 1, targetIndex, newTable);
-        }, 300);
+        }, 100);
       }
     }
   };
@@ -71,18 +73,38 @@ export const SelectAnswer = ({
       } else {
         const userIndex = table.findIndex((user) => user.id === 11);
         moveUser(userIndex, 3, table);
+        setNextState(true);
+        // setTimeout(() => {
+        //   if (question.id >= questions.length) {
+        //     handleStageChange();
+        //   } else {
+        //     handleQuestionChange();
+        //   }
+        // }, loading_time * 1000);
+      }
+    }, 1000);
 
-        setTimeout(() => {
+    return () => clearTimeout(timer);
+  }, [timeRemaining, handleQuestionChange, handleStageChange, moveUser]);
+
+  useEffect(() => {
+    if (timeRemaining === 0 && nextState) {
+      const timer = setTimeout(() => {
+        if (loadingTime === 0 || (loadingTime === 3 && question.stop)) {
           if (question.id >= questions.length) {
             handleStageChange();
           } else {
             handleQuestionChange();
           }
-        }, loading_time);
-      }
-    }, 1000);
+          setNextState(false);
+          setLoadingTime(loading_time);
+        } else {
+          setLoadingTime((prevTime) => prevTime - 1);
+        }
+      }, 1000);
 
-    return () => clearTimeout(timer);
+      return () => clearTimeout(timer);
+    }
   }, [timeRemaining, handleQuestionChange, handleStageChange, moveUser]);
 
   const getOptionVariant = (answer, wrong) => {
@@ -96,10 +118,8 @@ export const SelectAnswer = ({
     }
   };
 
-  // console.table({ table });
-
   return (
-    <>
+    <div className="pb-4">
       <div className="block mb-8 md:hidden bg-primary-350">
         <div className="px-5 pt-7 pb-3.5">
           <div className="flex items-center justify-between w-full gap-4 mb-5 text-4xl rounded-lg ">
@@ -107,7 +127,7 @@ export const SelectAnswer = ({
               Title of the Session
             </h1>
             <h1 className="text-2xl font-bold text-white font-basement">
-              {timeRemaining} s
+              {timeRemaining - 1} s
             </h1>
           </div>
           <GameCarousel autoplay={false}>
@@ -173,24 +193,44 @@ export const SelectAnswer = ({
             </p>
           </div>
           <div className="pb-5 md:pb-0 flex flex-col mt-6 lg:mt-11 gap-4 max-w-[784px]">
-            {question.choices.map((choice, index) => {
-              // console.log("choice:", choice);
-              return (
-                <OptionSelect
-                  key={index}
-                  alphabet={alphabets[index]}
-                  description={choice}
-                  isActive={question.answer === choice}
-                  variant={getOptionVariant(
-                    question.correctAnswer === choice,
-                    question.answer === choice &&
-                      question.answer !== question.correctAnswer
-                  )}
-                  answer={timeRemaining === 0 && true}
-                  onClick={() => onAnswerSelect(choice)}
-                />
-              );
-            })}
+            {loadingTime < 4 && !question.stop ? (
+              <>
+                <div className="hidden md:block">
+                  <Skeleton
+                    count={4}
+                    height={64}
+                    borderRadius={"1rem"}
+                    style={{ marginBottom: "1rem" }}
+                  />
+                </div>
+                <div className="md:hidden">
+                  <Skeleton
+                    count={4}
+                    height={48}
+                    borderRadius={"1rem"}
+                    style={{ marginBottom: "1rem" }}
+                  />
+                </div>
+              </>
+            ) : (
+              question.choices.map((choice, index) => {
+                return (
+                  <OptionSelect
+                    key={index}
+                    alphabet={alphabets[index]}
+                    description={choice}
+                    isActive={question.answer === choice}
+                    variant={getOptionVariant(
+                      question.correctAnswer === choice,
+                      question.answer === choice &&
+                        question.answer !== question.correctAnswer
+                    )}
+                    answer={timeRemaining === 0 && true}
+                    onClick={() => onAnswerSelect(choice)}
+                  />
+                );
+              })
+            )}
             {/* <OptionSelect
               alphabet="B"
               description="This is the danger variant with answer false."
@@ -215,10 +255,19 @@ export const SelectAnswer = ({
         <div className="hidden md:block w-full lg:w-[344px] space-y-6 block ">
           <div className="flex flex-col w-full text-4xl bg-gradient-to-r from-[#2e414e] to-[#132836] rounded-lg py-4 px-6">
             <p className="text-lg font-normal font-basement text-secondary">
-              Time remaining
+              {question.stop && timeRemaining === 0
+                ? "Complete"
+                : timeRemaining === 0
+                ? "Next question on"
+                : "Time remaining"}
             </p>
             <h1 className="text-3xl font-bold text-white font-basement">
-              {timeRemaining} seconds
+              {question.stop && timeRemaining === 0
+                ? "Complete"
+                : timeRemaining === 0
+                ? loadingTime
+                : timeRemaining - 1}{" "}
+              {question.stop && timeRemaining === 0 ? "" : "seconds"}
             </h1>
           </div>
           <div className="px-3 pt-5 bg-gradient-to-b from-[#061F30] to-[#061F30] rounded-lg">
@@ -251,6 +300,6 @@ export const SelectAnswer = ({
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };

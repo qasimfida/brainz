@@ -1,3 +1,4 @@
+import { SkeletonTheme } from "react-loading-skeleton";
 import { NotificationContext } from "../contexts/notification";
 import "../globals.css";
 import { Inter } from "next/font/google";
@@ -16,7 +17,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.className}>
       <body>
-        <NotificationContext>{children}</NotificationContext>
+        <NotificationContext>
+          <SkeletonTheme baseColor="#5a646b" highlightColor="#858f96">
+            {children}
+          </SkeletonTheme>
+        </NotificationContext>
       </body>
     </html>
   );
