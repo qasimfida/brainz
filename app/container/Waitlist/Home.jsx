@@ -105,7 +105,7 @@ export const Waitlist = () => {
                 straight into your wallet
               </li>
             </ul>
-            <div className="flex gap-10 lg:justify-between mt-16 lg:mt-20 max-sm:flex-col">
+            <div className="flex gap-10  mt-16 lg:mt-20 flex-col">
               <div>
                 <p className=" text-base font-normal max-lg:text-center">
                   First Game Pot Size
@@ -114,17 +114,7 @@ export const Waitlist = () => {
                   2,500 USDT
                 </h1>
               </div>
-              <Button
-                variant={"outlined"}
-                size="text-2xl"
-                className={"!block klaviyo_form_trigger"}
-                onClick={() => {
-                  	window._klOnsite = window._klOnsite || [];
-                    window._klOnsite.push(["openForm", "S9y8UP"]);
-                }}
-              >
-                Join The Waitlist
-              </Button>
+              <div className="klaviyo-form-S9y8UP"></div>
             </div>
           </div>
           <div className="w-full lg:w-1/2 h-max flex items-center justify-center lg:justify-end ">
