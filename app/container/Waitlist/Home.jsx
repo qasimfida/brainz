@@ -114,7 +114,15 @@ export const Waitlist = () => {
                   2,500 USDT
                 </h1>
               </div>
-              <Button variant={"outlined"} size="text-2xl" className={"!block"}>
+              <Button
+                variant={"outlined"}
+                size="text-2xl"
+                className={"!block klaviyo_form_trigger"}
+                onClick={() => {
+                  	window._klOnsite = window._klOnsite || [];
+                    window._klOnsite.push(["openForm", "S9y8UP"]);
+                }}
+              >
                 Join The Waitlist
               </Button>
             </div>
