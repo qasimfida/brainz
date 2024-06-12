@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-function WaveAnimation() {
+function WaveAnimation({ height = 320 }) {
   const mountRef = useRef(null);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ function WaveAnimation() {
       const scene = new THREE.Scene();
       const camera = new THREE.PerspectiveCamera(
         -20,
-        window.innerWidth / 320,
+        window.innerWidth / height,
         1,
         10000
       );
@@ -24,7 +24,7 @@ function WaveAnimation() {
 
       const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setSize(window.innerWidth, 320);
+      renderer.setSize(window.innerWidth, height);
       renderer.setClearColor(new THREE.Color(0x011828)); // Adjust the background color
       mountRef.current.appendChild(renderer.domElement);
 
@@ -79,13 +79,13 @@ function WaveAnimation() {
     attribute float glowIntensity;
     varying float vGlow;
     varying float vGlowIntensity;
-    
+
     void main() {
         vGlow = glow;
         vGlowIntensity = glowIntensity;
-    
+
         vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
-        
+
         // Adjust dot size here (e.g., scale * 0.5 for smaller dots)
         gl_PointSize = scale * (140.0 / -mvPosition.z); // Adjust dot size
         gl_Position = projectionMatrix * mvPosition;
@@ -155,10 +155,10 @@ function WaveAnimation() {
 
       // Resize listener
       function handleResize() {
-        const aspect = window.innerWidth / 320;
+        const aspect = window.innerWidth / height;
         camera.aspect = aspect;
         camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, 320);
+        renderer.setSize(window.innerWidth, height);
       }
       window.addEventListener("resize", handleResize);
 
@@ -175,7 +175,7 @@ function WaveAnimation() {
     <div
       className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-700"
       ref={mountRef}
-      style={{ width: "100%", maxHeight: "320px" }}
+      style={{ width: "100%", maxHeight: `${height}` }}
     />
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import Home from "../container/Home";
+import Home from "@/app/container/Home";
 
 export default function Page() {
   return <Home />;

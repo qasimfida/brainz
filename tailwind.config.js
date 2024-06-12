@@ -96,6 +96,7 @@ module.exports = {
         "rgba(78, 61, 113, 1) 11px 6px, rgba(54, 42, 79, 1) 19px 11px",
       progressBar:
         "rgba(233, 171, 13, 0.2) 0px 0 6px, rgba(233, 171, 13, 0.2) 0 0 6px",
+      glow: " 0px 4px 50px 3px rgba(255, 255, 255, 0.25);",
     },
     extend: {
       spacing: {
