@@ -7,10 +7,11 @@ export const OptionSelect = ({
   answer = false,
   isActive = false,
   isSelected = false,
+  optionSelected,
   ...rest
 }) => {
   let backgroundColor, borderColor, hoverStyles;
-  // console.log("answerSelected:", answerSelected);
+  console.log("optionSelected:", optionSelected);
   switch (variant) {
     case "success":
       backgroundColor = answer ? "bg-[#207E35]" : "bg-[#8D4343]";
@@ -23,14 +24,13 @@ export const OptionSelect = ({
     default:
       backgroundColor = isActive ? "bg-secondary" : "bg-primary-350";
       borderColor = "border-primary-375";
-      hoverStyles = isSelected
+      hoverStyles = optionSelected
         ? ""
         : "hover:bg-[#0A3049] hover:border-[#C2CBD1]";
       break;
   }
   // ${isActive ? "" : "hover:bg-[#0A3049]"}
   // hover:border-[#C2CBD1]
-  console.log("isActive:", isActive);
   return (
     <div
       {...rest}

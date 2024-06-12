@@ -35,6 +35,7 @@ export const SelectAnswer = ({
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState(loading_time);
   const [nextState, setNextState] = useState(false);
+  const [optionSelectedState, setOptionSelectedState] = useState(false);
 
   useEffect(() => {
     if (question.time && !question.answer) {
@@ -91,6 +92,7 @@ export const SelectAnswer = ({
     if (timeRemaining === 0 && nextState) {
       const timer = setTimeout(() => {
         if (loadingTime === 0 || (loadingTime === 3 && question.stop)) {
+          setOptionSelectedState(false);
           if (question.id >= questions.length) {
             handleStageChange();
           } else {
@@ -115,6 +117,7 @@ export const SelectAnswer = ({
   const onAnswerSelect = (answer) => {
     if (!question.answer) {
       setSelectedOption(answer);
+      setOptionSelectedState(true);
     }
   };
 
@@ -246,6 +249,7 @@ export const SelectAnswer = ({
                       question.answer === choice &&
                         question.answer !== question.correctAnswer
                     )}
+                    optionSelected={optionSelectedState}
                     answer={timeRemaining === 0 && true}
                     onClick={() => onAnswerSelect(choice)}
                   />
