@@ -102,7 +102,7 @@ export const Session = () => {
   }, [showModal, stage]);
 
   const handleAnswerSelect = (answer) => {
-    alert(step);
+    // alert(step);
     setQuestions((prev) => {
       const updatedQuestions = prev.map((question, index) => {
         if (index === step) {
@@ -124,7 +124,25 @@ export const Session = () => {
   const progess = ((step + 1) / questions.length) * 100 - 1;
   return (
     <div className="relative">
-      {stage === "countdown" && (
+      <>
+        <div className="hidden md:block">
+          <SessionHeader />
+        </div>
+        <div className="hidden md:block fixed w-full top-[76px] left-0 w-full h-2 z-30 transition ease-in">
+          <ProgressBar progress={progess} step={step + 1} />
+        </div>
+        <div className="mt-0 md:mt-8 lg:mt-10">
+          <SelectAnswer
+            setSelectedOption={handleAnswerSelect}
+            handleQuestionChange={handleQuestionChange}
+            questions={questions}
+            step={step}
+            progress={progess}
+            handleStageChange={handleStageChange}
+          />
+        </div>
+      </>
+      {/* {stage === "countdown" && (
         <>
           <SessionHeader />
           <div className="px-6 pt-8 pb-3 lg:pt-10 lg:pb-7 lg:px-7">
@@ -166,7 +184,7 @@ export const Session = () => {
           setShowModal={setShowModal}
           onContinue={handleContinue}
         />
-      )}
+      )} */}
     </div>
   );
 };

@@ -98,6 +98,9 @@ module.exports = {
         "rgba(233, 171, 13, 0.2) 0px 0 6px, rgba(233, 171, 13, 0.2) 0 0 6px",
     },
     extend: {
+      animation: {
+        pulse: "pulse 1s ease-in-out infinite",
+      },
       spacing: {
         128: "32rem",
         144: "36rem",

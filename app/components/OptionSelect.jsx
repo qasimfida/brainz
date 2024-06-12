@@ -6,10 +6,11 @@ export const OptionSelect = ({
   variant = "default",
   answer = false,
   isActive = false,
+  isSelected = false,
   ...rest
 }) => {
-  let backgroundColor, borderColor;
-  // console.log("alphabet:", alphabet);
+  let backgroundColor, borderColor, hoverStyles;
+  // console.log("answerSelected:", answerSelected);
   switch (variant) {
     case "success":
       backgroundColor = answer ? "bg-[#207E35]" : "bg-[#8D4343]";
@@ -22,15 +23,18 @@ export const OptionSelect = ({
     default:
       backgroundColor = isActive ? "bg-secondary" : "bg-primary-350";
       borderColor = "border-primary-375";
+      hoverStyles = isSelected
+        ? ""
+        : "hover:bg-[#0A3049] hover:border-[#C2CBD1]";
       break;
   }
-
+  // ${isActive ? "" : "hover:bg-[#0A3049]"}
+  // hover:border-[#C2CBD1]
+  console.log("isActive:", isActive);
   return (
     <div
       {...rest}
-      className={`flex items-center gap-3 lg:gap-5 ${backgroundColor} ${borderColor} ${
-        isActive ? "" : "hover:bg-[#0A3049]"
-      }  hover:border-[#C2CBD1] w-full rounded-[20px] border border-1 py-2 px-4 lg:px-5`}
+      className={`flex items-center gap-3 lg:gap-5 ${backgroundColor} ${borderColor} ${hoverStyles} w-full rounded-[20px] border border-1 py-2 px-4 lg:px-5`}
     >
       <div className="py-1.5 py-1.5 lg:py-2.5 px-3 lg:px-5 flex items-center justify-center bg-primary text-white rounded-[8px] border border-primary-375">
         <h1 className="text-sm font-normal lg:text-lg font-basement">

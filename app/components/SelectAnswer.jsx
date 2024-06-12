@@ -126,8 +126,20 @@ export const SelectAnswer = ({
             <h1 className="text-xl font-bold text-white font-basement max-w-36">
               Title of the Session
             </h1>
-            <h1 className="text-2xl font-bold text-white font-basement">
-              {timeRemaining - 1} s
+            <h1
+              className={`text-2xl font-bold text-white font-basement  ${
+                (timeRemaining > 0 && timeRemaining < 5) ||
+                (loadingTime < 4 && !question.stop)
+                  ? "animate-pulse"
+                  : ""
+              }`}
+            >
+              {question.stop && timeRemaining === 0
+                ? "Complete"
+                : timeRemaining === 0
+                ? loadingTime
+                : timeRemaining - 1}{" "}
+              {question.stop && timeRemaining === 0 ? "" : "s"}
             </h1>
           </div>
           <GameCarousel autoplay={false}>
@@ -179,19 +191,28 @@ export const SelectAnswer = ({
               />
             </div>
           </div>
-          <div className="flex gap-4 text-white mt-7 md:mt-12 max-w-[830px] text-start">
-            <div className="flex items-center hidden gap-4 md:flex ">
-              <h1 className="text-lg font-bold lg:text-xl font-basement text-secondary">
-                {step + 1}
-              </h1>
-              <div className="hidden md:block">
-                <LongArrowRightIcon height="24" width="24" />
+          <div className="max-w-[830px] mt-7 md:mt-12">
+            {loadingTime < 4 && !question.stop ? (
+              <div>
+                <Skeleton count={1} height={64} borderRadius={"1rem"} />
               </div>
-            </div>
-            <p className="pl-2 text-lg font-semibold md:text-xl lg:text-2xl font-inter md:pl-0">
-              {question.question}
-            </p>
+            ) : (
+              <div className="flex gap-4 text-white text-start">
+                <div className="flex items-center hidden gap-4 md:flex ">
+                  <h1 className="text-lg font-bold lg:text-xl font-basement text-secondary">
+                    {step + 1}
+                  </h1>
+                  <div className="hidden md:block">
+                    <LongArrowRightIcon height="24" width="24" />
+                  </div>
+                </div>
+                <p className="pl-2 text-lg font-semibold md:text-xl lg:text-2xl font-inter md:pl-0">
+                  {question.question}
+                </p>
+              </div>
+            )}
           </div>
+
           <div className="pb-5 md:pb-0 flex flex-col mt-6 lg:mt-11 gap-4 max-w-[784px]">
             {loadingTime < 4 && !question.stop ? (
               <>
@@ -256,12 +277,19 @@ export const SelectAnswer = ({
           <div className="flex flex-col w-full text-4xl bg-gradient-to-r from-[#2e414e] to-[#132836] rounded-lg py-4 px-6">
             <p className="text-lg font-normal font-basement text-secondary">
               {question.stop && timeRemaining === 0
-                ? "Complete"
+                ? ""
                 : timeRemaining === 0
-                ? "Next question on"
+                ? "Next question in"
                 : "Time remaining"}
             </p>
-            <h1 className="text-3xl font-bold text-white font-basement">
+            <h1
+              className={`text-3xl font-bold text-white font-basement ${
+                (timeRemaining > 0 && timeRemaining < 5) ||
+                (loadingTime < 4 && !question.stop)
+                  ? "animate-pulse"
+                  : ""
+              }`}
+            >
               {question.stop && timeRemaining === 0
                 ? "Complete"
                 : timeRemaining === 0
