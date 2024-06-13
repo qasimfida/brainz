@@ -4,7 +4,7 @@ import { Button } from "./Button";
 
 const ConfirmationModal = ({
   showModal,
-  setConfirmationModal,
+  // setConfirmationModal,
   onConfirm,
   onCancel,
 }) => {
@@ -42,21 +42,25 @@ const ConfirmationModal = ({
                 <h2 className="mb-10 text-lg font-medium font-basement md:text-2xl">
                   Are you sure you want to start the game?
                 </h2>
-                <div className="flex items-center justify-center gap-6 mt-10 ">
-                  <Button
-                    variant={"outlined"}
-                    onClick={onCancel}
-                    className={"max-w-96 w-full px-0"}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    variant={"outlined"}
-                    onClick={onConfirm}
-                    className={"max-w-96 w-full px-0"}
-                  >
-                    Start{" "}
-                  </Button>
+                <div className="flex justify-center w-full gap-5 ">
+                  <div className="w-1/5 ">
+                    <Button
+                      variant={"outlined"}
+                      onClick={onCancel}
+                      className={"w-full"}
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                  <div className="w-1/5 ">
+                    <Button
+                      variant={"outlined"}
+                      onClick={onConfirm}
+                      className={"w-full"}
+                    >
+                      Start
+                    </Button>
+                  </div>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

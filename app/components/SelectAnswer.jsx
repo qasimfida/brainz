@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { OptionSelect } from "./OptionSelect";
 import { LongArrowRightIcon } from "./Svgs";
 import { SessionButton } from "./SessionButton";
+
 import {
   mobileScreenUsersRankData,
   usersRankData,
@@ -12,7 +13,10 @@ import { MobilePointsCard } from "./MobilePointsCard";
 import { ParticipationsRankTable } from "./ParticipationsRankTable";
 import { GameCarousel } from "./GameCarousel";
 import "react-loading-skeleton/dist/skeleton.css";
+
 import Skeleton from "react-loading-skeleton";
+import clickSound from "@/public/sounds/anwer-select-sound.wav";
+import alertSound from "@/public/sounds/new-question-alert-sound.wav";
 
 const alphabets = ["A", "B", "C", "D"];
 const loading_time = 8;
@@ -30,12 +34,14 @@ export const SelectAnswer = ({
     [questions, step]
   );
 
+  const [audio] = useState(new Audio(clickSound));
   const [table, setTable] = useState(usersRankData);
   const [timeRemaining, setTimeRemaining] = useState(-1);
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState(loading_time);
   const [nextState, setNextState] = useState(false);
   const [optionSelectedState, setOptionSelectedState] = useState(false);
+  const [alertAudio] = useState(new Audio(alertSound));
 
   useEffect(() => {
     if (question.time && !question.answer) {
@@ -114,12 +120,22 @@ export const SelectAnswer = ({
     return answer ? "success" : wrong ? "danger" : "default";
   };
 
+  const playClickSound = () => {
+    audio.currentTime = 0;
+    audio.play();
+  };
+
   const onAnswerSelect = (answer) => {
     if (!question.answer) {
+      playClickSound();
       setSelectedOption(answer);
       setOptionSelectedState(true);
     }
   };
+
+  // if (timeRemaining === 0) {
+  //   alertAudio.play();
+  // }
 
   return (
     <div className="pb-4">
