@@ -20,7 +20,7 @@ export const CountDown = ({ onComplete }) => {
                 onTimerEnd={handleTimerEnd}
                 hours={0}
                 minutes={0}
-                seconds={10}
+                seconds={15}
               />
             </div>
             <div className="flex flex-col items-center justify-between mt-3 lg:mt-9">

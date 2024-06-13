@@ -318,7 +318,7 @@ export const SelectAnswer = ({
                     userName={user.userName}
                     points={user.points}
                     profileImage={user.profileImage}
-                    showWinnerIcon={index < 3}
+                    // showwinnericon={index < 3}
                     ranked={user.ranked}
                     currentUserIndex={11}
                     animate={timeRemaining <= 0}

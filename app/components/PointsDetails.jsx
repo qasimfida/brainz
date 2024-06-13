@@ -7,7 +7,7 @@ export const PointsDetails = ({
   points = "5 pts",
   reward = "",
   profileImage,
-  showWinnerIcon = false,
+  showwinnericon = false,
   ranked = false,
   bgColorGrey,
   myRank,
@@ -28,13 +28,13 @@ export const PointsDetails = ({
   return (
     <div
       className={`w-full mb-[16px] flex justify-between px-3 items-center pb-[10px] border-b border-grey-475 ${ActiveRankStyles} ${bgGreyStyles} ${
-        !showWinnerIcon && "pl-[38px]"
+        !showwinnericon && "pl-[38px]"
       } `}
       {...rest}
     >
       <div className="flex items-center gap-[6px] mr-[26px]">
         {myRank && !participants && <WinnerDarkIcon />}
-        {showWinnerIcon && !myRank && (
+        {showwinnericon && !myRank && (
           <WinnerIcon className={"text-secondary"} />
         )}
         <h1 className={`font-basement font-bold text-base ${rankNumStyles}`}>

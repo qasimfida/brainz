@@ -4,7 +4,7 @@ import { ModalCrossIcon, WarningIcon } from "./Svgs";
 import { Button } from "./Button";
 import Link from "next/link";
 
-const BackModal = ({ showModal, setShowModal, onContinue }) => {
+const BackModal = ({ showModal, setShowModal, onCancel, onContinue }) => {
   if (!showModal) return null;
 
   return (
@@ -27,7 +27,7 @@ const BackModal = ({ showModal, setShowModal, onContinue }) => {
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
-          <div className="flex min-h-full items-center justify-center p-4 text-center">
+          <div className="flex items-center justify-center min-h-full p-4 text-center">
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
@@ -46,7 +46,7 @@ const BackModal = ({ showModal, setShowModal, onContinue }) => {
                     <WarningIcon />
                   </div>
                 </div>
-                <h2 className="mt-5 md:mt-10 font-basement text-lg md:text-2xl font-medium">
+                <h2 className="mt-5 text-lg font-medium md:mt-10 font-basement md:text-2xl">
                   If you leave the page you will lose your spot and your ticket
                   will not be refunded.
                 </h2>
@@ -55,7 +55,11 @@ const BackModal = ({ showModal, setShowModal, onContinue }) => {
                     Continue
                   </Button>
                   <Link href={"/dashboard"}>
-                    <Button variant={"outlinedWhite"} className={"w-[232px]"}>
+                    <Button
+                      variant={"outlinedWhite"}
+                      className={"w-[232px]"}
+                      onClick={onCancel}
+                    >
                       Leave Session
                     </Button>
                   </Link>

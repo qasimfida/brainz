@@ -1,15 +1,20 @@
 "use client";
 import BackModal from "@/app/components/BackModal";
+import ConfirmationModal from "@/app/components/ConfirmationModal";
 import { CountDown } from "@/app/components/CountDown";
 import { ProgressBar } from "@/app/components/Progressbar";
 import { SelectAnswer } from "@/app/components/SelectAnswer";
 import { SessionHeader } from "@/app/components/SessionHeader";
 import { SessionResult } from "@/app/components/SessionResult";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const Session = () => {
   const [stage, setStage] = useState("countdown");
   const [timer, setTimer] = useState(60);
+  const [showConfirmationModal, setShowConfirmationModal] = useState(true); // State to manage ConfirmationModal visibility
+  const [initialRender, setInitialRender] = useState(true); // To avoid showing modal on initial render
+  const router = useRouter(); // Hook for navigation
   const [showModal, setShowModal] = useState(false);
   const [questions, setQuestions] = useState([
     {
@@ -77,12 +82,21 @@ export const Session = () => {
     setShowModal(false);
   };
 
+  const handleConfirmStart = () => {
+    setShowConfirmationModal(false); // Hide the confirmation modal
+    setStage("countdown"); // Start the countdown stage
+  };
+
+  const handleCancelStart = () => {
+    router.push("/dashboard"); // Navigate to the dashboard
+  };
+
   useEffect(() => {
     if (stage === "countdown" || stage === "selectAnswer") {
       const handleBeforeUnload = (event) => {
-        event.preventDefault();
-        event.returnValue = "";
-        setShowModal(true);
+        // event.preventDefault();
+        // event.returnValue = "";
+        setShowModal(false);
       };
 
       const handleBackNavigation = (event) => {
@@ -90,19 +104,22 @@ export const Session = () => {
         setShowModal(true);
       };
 
-      window.addEventListener("beforeunload", handleBeforeUnload);
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener("popstate", handleBackNavigation);
+      if (!initialRender) {
+        window.addEventListener("beforeunload", handleBeforeUnload);
+        window.history.pushState(null, null, window.location.pathname);
+        window.addEventListener("popstate", handleBackNavigation);
+      }
+
+      setInitialRender(false);
 
       return () => {
         window.removeEventListener("beforeunload", handleBeforeUnload);
         window.removeEventListener("popstate", handleBackNavigation);
       };
     }
-  }, [showModal, stage]);
+  }, [initialRender, showModal, stage]);
 
   const handleAnswerSelect = (answer) => {
-    // alert(step);
     setQuestions((prev) => {
       const updatedQuestions = prev.map((question, index) => {
         if (index === step) {
@@ -117,32 +134,16 @@ export const Session = () => {
   const handleQuestionChange = () => {
     setStep(step + 1);
   };
+
   const handleStageChange = () => {
     setStage("sessionResult");
   };
 
-  const progess = ((step + 1) / questions.length) * 100 - 1;
+  const progress = ((step + 1) / questions.length) * 100 - 1;
+
   return (
     <div className="relative">
-      <>
-        <div className="hidden md:block">
-          <SessionHeader />
-        </div>
-        <div className="hidden md:block fixed w-full top-[76px] left-0 w-full h-2 z-30 transition ease-in">
-          <ProgressBar progress={progess} step={step + 1} />
-        </div>
-        <div className="mt-0 md:mt-8 lg:mt-10">
-          <SelectAnswer
-            setSelectedOption={handleAnswerSelect}
-            handleQuestionChange={handleQuestionChange}
-            questions={questions}
-            step={step}
-            progress={progess}
-            handleStageChange={handleStageChange}
-          />
-        </div>
-      </>
-      {/* {stage === "countdown" && (
+      {stage === "countdown" && !showConfirmationModal && (
         <>
           <SessionHeader />
           <div className="px-6 pt-8 pb-3 lg:pt-10 lg:pb-7 lg:px-7">
@@ -156,7 +157,7 @@ export const Session = () => {
             <SessionHeader />
           </div>
           <div className="hidden md:block fixed w-full top-[76px] left-0 w-full h-2 z-30 transition ease-in">
-            <ProgressBar progress={progess} step={step + 1} />
+            <ProgressBar progress={progress} step={step + 1} />
           </div>
           <div className="mt-0 md:mt-8 lg:mt-10">
             <SelectAnswer
@@ -164,7 +165,7 @@ export const Session = () => {
               handleQuestionChange={handleQuestionChange}
               questions={questions}
               step={step}
-              progress={progess}
+              progress={progress}
               handleStageChange={handleStageChange}
             />
           </div>
@@ -183,8 +184,15 @@ export const Session = () => {
           showModal={showModal}
           setShowModal={setShowModal}
           onContinue={handleContinue}
+          onCancel={handleCancelStart}
         />
-      )} */}
+      )}
+      <ConfirmationModal
+        showModal={showConfirmationModal}
+        onConfirm={handleConfirmStart}
+        onCancel={handleCancelStart}
+        setConfirmationModal={setShowConfirmationModal}
+      />
     </div>
   );
 };

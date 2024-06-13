@@ -38,16 +38,16 @@ export const SessionResult = () => {
         </div>
       </div>
       <div className="flex-col lg:flex-row flex flex-wrap gap-10 lg:gap-16 justify-center bg-gradient-to-r from-[#3a4d56]/80 to-[#152c3a]/90 rounded-[10px] mt-6 lg:mt-10 py-4 lg:py-11 px-4 lg:px-6">
-        <div className="flex-1 items-center flex">
-          <h1 className="w-full text-lg text-center lg:text-start  lg:text-3xl font-black text-white font-basement">
+        <div className="flex items-center flex-1">
+          <h1 className="w-full text-lg font-black text-center text-white lg:text-start lg:text-3xl font-basement">
             Next Session Starting in
           </h1>
         </div>
-        <div className="flex-1 items-center flex ">
+        <div className="flex items-center flex-1 ">
           <Counter hours={2} minutes={1} seconds={34} />
         </div>
-        <div className="flex-1 flex flex-wrap flex-row lg:flex-col items-center justify-center gap-4 lg:gap-8 ">
-          <div className="flex gap-4 justify-center flex-row lg:flex-col items-center">
+        <div className="flex flex-row flex-wrap items-center justify-center flex-1 gap-4 lg:flex-col lg:gap-8 ">
+          <div className="flex flex-row items-center justify-center gap-4 lg:flex-col">
             <Link href={"/dashboard/session"} className="flex justify-center">
               <Button
                 variant={"outlined"}
@@ -70,7 +70,7 @@ export const SessionResult = () => {
         </div>
       </div>
       <div className="mt-10">
-        <h2 className="text-2xl lg:text-4xl font-black text-white font-basement">
+        <h2 className="text-2xl font-black text-white lg:text-4xl font-basement">
           Participants (122)
         </h2>
         <div className="mt-5 lg:mt-9 h-[370px] cursor-grab active:cursor-grabbing	 scrollbar scrollbar-w-[5.6px] scrollbar-h-[5.6px] overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-thumb-[#104061]">
@@ -86,7 +86,7 @@ export const SessionResult = () => {
                   reward={rank.reward}
                   myRank={rank.myRank}
                   bgColorGrey
-                  showWinnerIcon
+                  showwinnericon
                 />
               ))}
             </div>
@@ -101,7 +101,7 @@ export const SessionResult = () => {
                   reward={rank.reward}
                   myRank={rank.myRank}
                   bgColorGrey
-                  showWinnerIcon
+                  showwinnericon
                 />
               ))}
             </div>

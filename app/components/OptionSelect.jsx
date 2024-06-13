@@ -11,7 +11,7 @@ export const OptionSelect = ({
   ...rest
 }) => {
   let backgroundColor, borderColor, hoverStyles;
-  console.log("optionSelected:", optionSelected);
+  // console.log("optionSelected:", optionSelected);
   switch (variant) {
     case "success":
       backgroundColor = answer ? "bg-[#207E35]" : "bg-[#8D4343]";
