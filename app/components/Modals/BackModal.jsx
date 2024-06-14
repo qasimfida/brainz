@@ -1,8 +1,8 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
-import { ModalCrossIcon, WarningIcon } from "./Svgs";
-import { Button } from "./Button";
 import Link from "next/link";
+import { ModalCrossIcon, WarningIcon } from "../Svgs";
+import { Button } from "../Button";
 
 const BackModal = ({ showModal, setShowModal, onCancel, onContinue }) => {
   if (!showModal) return null;

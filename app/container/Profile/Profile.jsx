@@ -1,6 +1,6 @@
 "use client";
 import Input from "@/app/components/Input";
-import TermsConditionsModal from "@/app/components/TermsConditionsModal";
+import TermsConditionsModal from "@/app/components/Modals/TermsConditionsModal";
 import WalletTabs from "@/app/components/WalletTabs";
 import Link from "next/link";
 import { useState } from "react";

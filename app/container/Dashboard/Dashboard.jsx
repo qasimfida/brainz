@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/app/components/Button";
 import CryptoCard from "@/app/components/CryptoCard";
 import SessionCard from "@/app/components/SessionCard";
@@ -6,10 +7,9 @@ import { TicketIcon } from "@/app/components/Svgs";
 import { cryptoCardData } from "./data";
 import { Tab } from "@headlessui/react";
 import Link from "next/link";
-import CountdownTimer from "@/app/components/CountDownTimer";
+import { DashboardTimer } from "@/app/components/Timers/DashboardTimer";
 
 export const Dashboard = () => {
-  // console.log({ open });
   return (
     <div className="text-white bg-primary">
       <div className="bg-primary-350  pb-5 w-full rounded-[10px] mt-3 hidden md:block">
@@ -19,7 +19,7 @@ export const Dashboard = () => {
           </h1>
           <h1 className="flex-1 pl-1 text-2xl font-bold font-basement">
             Starting in
-            <CountdownTimer initialMinutes={1} initialSeconds={35} />
+            <DashboardTimer initialMinutes={1} initialSeconds={35} />
           </h1>
         </div>
         <div className="flex flex-col hidden gap-16 mt-8 px-14 md:flex md:flex-row md:flex-wrap">
@@ -106,7 +106,7 @@ export const Dashboard = () => {
                 <div className="text-center">
                   <h1 className="pl-0 text-xl font-bold md:pl-8 font-basement">
                     Starting in
-                    <CountdownTimer initialMinutes={1} initialSeconds={35} />
+                    <DashboardTimer initialMinutes={1} initialSeconds={35} />
                   </h1>
                 </div>
                 <div className="flex-1">
@@ -144,9 +144,6 @@ export const Dashboard = () => {
             </Tab.Panel>
             <Tab.Panel>
               <div className="mt-10 w-full rounded-[10px] mb-5 pl-6 pr-10">
-                {/* <h1 className="text-xl font-bold text-center font-basement">
-                  Upcoming Games
-                </h1> */}
                 <div className="flex flex-col mt-4 gap-9 lg:flex-row">
                   {cryptoCardData.map((card, index) => (
                     <CryptoCard key={index} data={card} isFirst={index === 0} />

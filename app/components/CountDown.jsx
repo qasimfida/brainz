@@ -1,7 +1,7 @@
 import React from "react";
 import SessionTitleCard from "./SessionTitleCard";
 import { DiamondIcon } from "./Svgs";
-import { Counter } from "./Counter";
+import { SessionStartTimer } from "./Timers/SessionStartTimer";
 
 export const CountDown = ({ onComplete }) => {
   const handleTimerEnd = () => {
@@ -16,7 +16,7 @@ export const CountDown = ({ onComplete }) => {
               starting in
             </p>
             <div>
-              <Counter
+              <SessionStartTimer
                 onTimerEnd={handleTimerEnd}
                 hours={0}
                 minutes={0}

@@ -1,11 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
-import { ModalCrossIcon } from "./Svgs";
 import Link from "next/link";
 import Image from "next/image";
 import logo from "@/public/images/Brainz-logo.png";
-import { Button } from "./Button";
-import { CustomCheckbox } from "./Checkbox";
+import { CustomCheckbox } from "../Checkbox";
+import { Button } from "../Button";
+import { ModalCrossIcon } from "../Svgs";
 
 const ConditionsModal = ({
   isOpen,

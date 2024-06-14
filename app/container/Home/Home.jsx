@@ -8,11 +8,11 @@ import { WinBox } from "@/app/components/WinBox";
 import { winBoxData } from "./data";
 import { SlickCarousel } from "@/app/components/Carousel";
 import { TokkenCard } from "@/app/components/TokkenCard";
-import ConditionsModal from "@/app/components/ConditionsModal";
 import WaveAnimation from "@/app/components/Wave";
 import Footer from "@/app/components/Footer";
 import { useRouter } from "next/navigation";
 import { Notification } from "@/app/contexts/notification";
+import ConditionsModal from "@/app/components/Modals/ConditionsModal";
 
 export const Home = () => {
   const router = useRouter();
@@ -127,27 +127,27 @@ export const Home = () => {
       </div>
       {/* <div className="container px-4 mx-auto lg:px-0">
         <div className="grid xs:grid-cols-1 lg:grid-cols-3 gap-10 lg:gap-0 bg-primary-325 w-full rounded-[20px] py-6 px-4 lg:py-10 lg:px-24 justify-center items-center">
-          <div className="text-center lg:border-r lg:border-grey-450 lg:pr-8 max-w-full flex flex-col items-center">
-            <h1 className="text-center text-secondary font-basement font-bold text-2xl md:text-3xl lg:text-4xl">
+          <div className="flex flex-col items-center max-w-full text-center lg:border-r lg:border-grey-450 lg:pr-8">
+            <h1 className="text-2xl font-bold text-center text-secondary font-basement md:text-3xl lg:text-4xl">
               400k
             </h1>
-            <p className="mt-2 text-base lg:text-lg font-normal text-grey-100 font-basement">
+            <p className="mt-2 text-base font-normal lg:text-lg text-grey-100 font-basement">
               Loved Trusted users & communities.
             </p>
           </div>
-          <div className="text-center lg:border-r lg:border-grey-450 lg:px-8 max-w-full flex flex-col items-center">
-            <h1 className="text-center text-secondary font-basement font-bold text-2xl md:text-3xl lg:text-4xl">
+          <div className="flex flex-col items-center max-w-full text-center lg:border-r lg:border-grey-450 lg:px-8">
+            <h1 className="text-2xl font-bold text-center text-secondary font-basement md:text-3xl lg:text-4xl">
               500k
             </h1>
-            <p className="mt-2 text-base lg:text-lg font-normal text-white font-basement">
+            <p className="mt-2 text-base font-normal text-white lg:text-lg font-basement">
               Loved Trusted users & communities.
             </p>
           </div>
-          <div className="text-center lg:pl-8 max-w-full flex flex-col items-center">
-            <h1 className="text-center text-secondary font-basement font-bold text-2xl md:text-3xl lg:text-4xl">
+          <div className="flex flex-col items-center max-w-full text-center lg:pl-8">
+            <h1 className="text-2xl font-bold text-center text-secondary font-basement md:text-3xl lg:text-4xl">
               800k
             </h1>
-            <p className="mt-2 text-base lg:text-lg font-normal text-white font-basement">
+            <p className="mt-2 text-base font-normal text-white lg:text-lg font-basement">
               Loved Trusted users & communities.
             </p>
           </div>

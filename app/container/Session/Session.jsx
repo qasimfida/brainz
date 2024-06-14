@@ -1,13 +1,15 @@
 "use client";
-import BackModal from "@/app/components/BackModal";
-import ConfirmationModal from "@/app/components/ConfirmationModal";
 import { CountDown } from "@/app/components/CountDown";
 import { ProgressBar } from "@/app/components/Progressbar";
 import { SelectAnswer } from "@/app/components/SelectAnswer";
 import { SessionHeader } from "@/app/components/SessionHeader";
 import { SessionResult } from "@/app/components/SessionResult";
 import React, { useEffect, useState } from "react";
+import winnerSound from "@/public/sounds/winner-sound.mp3";
+import loserSound from "@/public/sounds/fail-sound.mp3";
 import { useRouter } from "next/navigation";
+import ConfirmationModal from "@/app/components/Modals/ConfirmationModal";
+import BackModal from "@/app/components/Modals/BackModal";
 
 export const Session = () => {
   const [stage, setStage] = useState("countdown");
@@ -15,6 +17,8 @@ export const Session = () => {
   const [showConfirmationModal, setShowConfirmationModal] = useState(true); // State to manage ConfirmationModal visibility
   const [initialRender, setInitialRender] = useState(true); // To avoid showing modal on initial render
   const router = useRouter(); // Hook for navigation
+  const [winnerAudio] = useState(new Audio(winnerSound));
+  const [loserAudio] = useState(new Audio(loserSound));
   const [showModal, setShowModal] = useState(false);
   const [questions, setQuestions] = useState([
     {
@@ -135,7 +139,14 @@ export const Session = () => {
     setStep(step + 1);
   };
 
-  const handleStageChange = () => {
+  const handleStageChange = (result) => {
+    if (result === "win") {
+      winnerAudio.currentTime = 0;
+      winnerAudio.play();
+    } else if (result === "lose") {
+      loserAudio.currentTime = 0;
+      loserAudio.play();
+    }
     setStage("sessionResult");
   };
 
@@ -166,7 +177,8 @@ export const Session = () => {
               questions={questions}
               step={step}
               progress={progress}
-              handleStageChange={handleStageChange}
+              // handleStageChange={handleStageChange}
+              handleStageChange={(result) => handleStageChange(result)}
             />
           </div>
         </>

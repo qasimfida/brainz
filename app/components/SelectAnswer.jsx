@@ -17,6 +17,9 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 import clickSound from "@/public/sounds/anwer-select-sound.wav";
 import alertSound from "@/public/sounds/new-question-alert-sound.wav";
+import w from "@/public/sounds/wrong.mp3";
+import r from "@/public/sounds/right.mp3";
+import tickSound from "@/public/sounds/countdown-sound.wav";
 
 const alphabets = ["A", "B", "C", "D"];
 const loading_time = 8;
@@ -35,13 +38,18 @@ export const SelectAnswer = ({
   );
 
   const [audio] = useState(new Audio(clickSound));
+  const [wrong] = useState(new Audio(w));
+  const [right] = useState(new Audio(r));
+  const [tickSoundeffect] = useState(new Audio(tickSound));
   const [table, setTable] = useState(usersRankData);
   const [timeRemaining, setTimeRemaining] = useState(-1);
   const [loading, setLoading] = useState(false);
   const [loadingTime, setLoadingTime] = useState(loading_time);
   const [nextState, setNextState] = useState(false);
   const [optionSelectedState, setOptionSelectedState] = useState(false);
-  const [alertAudio] = useState(new Audio(alertSound));
+  // const [alertAudio] = useState(new Audio(alertSound));
+  const [wrongSoundPlayed, setWrongSoundPlayed] = useState(false);
+  const [tickingAudio, setTickingAudio] = useState(false);
 
   useEffect(() => {
     if (question.time && !question.answer) {
@@ -72,6 +80,29 @@ export const SelectAnswer = ({
       }
     }
   };
+  const playWrong = () => {
+    if (!wrongSoundPlayed) {
+      if (question.answer === question.correctAnswer) {
+        right.currentTime = 0;
+        right.play();
+      } else {
+        wrong.currentTime = 0;
+        wrong.play();
+      }
+      setWrongSoundPlayed(true);
+    }
+  };
+  const playLoadingSound = () => {
+    if (!tickingAudio) {
+      if (timeRemaining === 0) {
+        tickSoundeffect.currentTime = 0;
+        tickSoundeffect.play();
+      } else {
+        tickSoundeffect.pause();
+      }
+      setTickingAudio(true);
+    }
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -79,8 +110,12 @@ export const SelectAnswer = ({
         setTimeRemaining((prevTime) => prevTime - 1);
       } else {
         const userIndex = table.findIndex((user) => user.id === 11);
+        if (loadingTime === loading_time) {
+          // playWrong();z
+        }
         moveUser(userIndex, 3, table);
         setNextState(true);
+
         // setTimeout(() => {
         //   if (question.id >= questions.length) {
         //     handleStageChange();
@@ -96,13 +131,19 @@ export const SelectAnswer = ({
 
   useEffect(() => {
     if (timeRemaining === 0 && nextState) {
+      playLoadingSound();
       const timer = setTimeout(() => {
         if (loadingTime === 0 || (loadingTime === 3 && question.stop)) {
           setOptionSelectedState(false);
           if (question.id >= questions.length) {
+            // alert("All questions have ended!");
+            setWrongSoundPlayed(false);
+
+            // handleStageChange("win");
             handleStageChange();
           } else {
             handleQuestionChange();
+            setWrongSoundPlayed(false);
           }
           setNextState(false);
           setLoadingTime(loading_time);
@@ -133,9 +174,13 @@ export const SelectAnswer = ({
     }
   };
 
-  // if (timeRemaining === 0) {
-  //   alertAudio.play();
-  // }
+  // Play ticking sound when loadingTime is running
+  useEffect(() => {
+    if (loadingTime > 0 && loading_time === 0 && timeRemaining === 0) {
+      // tickingAudio.play();
+      setTickingAudio(true);
+    }
+  }, [loadingTime, timeRemaining]);
 
   return (
     <div className="pb-4">

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import beepSound from "@/public/sounds/countdown-sound.wav";
+import TickingSound from "@/public/sounds/countdown-sound.wav";
 
-export const Counter = ({
+export const SessionStartTimer = ({
   hours = 0,
   minutes = 0,
   seconds = 0,
@@ -73,7 +73,7 @@ export const Counter = ({
   // Function to play the sound
   const playSound = () => {
     if (!audioRef.current) {
-      audioRef.current = new Audio(beepSound);
+      audioRef.current = new Audio(TickingSound);
     }
     audioRef.current.play().catch((error) => {
       // Play failed - handle error

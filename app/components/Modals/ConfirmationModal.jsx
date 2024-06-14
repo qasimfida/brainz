@@ -1,6 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import React, { Fragment } from "react";
-import { Button } from "./Button";
+import { Button } from "../Button";
 
 const ConfirmationModal = ({
   showModal,

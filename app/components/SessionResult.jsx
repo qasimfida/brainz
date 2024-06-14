@@ -4,12 +4,15 @@ import {
   fiveUsersRankData,
 } from "../container/Session/data";
 import { Button } from "./Button";
-import { Counter } from "./Counter";
 import { PointsDetails } from "./PointsDetails";
 import { ResultCard } from "./ResultCard";
 import { ConfettiBackground } from "./ConfettiBackground ";
+import { SessionResultTimer } from "./Timers/SessionResultTimer";
 
 export const SessionResult = () => {
+  const handleTimerEnd = () => {
+    // console.log("Session Result Timmer End")
+  };
   return (
     <div className="content">
       <ConfettiBackground />
@@ -44,7 +47,12 @@ export const SessionResult = () => {
           </h1>
         </div>
         <div className="flex items-center flex-1 ">
-          <Counter hours={2} minutes={1} seconds={34} />
+          <SessionResultTimer
+            onTimerEnd={handleTimerEnd}
+            hours={2}
+            minutes={0}
+            seconds={15}
+          />
         </div>
         <div className="flex flex-row flex-wrap items-center justify-center flex-1 gap-4 lg:flex-col lg:gap-8 ">
           <div className="flex flex-row items-center justify-center gap-4 lg:flex-col">

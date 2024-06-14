@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import classNames from "classnames";
 
-const CountdownTimer = ({ initialMinutes = 1, initialSeconds = 35 }) => {
+export const DashboardTimer = ({ initialMinutes = 1, initialSeconds = 35 }) => {
   const [[minutes, seconds], setTime] = useState([
     initialMinutes,
     initialSeconds,
@@ -40,5 +40,3 @@ const CountdownTimer = ({ initialMinutes = 1, initialSeconds = 35 }) => {
     </span>
   );
 };
-
-export default CountdownTimer;
