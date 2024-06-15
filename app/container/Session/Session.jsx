@@ -14,11 +14,11 @@ import BackModal from "@/app/components/Modals/BackModal";
 export const Session = () => {
 	const [stage, setStage] = useState("countdown");
 	const [timer, setTimer] = useState(60);
-	const [showConfirmationModal, setShowConfirmationModal] = useState(true); // State to manage ConfirmationModal visibility
-	const [initialRender, setInitialRender] = useState(true); // To avoid showing modal on initial render
-	const router = useRouter(); // Hook for navigation
-	const [winnerAudio] = useState(new Audio(w));
-	const [loserAudio] = useState(new Audio(l));
+	const [showConfirmationModal, setShowConfirmationModal] = useState(true);
+	const [initialRender, setInitialRender] = useState(true);
+	const router = useRouter();
+	// const [winnerAudio] = useState(new Audio(w));
+	// const [loserAudio] = useState(new Audio(l));
 	const [showModal, setShowModal] = useState(false);
 	const [questions, setQuestions] = useState([
 		{
@@ -142,11 +142,13 @@ export const Session = () => {
 	const handleStageChange = (result) => {
 		const arr = questions.filter((q) => q.answer === q.correctAnswer);
 		if (arr.length > questions.length / 2) {
-			winnerAudio.currentTime = 0;
-			winnerAudio.play();
+			const ws = new Audio(w)
+			ws.currentTime = 0;
+			ws.play();
 		} else {
-			loserAudio.currentTime = 0;
-			loserAudio.play();
+			const ls = new Audio(l)
+			ls.currentTime = 0;
+			ls.play();
 		}
 		setStage("sessionResult");
 	};
