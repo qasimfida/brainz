@@ -27,7 +27,7 @@
 body {
   background-color: #011828;
   font-family: "BasementGrotesqueNormal", "BasementGrotesqueExtraBold",
-    "BoldExtraCondensed" " Inter";
+    "BoldExtraCondensed", "Inter";
 }
 
 .slick-slide > div {

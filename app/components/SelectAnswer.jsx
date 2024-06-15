@@ -57,6 +57,7 @@ export const SelectAnswer = ({
 	useEffect(() => {
 		if (question.time && !question.answer) {
 			setTimeRemaining(question.time);
+			playLoadingSound(); /* comment this to stop ticking in session */
 		}
 	}, [question]);
 
@@ -95,21 +96,21 @@ export const SelectAnswer = ({
 		}
 	};
 	const playLoadingSound = () => {
-		if (!tickingAudio) {
-			if (timeRemaining === 0) {
-				tickSoundeffect.currentTime = 0;
-				tickSoundeffect.play();
-			} else {
-				tickSoundeffect.pause();
-			}
-			setTickingAudio(true);
-		}
+		tickSoundeffect.currentTime = 0;
+		tickSoundeffect.play();
 	};
 
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			if (timeRemaining > 0) {
 				setTimeRemaining((prevTime) => prevTime - 1);
+				/* comment this to stop ticking in session */
+				if(timeRemaining > 1){
+					playLoadingSound();
+				}else {
+					tickSoundeffect.pause();
+					tickSoundeffect.currentTime = 0;
+				}
 			} else {
 				const userIndex = table.findIndex((user) => user.id === 11);
 				if (loadingTime === loading_time) {
@@ -137,7 +138,7 @@ export const SelectAnswer = ({
 					}
 					setNextState(false);
 					setLoadingTime(loading_time);
-          tickSoundeffect.pause();
+					tickSoundeffect.pause();
 					tickSoundeffect.currentTime = 0;
 					setTickingAudio(false);
 				} else {
