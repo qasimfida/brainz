@@ -43,7 +43,7 @@ const ConfirmationModal = ({
                   Are you sure you want to start the game?
                 </h2>
                 <div className="flex justify-center w-full gap-5 ">
-                  <div className="w-1/5 ">
+                  <div className="">
                     <Button
                       variant={"outlined"}
                       onClick={onCancel}
@@ -52,7 +52,7 @@ const ConfirmationModal = ({
                       Cancel
                     </Button>
                   </div>
-                  <div className="w-1/5 ">
+                  <div className="">
                     <Button
                       variant={"outlined"}
                       onClick={onConfirm}
