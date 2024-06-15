@@ -11,8 +11,11 @@
   "dependencies": {
     "@headlessui/react": "^1.7.19",
     "@next/font": "^14.2.2",
+    "@privy-io/react-auth": "^1.70.0",
     "@tsparticles/confetti": "^3.3.0",
+    "@usedapp/core": "^1.2.16",
     "next": "14.2.2",
+    "qrcode.react": "^3.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-loading-skeleton": "^3.4.0",
@@ -20,7 +23,8 @@
     "sharp": "^0.33.3",
     "slick-carousel": "^1.8.1",
     "tailwind-scrollbar": "^3.1.0",
-    "three": "^0.164.1"
+    "three": "^0.164.1",
+    "viem": "^2.14.0"
   },
   "devDependencies": {
     "eslint": "^8",

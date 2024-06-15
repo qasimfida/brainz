@@ -13,45 +13,10 @@ import WaveAnimation from "@/app/components/Wave";
 import Footer from "@/app/components/Footer";
 import { useRouter } from "next/navigation";
 import { Notification } from "@/app/contexts/notification";
+import ConnectButton from "./ConnectButton";
 
 export const Home = () => {
-  const router = useRouter();
-  const [isActive, setIsActive] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isAccepted, setIsAccepted] = useState(false);
-  const [token, setToken] = useState(null);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const storedToken = localStorage.getItem("token");
-      setToken(storedToken);
-    }
-  }, []);
-
-  const openModal = () => {
-    if (token) {
-      router.push("/dashboard");
-    } else {
-      setIsOpen(true);
-    }
-  };
-
-  const closeModal = () => setIsOpen(false);
-
-  const handleAccept = () => {
-    setIsAccepted(true);
-    closeModal();
-    localStorage.setItem("token", "user1234");
-    router.push("/dashboard");
-  };
-
-  const toggleEffect = () => {
-    setIsActive(!isActive);
-  };
-
-  const toggleNotification = () => {
-    // toggleOpen(false);
-  };
 
   return (
     <div>
@@ -66,8 +31,7 @@ export const Home = () => {
           backgroundRepeat: " no-repeat",
           backgroundSize: "cover",
         }}
-        className="flex flex-col items-center "
-        onClick={toggleEffect}
+        className="flex flex-col items-center"
       >
         <div className="container flex flex-col items-center justify-center px-6 text-center pt-14 pb-14 ">
           <Link href={"/"} className="relative w-20 h-12 lg:w-28 lg:h-16">
@@ -87,17 +51,15 @@ export const Home = () => {
             Use Any Crypto to Join a Session
           </p>
           <div className="mt-9">
-            <Button variant={"outlined"} size="text-2xl" onClick={openModal}>
-              {token ? "Dashboard" : "Connect"}
-            </Button>
+            <ConnectButton />
           </div>
-          {token ? <Notification open={true} /> : null}
-          <ConditionsModal
+          {/* {token ? <Notification open={true} /> : null} */}
+          {/* <ConditionsModal
             isOpen={isOpen}
             closeModal={closeModal}
             onAccept={handleAccept}
             toggleNotification={toggleNotification}
-          />
+          /> */}
           <div className="relative flex grid justify-center gap-8 mt-5 -bottom-14 xs:grid-cols-1 lg:grid-cols-3 pb-14">
             <div className="lg:pt-[78px]">
               <WinBox

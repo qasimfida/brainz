@@ -165,7 +165,7 @@ function WaveAnimation({ height = 320 }) {
       // Cleanup on unmount
       return () => {
         renderer.dispose();
-        mountRef.current.removeChild(renderer.domElement);
+        mountRef.current && mountRef.current.removeChild(renderer.domElement);
         window.removeEventListener("resize", handleResize);
       };
     }

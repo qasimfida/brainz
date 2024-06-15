@@ -13,14 +13,21 @@ import {
   TextCopyIcon,
   TextCopyTickIcon,
   TicketIcon,
+  UsdtIcon,
 } from "./Svgs";
 import Ticket from "./Ticket";
 import Image from "next/image";
 import Profile from "@/public/images/avatar.jpeg";
 import Link from "next/link";
 import { MobileSidebar } from "./MobileSidebar";
-
-const textToCopy = "0x1234567890ABCDEF1234567890ABCDEF12345678";
+import LoagoutButton from "./LoagoutButton";
+import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { formatWalletAddress } from "@/lib/utils";
+import { Arbitrum, useTokenBalance } from "@usedapp/core";
+import { TOKEN_ADDRESS } from "@/lib/config";
+import { bsc, sepolia } from "viem/chains";
+import { ethers } from "ethers";
+import { useWallet } from "../contexts/WalletContext";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +35,8 @@ const Header = () => {
   const profileRef = useRef(null);
   const dropdownRef = useRef(null);
   const [isCopied, setIsCopied] = useState(false);
+
+  const { user } = usePrivy();
 
   const toggleDropdown = () => {
     setIsOpenProfile(!isOpenProfile);
@@ -71,11 +80,12 @@ const Header = () => {
     { icon: <EthIcon height="20" width="20" />, price: 44.0503, label: "XRP" },
   ];
 
-  const copyToClipboard = () => {
+  const copyToClipboard = (string) => {
     setIsCopied(true);
-    navigator.clipboard.writeText(textToCopy);
-    console.log("text copyied");
+    navigator.clipboard.writeText(string);
   };
+
+  const { usdtBalance } = useWallet();
 
   return (
     <div className="sticky top-0 z-40">
@@ -97,11 +107,19 @@ const Header = () => {
             </Link>
             <div className="flex items-center gap-10 max-md:hidden">
               <div className="block max-[1200px]:hidden">
-                <SelectDropdown
-                  options={options}
-                  onChange={handleSelectChange}
-                  defaultOption={options[1].label}
-                />
+                <div
+                  className={`bg-primary-350 flex items-center relative w-full border border-primary-275 rounded-lg py-2 pl-2.5 pr-4 focus:shadow-outline z-[11] hover:bg-primary-275 transition duration-200`}
+                >
+                  <div className="flex items-center font-basement">
+                    <div className="bg-primary flex items-center py-1.5 px-2 rounded mr-2.5 font-bold text-grey-200">
+                      <span className="mr-2">
+                        <UsdtIcon />
+                      </span>
+                      <p className="mr-2 text-sm">{usdtBalance}</p>
+                    </div>
+                    <p className="text-white text-sm">USDT</p>
+                  </div>
+                </div>
               </div>
               <div>
                 <Ticket
@@ -143,7 +161,7 @@ const Header = () => {
                     />
                   </div>
                   <p className="ml-2 text-sm font-normal text-white font-basement">
-                    Blue_guy78
+                    {formatWalletAddress(user.wallet.address)}
                   </p>
                   <div className="flex items-center justify-center ml-4">
                     <ArrowDownLightIcon />
@@ -160,7 +178,7 @@ const Header = () => {
                           !isCopied ? "" : "text-white"
                         }`}
                       >
-                        {textToCopy}
+                        {formatWalletAddress(user.wallet.address)}
                       </p>
                       {isCopied ? (
                         <TextCopyTickIcon
@@ -169,7 +187,9 @@ const Header = () => {
                           className={"text-white"}
                         />
                       ) : (
-                        <button onClick={copyToClipboard}>
+                        <button
+                          onClick={() => copyToClipboard(user.wallet.address)}
+                        >
                           <TextCopyIcon
                             className="hover:text-white text-grey-200"
                             height="22"
@@ -179,12 +199,7 @@ const Header = () => {
                       )}
                     </div>
                     <div className="border-b border-grey-250" />
-                    <Link
-                      href="#"
-                      className="block px-4 py-2 text-sm text-grey-200 hover:text-white"
-                    >
-                      Log out
-                    </Link>
+                    <LoagoutButton />
                   </div>
                 )}
               </div>

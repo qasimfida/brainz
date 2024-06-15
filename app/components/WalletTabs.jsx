@@ -14,22 +14,54 @@ import TokenSelectDropdown from "./TokenSelectDropdown";
 import { Button } from "./Button";
 import { PriceAdjuster } from "./PriceAdjuster";
 import DepositSelectDropdown from "./DepositSelectDropdown";
+import { usePrivy } from "@privy-io/react-auth";
+import QRCode from "qrcode.react";
+import { ethers } from "ethers";
+import { useWallet } from "../contexts/WalletContext";
 
 const WalletTabs = () => {
-  const defaultOption = "ETH";
-  const tokendefault = "ETH";
-  const [selectedOption, setSelectedOption] = useState(defaultOption);
-  const [selectedToken, setSelectedToken] = useState(tokendefault);
+  const [network, setNetwork] = useState("eth");
   const tokenOptions = [
     { icon: <EthIcon width="20" height="20" />, price: 12.0503, label: "ETH" },
     { icon: <BtcIcon width="21" height="22" />, price: 44.0503, label: "BTC" },
   ];
-  const handleSelectChange = (value) => {
-    setSelectedOption(value);
+
+  const { user } = usePrivy();
+  const [recipient, setRecipient] = useState("");
+  const [amount, setAmount] = useState(110);
+  const [txHash, setTxHash] = useState("");
+
+  const { signer } = useWallet();
+
+  const sendTransaction = async () => {
+    if (!signer) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+    if (!recipient) {
+      alert("Please enter a valid recipient address.");
+      return;
+    }
+
+    const isValid = ethers.utils.isAddress(recipient);
+    if (!isValid) {
+      alert("Please enter a valid recipient address.");
+      return;
+    }
+
+    try {
+      const tx = await signer.sendTransaction({
+        to: recipient,
+        value: ethers.utils.parseEther(amount.toString()),
+      });
+
+      const receipt = await tx.wait();
+      setTxHash(receipt.transactionHash);
+    } catch (error) {
+      console.error("Error sending transaction:", error);
+    }
   };
-  const handleTokenChange = (value) => {
-    setSelectedToken(value);
-  };
+
   return (
     <Tab.Group>
       <Tab.List
@@ -40,7 +72,7 @@ const WalletTabs = () => {
         <Tab className="w-full outline-none max-w-40 md:max-w-fit">
           {({ selected }) => (
             <div
-              className={`transition duration-200 ease-in-out border border-[#132836] text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3  ${
+              className={`transition  ease-in-out border border-[#132836] text-nowrap text-base lg:text-xl font-basement  bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3  ${
                 selected
                   ? "text-secondary border-[#132836]"
                   : "text-white hover:border-white"
@@ -54,7 +86,7 @@ const WalletTabs = () => {
         <Tab className={"outline-none md:ml-0 w-full max-w-40 md:max-w-fit"}>
           {({ selected }) => (
             <div
-              className={`w-full justify-center transition duration-200 ease-in-out border border-[#132836] text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3   ${
+              className={`w-full justify-center transition ease-in-out border border-[#132836] text-nowrap text-base lg:text-xl font-basement bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3   ${
                 selected
                   ? "text-secondary border-[#132836]"
                   : "text-white hover:border-white"
@@ -77,7 +109,7 @@ const WalletTabs = () => {
                 <Tab className={"outline-none w-full max-w-28 md:max-w-fit"}>
                   {({ selected }) => (
                     <div
-                      className={`w-full px-0 justify-center md:px-8 transition  duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 ${
+                      className={`w-full px-0 justify-center md:px-8 transition  ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
@@ -93,7 +125,7 @@ const WalletTabs = () => {
                 <Tab className={"outline-none w-full max-w-28 md:max-w-fit"}>
                   {({ selected }) => (
                     <div
-                      className={`w-full justify-center transition px-0 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
+                      className={`w-full justify-center transition px-0 md:px-8 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
@@ -113,7 +145,7 @@ const WalletTabs = () => {
                 <Tab className={"outline-none w-full max-w-28 md:max-w-fit"}>
                   {({ selected }) => (
                     <div
-                      className={`w-full justify-center transition px-0 md:px-8 duration-200 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement font-bold bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
+                      className={`w-full justify-center transition px-0 md:px-8 ease-in-out border border-primary-350 px4 py-2.5 text-nowrap text-base lg:text-xl font-basement bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200  ${
                         selected
                           ? "text-secondary border-[#132836]"
                           : "text-white hover:border-white"
@@ -167,7 +199,7 @@ const WalletTabs = () => {
                 >
                   {({ selected }) => (
                     <div
-                      className={`w-full justify-center md:justify-start transition  duration-200 ease-in-out border border-primary-350 px-0 md:px-14 py-2.5 md:py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
+                      className={`w-full justify-center md:justify-start transition  ease-in-out border border-primary-350 px-0 md:px-14 py-2.5 md:py-3 text-nowrap text-base lg:text-xl font-basement   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
                        ${
                          selected
                            ? "bg-secondary/10 text-secondary "
@@ -183,7 +215,7 @@ const WalletTabs = () => {
                 >
                   {({ selected }) => (
                     <div
-                      className={`w-full justify-center md:justify-start transition  duration-200 ease-in-out border border-primary-350 px-0 md:px-11 py-2.5 md:py-3 text-nowrap text-base lg:text-xl font-basement font-bold   font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
+                      className={`w-full justify-center md:justify-start transition  ease-in-out border border-primary-350 px-0 md:px-11 py-2.5 md:py-3 text-nowrap text-base lg:text-xl font-basement font-bold rounded-[10px] inline-flex items-center duration-200  peer-checked:bg-blue-600
                        ${
                          selected
                            ? "bg-secondary/10 text-secondary "
@@ -204,14 +236,24 @@ const WalletTabs = () => {
                   </div>
                   <div className="grid grid-cols-1 gap-12 mt-8 lg:mt-0 lg:grid-cols-2 lg:gap-20 ">
                     <div>
-                      <div className="relative w-full h-[270px] lg:h-[420px]">
-                        <Image
-                          src={qrCode}
-                          alt="QR-CODE"
-                          layout="fill"
-                          objectFit="fill"
-                          draggable={false}
-                          placeholder="blur"
+                      <div className="relative w-full h-[270px] lg:h-[420px] ">
+                        <QRCode
+                          className={"w-full h-full"}
+                          value={user?.wallet?.address}
+                          bgColor={"#ffffff"} // The QR Background Color
+                          fgColor={"#000000"} // The Qr Color
+                          level={"Q"} // Levels Can be L,M,Q,H Default is L
+                          includeMargin={false}
+                          renderAs={"svg"}
+                          // Uncomment the Line to add Image to the QR CODE
+                          // imageSettings={{
+                          //   src: networks.BTC,
+                          //   x: null,
+                          //   y: null,
+                          //   height: 40,
+                          //   width: 40,
+                          //   excavate: true
+                          // }}
                         />
                       </div>
                       <h1 className="mt-5 text-base font-bold text-white font-basement lg:text-xl">
@@ -222,7 +264,7 @@ const WalletTabs = () => {
                       <h1 className="text-lg font-bold text-white lg:text-xl font-basement ">
                         Deposit USDT
                       </h1>
-                      <p className="lg:text-base text-grey-600 font-inter font-normal lg:text-lg mt-4 max-w-[500px] ">
+                      <p className=" text-grey-600 font-inter font-normal lg:text-lg mt-4 max-w-[500px] ">
                         Send the amount of USDT of your choice to the following
                         Address to receive the equivalent in the account.
                       </p>
@@ -233,7 +275,7 @@ const WalletTabs = () => {
                         <div className="w-full max-w-[206px]">
                           <TokenSelectDropdown
                             options={tokenOptions}
-                            onChange={handleTokenChange}
+                            // onChange={handleTokenChange}
                             defaultOption={tokenOptions[1].label}
                           />
                         </div>
@@ -246,7 +288,8 @@ const WalletTabs = () => {
                           type="text"
                           readOnly={true}
                           placeholder={"0xjhsduh7ehpaefklafo8y678t78ghjkbn"}
-                          className={`mt-2.5 text-gray-500 z-0	bg-primary w-full pl-4 pr-[88px] py-4 rounded-[20px] border border-primary-275 focus:outline-none `}
+                          value={user?.wallet?.address}
+                          className={`mt-2.5 text-gray-500 z-0	bg-primary w-full px-4  py-4 rounded-[20px] border border-primary-275 focus:outline-none text-white`}
                         />
                         <Button variant={"outlined"} className={"mt-8"}>
                           Copy Address
@@ -276,7 +319,7 @@ const WalletTabs = () => {
                       <div className="w-full max-w-[206px]">
                         <DepositSelectDropdown
                           options={tokenOptions}
-                          onChange={handleSelectChange}
+                          // onChange={handleSelectChange}
                           defaultOption={tokenOptions[1].label}
                         />
                       </div>
@@ -287,6 +330,8 @@ const WalletTabs = () => {
                       </label>
                       <input
                         type="text"
+                        value={recipient}
+                        onChange={(e) => setRecipient(e.target.value)}
                         placeholder={"Paste your USDT Wallet Address here"}
                         className={`mt-2.5 text-gray-500 z-0	bg-primary text-white w-full pl-4 pr-[88px] py-4 rounded-[20px] border border-primary-275 focus:outline-none `}
                       />
@@ -297,8 +342,9 @@ const WalletTabs = () => {
                       </h1>
                       <div className=" mt-2.5">
                         <PriceAdjuster
-                          initialPrice={120}
-                          currency={selectedOption.label}
+                          value={amount}
+                          currency={network}
+                          onChange={(value) => setAmount(value)}
                         />
                       </div>
                     </div>
@@ -306,6 +352,7 @@ const WalletTabs = () => {
                       variant={"outlined"}
                       className={"mt-10 py-2 px-7"}
                       size="text-base lg:text-lg"
+                      onClick={sendTransaction}
                     >
                       Request Withdrawal
                     </Button>

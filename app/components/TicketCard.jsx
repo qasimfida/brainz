@@ -4,6 +4,8 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
 import { BtcIcon, EthIcon, ModalCrossIcon, UsdtIcon } from "./Svgs";
 import PurchaseDropdown from "./PurchaseDropdown";
+import { useWallet } from "../contexts/WalletContext";
+import { ethers } from "ethers";
 
 export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
   const [isPurchased, setIsPurchased] = useState(false);
@@ -18,8 +20,8 @@ export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
   const openModal = () => {
     setIsOpen(true);
   };
-  const handlePurchase = () => {
-    setIsPurchased(true);
+  const handlePurchase = async () => {
+    await sendTransaction();
   };
 
   const options = [
@@ -28,6 +30,28 @@ export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
   ];
   const handleSelectChange = (value) => {
     setSelectedOption(value);
+  };
+
+  const { signer } = useWallet();
+
+  const sendTransaction = async () => {
+    if (!signer) {
+      alert("Please connect your wallet first.");
+      return;
+    }
+
+
+    try {
+      const tx = await signer.sendTransaction({
+        to: "0x55d398326f99059ff775485246999027b3197955",
+        value: ethers.utils.parseEther("20"),
+      });
+
+      const receipt = await tx.wait();
+      // setTxHash(receipt.transactionHash);
+    } catch (error) {
+      console.error("Error sending transaction:", error);
+    }
   };
 
   return (
@@ -80,7 +104,7 @@ export const TicketCard = ({ tickets, icon: MainIcon, price, iconColor }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-[724px] text-center text-white transform overflow-hidden rounded-[20px] bg-primary-275 py-6 px-6 md:px-12 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full max-w-[724px] text-center text-white transform overflow-hidden rounded-[20px] bg-primary-275 py-6 px-6 md:px-12  align-middle shadow-xl transition-all">
                   {isPurchased ? (
                     <div>
                       <h1 className="text-2xl lg:text-3xl font-basement font-bold">

@@ -23,17 +23,17 @@ export const Notification = ({ open, onClose }) => {
   const router = useRouter();
   useEffect(() => {
     let timer;
-    // timer = setInterval(() => {
-    //   setProgress((prevProgress) => {
-    //     if (prevProgress >= 4) {
-    //       clearInterval(timer);
-    //       // onClose(false);
-    //       return 0;
-    //     } else {
-    //       return prevProgress + 1;
-    //     }
-    //   });
-    // }, 1000);
+    timer = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress >= 4) {
+          clearInterval(timer);
+          // onClose(false);
+          return 0;
+        } else {
+          return prevProgress + 1;
+        }
+      });
+    }, 1000);
     return () => clearInterval(timer);
   }, [open]);
   const handleRedirect = () => {
