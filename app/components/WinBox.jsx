@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
@@ -19,12 +21,12 @@ export const WinBox = ({ imageSrc, title, description, height, ...rest }) => {
       {isLoading ? (
         <Skeleton height={230} borderRadius={"1.5rem"} count={1} />
       ) : (
-        <div className="relative bg-[#2c8293] rounded-[20px] h-[180px] lg:h-[230px] w-full">
+        <div className="relative bg-[#2c8293] rounded-[20px] h-[180px] lg:h-[230px] w-full overflow-hidden">
           <Image
             src={imageSrc}
             alt="Reward Box"
             layout="fill"
-            objectFit="contain"
+            objectFit="cover"
             draggable={false}
             priority={true}
           />

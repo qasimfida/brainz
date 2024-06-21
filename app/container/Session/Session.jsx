@@ -5,113 +5,59 @@ import { ProgressBar } from "@/app/components/Progressbar";
 import { SelectAnswer } from "@/app/components/SelectAnswer";
 import { SessionHeader } from "@/app/components/SessionHeader";
 import { SessionResult } from "@/app/components/SessionResult";
+import { apiCall } from "@/lib/utils";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { io } from "socket.io-client";
 
-export const Session = () => {
+export const Session = ({ params }) => {
   const [stage, setStage] = useState("countdown");
   const [timer, setTimer] = useState(60);
   const [showModal, setShowModal] = useState(false);
-  const [questions, setQuestions] = useState([
-    {
-      id: 1,
-      question:
-        "What is the significance of smart contracts in the Ethereum network, and how do they differ from traditional contracts?",
-      choices: [
-        "This is the success variant with answer true.",
-        "This is the danger variant with answer false.",
-        "This is the default variant.",
-        "This is a standard variant.",
-      ],
-      time: 6,
-      aplhabet: "A",
-      correctAnswer: "This is the default variant.",
-    },
-    {
-      id: 2,
-      question:
-        "How does Bitcoin differ from traditional fiat currencies, and what advantages does it offer over conventional money systems?",
-      choices: [
-        "This is the success variant with answer true.",
-        "This is the danger variant with answer false.",
-        "This is the default variant.",
-        "This is a standard variant.",
-      ],
-      time: 6,
-      aplhabet: "B",
-      correctAnswer: "This is the default variant.",
-    },
-    {
-      id: 4,
-      question:
-        "What role do miners play in the cryptocurrency ecosystem, and how are they incentivized to maintain the network?",
-      choices: [
-        "This is the success variant with answer true.",
-        "This is the danger variant with answer false.",
-        "This is the default variant.",
-        "This is a standard variant.",
-      ],
-      time: 6,
-      aplhabet: "C",
-      correctAnswer: "This is the default variant.",
-      stop: true,
-    },
-  ]);
   const [step, setStep] = useState(0);
+  const [session, setSession] = useState({});
+  const [remainingTime, setRemainingTime] = useState(0);
+  const [question, setQuestion] = useState({});
 
   useEffect(() => {
-    if (stage === "countdown") {
-      const interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
-      }, 1000);
+    const getSession = async (id) => {
+      const data = await apiCall("get", `/session/${id}`);
+      setSession(data.session);
+    };
 
-      if (timer === 0) {
-        clearInterval(interval);
-        setStage("optionSelection");
-      }
-
-      return () => clearInterval(interval);
-    }
-  }, [stage, timer]);
+    getSession(params.id);
+  }, []);
 
   const handleContinue = () => {
     setShowModal(false);
   };
 
-  useEffect(() => {
-    if (stage === "countdown" || stage === "selectAnswer") {
-      const handleBeforeUnload = (event) => {
-        event.preventDefault();
-        event.returnValue = "";
-        setShowModal(true);
-      };
+  // useEffect(() => {
+  //   if (stage === "countdown" || stage === "selectAnswer") {
+  //     const handleBeforeUnload = (event) => {
+  //       event.preventDefault();
+  //       event.returnValue = "";
+  //       setShowModal(true);
+  //     };
 
-      const handleBackNavigation = (event) => {
-        event.preventDefault();
-        setShowModal(true);
-      };
+  //     const handleBackNavigation = (event) => {
+  //       event.preventDefault();
+  //       setShowModal(true);
+  //     };
 
-      window.addEventListener("beforeunload", handleBeforeUnload);
-      window.history.pushState(null, null, window.location.pathname);
-      window.addEventListener("popstate", handleBackNavigation);
+  //     window.addEventListener("beforeunload", handleBeforeUnload);
+  //     window.history.pushState(null, null, window.location.pathname);
+  //     window.addEventListener("popstate", handleBackNavigation);
 
-      return () => {
-        window.removeEventListener("beforeunload", handleBeforeUnload);
-        window.removeEventListener("popstate", handleBackNavigation);
-      };
-    }
-  }, [showModal, stage]);
+  //     return () => {
+  //       window.removeEventListener("beforeunload", handleBeforeUnload);
+  //       window.removeEventListener("popstate", handleBackNavigation);
+  //     };
+  //   }
+  // }, [showModal, stage]);
 
   const handleAnswerSelect = (answer) => {
     alert(step);
-    setQuestions((prev) => {
-      const updatedQuestions = prev.map((question, index) => {
-        if (index === step) {
-          return { ...question, answer: answer };
-        }
-        return question;
-      });
-      return updatedQuestions;
-    });
   };
 
   const handleQuestionChange = () => {
@@ -121,14 +67,50 @@ export const Session = () => {
     setStage("sessionResult");
   };
 
-  const progess = ((step + 1) / questions.length) * 100 - 1;
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const socket = io("http://localhost:3000", {
+      reconnectionDelayMax: 10000,
+      extraHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    socket.on("connect", () => console.log(socket.id));
+    socket.on("connect_error", () => {
+      setTimeout(() => socket.connect(), 5000);
+    });
+    socket.on("error", ({ message }) => {
+      alert(message);
+    });
+    socket.emit("joinSession", { sessionId: params.id });
+
+    socket.on("sessionNotStarted", ({ timeRemaining }) => {
+      setRemainingTime(timeRemaining);
+    });
+
+    socket.on("newQuestion", ({ question }) => {
+      console.log(question);
+    });
+
+    return () => {
+      if (socket.connected) {
+        socket.close();
+      }
+    };
+  }, []);
+
+  const progess = ((step + 1) / session.totalQuestions) * 100 - 1;
   return (
     <div className="relative">
       {stage === "countdown" && (
         <>
           <SessionHeader />
           <div className="px-6 pt-8 pb-3 lg:pt-10 lg:pb-7 lg:px-7">
-            <CountDown onComplete={() => setStage("selectAnswer")} />
+            <CountDown
+              onComplete={() => console.log("selectAnswer")}
+              session={session}
+              timeRemaining={remainingTime}
+            />
           </div>
         </>
       )}
@@ -147,7 +129,7 @@ export const Session = () => {
               questions={questions}
               step={step}
               progress={progess}
-              handleStageChange={handleStageChange}
+              // handleStageChange={handleStageChange}
             />
           </div>
         </>

@@ -11,31 +11,16 @@ import { Button } from "@/app/components/Button";
 import { WinBox } from "@/app/components/WinBox";
 import { winBoxData } from "./data";
 import { useEffect, useState } from "react";
+import { calculateTimeLeft } from "@/lib/utils";
 
 export const Waitlist = () => {
   const targetTime = new Date("2024-06-13T23:59:59");
-  const calculateTimeLeft = () => {
-    const difference = new Date(targetTime) - new Date();
-    let timeLeft = {};
 
-    if (difference > 0) {
-      timeLeft = {
-        hours: Math.floor(difference / (1000 * 60 * 60)),
-        minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-        seconds: Math.floor((difference % (1000 * 60)) / 1000),
-      };
-    } else {
-      timeLeft = { hours: 0, minutes: 0, seconds: 0 };
-    }
-
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetTime));
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
+      setTimeLeft(calculateTimeLeft(targetTime));
     }, 1000);
 
     return () => clearInterval(timer);

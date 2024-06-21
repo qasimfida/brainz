@@ -2,22 +2,13 @@ import Link from "next/link";
 import homeBanner from "../../../public/images/homebanner.png";
 import logo from "../../../public/images/Brainz-logo.png";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Button } from "@/app/components/Button";
 import { WinBox } from "@/app/components/WinBox";
 import { winBoxData } from "./data";
-import { SlickCarousel } from "@/app/components/Carousel";
-import { TokkenCard } from "@/app/components/TokkenCard";
-import ConditionsModal from "@/app/components/ConditionsModal";
 import WaveAnimation from "@/app/components/Wave";
 import Footer from "@/app/components/Footer";
-import { useRouter } from "next/navigation";
-import { Notification } from "@/app/contexts/notification";
 import ConnectButton from "./ConnectButton";
 
 export const Home = () => {
-
-
   return (
     <div>
       <div

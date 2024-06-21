@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import SessionTitleCard from "./SessionTitleCard";
 import { DiamondIcon } from "./Svgs";
 import { Counter } from "./Counter";
+import { calculateTimeLeft } from "@/lib/utils";
 
-export const CountDown = ({ onComplete }) => {
+export const CountDown = ({ onComplete, session, timeRemaining }) => {
   const handleTimerEnd = () => {
     onComplete();
   };
+
   return (
     <div className="flex flex-col w-full lg:flex-row md:flex-row sm:flex-col">
       <div className="w-full px-0 lg:w-2/3 lg:px-12 ">
@@ -18,9 +20,7 @@ export const CountDown = ({ onComplete }) => {
             <div>
               <Counter
                 onTimerEnd={handleTimerEnd}
-                hours={0}
-                minutes={0}
-                seconds={10}
+                timeRemaining={timeRemaining}
               />
             </div>
             <div className="flex flex-col items-center justify-between mt-3 lg:mt-9">
@@ -28,7 +28,7 @@ export const CountDown = ({ onComplete }) => {
                 pot size
               </p>
               <p className="text-2xl font-bold font-basement lg:text-3xl">
-                35,589usdt
+                {session.potValue} usdt
               </p>
             </div>
           </div>

@@ -1,59 +1,13 @@
+import { convertMillisecondsToHMS } from "@/lib/utils";
 import React, { useState, useEffect } from "react";
 
-export const Counter = ({
-  hours = 0,
-  minutes = 0,
-  seconds = 0,
-  onTimerEnd,
-}) => {
-  const [time, setTime] = useState({ hours, minutes, seconds });
+export const Counter = ({ timeRemaining, onTimerEnd }) => {
+  const [time, setTime] = useState({ hours: 0, minutes: 0, seconds: 0 });
   const [color, setColor] = useState("bg-secondary");
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTime((prevTime) => {
-        if (
-          prevTime.hours === 0 &&
-          prevTime.minutes === 0 &&
-          prevTime.seconds === 0
-        ) {
-          clearInterval(timer);
-          onTimerEnd(); // Execute callback when timer ends
-          return prevTime;
-        } else {
-          const newTime = { ...prevTime };
-          if (newTime.seconds === 0) {
-            if (newTime.minutes === 0) {
-              if (newTime.hours === 0) {
-                clearInterval(timer);
-                onTimerEnd();
-                return prevTime;
-              } else {
-                newTime.hours -= 1;
-                newTime.minutes = 59;
-                newTime.seconds = 59;
-              }
-            } else {
-              newTime.minutes -= 1;
-              newTime.seconds = 59;
-            }
-          } else {
-            newTime.seconds -= 1;
-          }
-          // Change color to red when there are 30 seconds left
-          if (
-            newTime.hours === 0 &&
-            newTime.minutes === 0 &&
-            newTime.seconds <= 30
-          ) {
-            setColor("bg-danger-100");
-          }
-          return newTime;
-        }
-      });
-    }, 1000);
-    return () => clearInterval(timer);
-  }, [hours, minutes, seconds, onTimerEnd]);
+    setTime(convertMillisecondsToHMS(timeRemaining));
+  }, [timeRemaining]);
 
   // Function to pad single digit numbers with leading zero
   const padZero = (num) => {

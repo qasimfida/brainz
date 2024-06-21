@@ -1,9 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import { sessionCardData } from "../container/Dashboard/data";
 
-const SessionCard = () => {
-  const { title, gamesCategories, gameImage } = sessionCardData;
+const SessionCard = ({ game, onSessionClick }) => {
+
+  const { title, sessions, image } = game;
 
   return (
     <div className="bg-primary-100 h-auto rounded-[10px] w-full text-base py-4 px-4 lg:py-5 lg:px-5 shadow-sessionCard md:py-7">
@@ -12,24 +12,24 @@ const SessionCard = () => {
       </h2>
       <div className="flex gap-1 md:gap-2">
         <div className="flex-1 mt-2 lg:mt-6 ">
-          {gamesCategories.map((category, index) => (
+          {sessions.slice(0, 3).map((session, index) => (
             <h1
               key={index}
-              className="text-base lg:text-base font-basement font-bold tracking-[1.5px] md:px-[22px] rounded-[8px] hover:text-secondary hover:bg-gradient-to-r from-[#DFC80B]/40 to-[#FFED5A]/20 border border-[#4299e1]	hover:border-secondary flex items-center py-2 lg:py-2.5 justify-center md:justify-start "
+              className="text-base lg:text-base font-basement font-bold tracking-[1.5px] md:px-[22px] rounded-[8px] hover:text-secondary hover:bg-gradient-to-r from-[#DFC80B]/40 to-[#FFED5A]/20 border border-[#4299e1]	hover:border-secondary flex items-center py-2 lg:py-2.5 justify-center md:justify-start cursor-pointer"
+              onClick={() => onSessionClick(index)}
             >
-              {category}
+              session {index + 1}
             </h1>
           ))}
         </div>
-        <div className="flex-1 flex items-center justify-center  mt-2 lg:mt-6">
+        <div className="flex-1 flex items-center justify-center  mt-2 lg:mt-6 min-h-44">
           <div className="relative  w-full h-full">
             <Image
-              src={gameImage}
+              src={image}
               layout="fill"
               objectFit="contain"
               alt="Next Game"
               draggable={false}
-              placeholder="blur"
             />
           </div>
         </div>
