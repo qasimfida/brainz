@@ -15,32 +15,20 @@ import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
 
 const alphabets = ["A", "B", "C", "D"];
-const loading_time = 8;
 
 export const SelectAnswer = ({
   setSelectedOption,
-  questions = [],
+  question = {},
   step = 0,
-  handleStageChange,
-  handleQuestionChange,
+  questionTimeRemaining,
+  restTimeRemaining,
   progress,
+  leaderboard,
 }) => {
-  const question = useMemo(
-    () => questions[step] || { choices: [] },
-    [questions, step]
-  );
-
   const [table, setTable] = useState(usersRankData);
-  const [timeRemaining, setTimeRemaining] = useState(-1);
   const [loading, setLoading] = useState(false);
-  const [loadingTime, setLoadingTime] = useState(loading_time);
-  const [nextState, setNextState] = useState(false);
 
-  useEffect(() => {
-    if (question.time && !question.answer) {
-      setTimeRemaining(question.time);
-    }
-  }, [question]);
+  useEffect(() => {}, [question]);
 
   const moveUser = (currentIndex, targetIndex, data) => {
     if (currentIndex >= targetIndex && currentIndex >= 0 && targetIndex >= 0) {
@@ -66,54 +54,13 @@ export const SelectAnswer = ({
     }
   };
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (timeRemaining > 0) {
-        setTimeRemaining((prevTime) => prevTime - 1);
-      } else {
-        const userIndex = table.findIndex((user) => user.id === 11);
-        moveUser(userIndex, 3, table);
-        setNextState(true);
-        // setTimeout(() => {
-        //   if (question.id >= questions.length) {
-        //     handleStageChange();
-        //   } else {
-        //     handleQuestionChange();
-        //   }
-        // }, loading_time * 1000);
-      }
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [timeRemaining, handleQuestionChange, handleStageChange, moveUser]);
-
-  useEffect(() => {
-    if (timeRemaining === 0 && nextState) {
-      const timer = setTimeout(() => {
-        if (loadingTime === 0 || (loadingTime === 3 && question.stop)) {
-          if (question.id >= questions.length) {
-            handleStageChange();
-          } else {
-            handleQuestionChange();
-          }
-          setNextState(false);
-          setLoadingTime(loading_time);
-        } else {
-          setLoadingTime((prevTime) => prevTime - 1);
-        }
-      }, 1000);
-
-      return () => clearTimeout(timer);
-    }
-  }, [timeRemaining, handleQuestionChange, handleStageChange, moveUser]);
-
   const getOptionVariant = (answer, wrong) => {
-    if (timeRemaining > 0) return "default";
+    if (questionTimeRemaining > 0) return "default";
     return answer ? "success" : wrong ? "danger" : "default";
   };
 
   const onAnswerSelect = (answer) => {
-    if (!question.answer) {
+    if (questionTimeRemaining > 0 && !question.answer) {
       setSelectedOption(answer);
     }
   };
@@ -127,7 +74,7 @@ export const SelectAnswer = ({
               Title of the Session
             </h1>
             <h1 className="text-2xl font-bold text-white font-basement">
-              {timeRemaining - 1} s
+              {questionTimeRemaining} s
             </h1>
           </div>
           <GameCarousel autoplay={false}>
@@ -137,7 +84,7 @@ export const SelectAnswer = ({
           </GameCarousel>
         </div>
         <div className="relative pr-1.5 -bottom-1">
-          <ProgressBar progress={progress} rounded step={step + 1} />
+          <ProgressBar progress={progress} rounded step={step} />
         </div>
       </div>
       <div className="flex flex-col gap-16 pl-4 pr-4 lg:flex-row md:pl-14 md:pr-9 bg-primary">
@@ -182,7 +129,7 @@ export const SelectAnswer = ({
           <div className="flex gap-4 text-white mt-7 md:mt-12 max-w-[830px] text-start">
             <div className="flex items-center hidden gap-4 md:flex ">
               <h1 className="text-lg font-bold lg:text-xl font-basement text-secondary">
-                {step + 1}
+                {step}
               </h1>
               <div className="hidden md:block">
                 <LongArrowRightIcon height="24" width="24" />
@@ -193,7 +140,9 @@ export const SelectAnswer = ({
             </p>
           </div>
           <div className="pb-5 md:pb-0 flex flex-col mt-6 lg:mt-11 gap-4 max-w-[784px]">
-            {loadingTime < 4 && !question.stop ? (
+            {restTimeRemaining < 2 &&
+            restTimeRemaining >= 0 &&
+            questionTimeRemaining === 0 ? (
               <>
                 <div className="hidden md:block">
                   <Skeleton
@@ -213,20 +162,20 @@ export const SelectAnswer = ({
                 </div>
               </>
             ) : (
-              question.choices.map((choice, index) => {
+              question.answers.map((choice, index) => {
                 return (
                   <OptionSelect
                     key={index}
                     alphabet={alphabets[index]}
                     description={choice}
-                    isActive={question.answer === choice}
+                    isActive={question.answer === index + 1}
                     variant={getOptionVariant(
-                      question.correctAnswer === choice,
-                      question.answer === choice &&
+                      question.correctAnswer === index + 1,
+                      question.answer === index + 1 &&
                         question.answer !== question.correctAnswer
                     )}
-                    answer={timeRemaining === 0 && true}
-                    onClick={() => onAnswerSelect(choice)}
+                    answer={questionTimeRemaining === 0 && true}
+                    onClick={() => onAnswerSelect(index + 1)}
                   />
                 );
               })
@@ -255,19 +204,15 @@ export const SelectAnswer = ({
         <div className="hidden md:block w-full lg:w-[344px] space-y-6 block ">
           <div className="flex flex-col w-full text-4xl bg-gradient-to-r from-[#2e414e] to-[#132836] rounded-lg py-4 px-6">
             <p className="text-lg font-normal font-basement text-secondary">
-              {question.stop && timeRemaining === 0
-                ? "Complete"
-                : timeRemaining === 0
-                ? "Next question on"
+              {questionTimeRemaining === 0
+                ? "Next question in"
                 : "Time remaining"}
             </p>
             <h1 className="text-3xl font-bold text-white font-basement">
-              {question.stop && timeRemaining === 0
-                ? "Complete"
-                : timeRemaining === 0
-                ? loadingTime
-                : timeRemaining - 1}{" "}
-              {question.stop && timeRemaining === 0 ? "" : "seconds"}
+              {questionTimeRemaining === 0
+                ? restTimeRemaining
+                : questionTimeRemaining}{" "}
+              seconds
             </h1>
           </div>
           <div className="px-3 pt-5 bg-gradient-to-b from-[#061F30] to-[#061F30] rounded-lg">
@@ -275,27 +220,33 @@ export const SelectAnswer = ({
               Participants (122)
             </h1>
             <div className="mt-5">
-              {table.map((user, index) => {
-                const opacity =
-                  index <= 3 ? 1 : 1 - (index - 3) / (usersRankData.length - 4);
-                return (
-                  <ParticipationsRankTable
-                    key={index}
-                    userIndex={user.id}
-                    rank={`${index + 1 < 10 ? "0" : ""}${index + 1}`}
-                    userName={user.userName}
-                    points={user.points}
-                    profileImage={user.profileImage}
-                    showWinnerIcon={index < 3}
-                    ranked={user.ranked}
-                    currentUserIndex={11}
-                    animate={timeRemaining <= 0}
-                    style={{
-                      opacity: user.id === 11 || index <= 2 ? 1 : opacity,
-                    }}
-                  />
-                );
-              })}
+              {leaderboard &&
+                leaderboard.top10.map((user, index) => {
+                  const opacity =
+                    index <= 3
+                      ? 1
+                      : 1 - (index - 3) / (leaderboard.top10.length - 4);
+                  return (
+                    <ParticipationsRankTable
+                      key={index}
+                      userIndex={user.rank}
+                      rank={user.rank}
+                      userName={user.username}
+                      points={user.totalPoints}
+                      // profileImage={user.profileImage}
+                      // showWinnerIcon={index < 3}
+                      currentUserIndex={leaderboard.currentUser.rank}
+                      animate={questionTimeRemaining < 0}
+                      style={{
+                        opacity:
+                          user.rank === leaderboard.currentUser.rank ||
+                          index <= 2
+                            ? 1
+                            : opacity,
+                      }}
+                    />
+                  );
+                })}
             </div>
           </div>
         </div>

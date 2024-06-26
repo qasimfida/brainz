@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 import { calculateTimeLeft } from "@/lib/utils";
 
 export const Waitlist = () => {
-  const targetTime = new Date("2024-06-13T23:59:59");
+  const targetTime = new Date(Date.UTC(2024, 6, 2, 18, 0));
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft(targetTime));
 
@@ -96,14 +96,19 @@ export const Waitlist = () => {
                   First Game Pot Size
                 </p>{" "}
                 <h1 className="mt-2 font-basement text-xl md:text-2xl font-bold  max-lg:text-center">
-                  2,500 USDT
+                  1,000 USDT
                 </h1>
               </div>
               <div className="klaviyo-form-S9y8UP"></div>
             </div>
           </div>
           <div className="w-full lg:w-1/2 h-max flex items-center justify-center lg:justify-end ">
-            <Image src={iphone} alt="iphone" priority={true} />
+            <Image
+              src={iphone}
+              alt="iphone"
+              priority={true}
+              className="max-w-80"
+            />
           </div>
         </div>
 
@@ -117,32 +122,53 @@ export const Waitlist = () => {
         </div>
 
         <div className="container flex flex-col items-center justify-center px-6 pt-10  pb-14 text-white">
-          <div className="bg-primary-300 rounded-[20px] px-5 lg:px-10  py-10 md:py-20  w-full flex justify-between max-md:flex-col gap-5 lg:gap-10">
+          <div className="bg-primary-300 rounded-[20px] px-5 lg:px-10  py-8 md:py-16  w-full flex justify-between max-md:flex-col gap-5 lg:gap-10 md:items-center">
             <div>
               <h3 className="text-lg font-semibold lg:text-xl font-basement">
                 1. Join the Waitlist
               </h3>
-              <p className="text-grey-100 mt-2">
+              {/* <p className="text-grey-100 mt-2">
                 Post about Brainz on Twitter, Insta or Tiktok
-              </p>
+              </p> */}
             </div>
-            <div className=" w-[1px] bg-grey-250"></div>
+            <div className=" w-[1px] bg-grey-250 md:h-28"></div>
             <div>
               <h3 className="text-lg font-semibold lg:text-xl font-basement">
-                2. Re-share our{"  "}
-                <span className="underline text-secondary">Post</span>
+                2. Re-share our Post
               </h3>
               <p className="text-grey-100 mt-2">
-                Post about Brainz on Twitter, Insta or Tiktok
+                On{" "}
+                <Link
+                  href={
+                    "https://x.com/playbrainz/status/1805621828984926418?s=48&t=7Op3EQmNa6RTyJkkvVkmtw"
+                  }
+                  target="_blank"
+                  className="text-secondary underline"
+                >
+                  Twitter
+                </Link>
+                , On{" "}
+                <Link
+                  href={
+                    "https://www.instagram.com/p/C8pLzu0tri7/?igsh=MXIxNms1eTNlY2dsbA=="
+                  }
+                  target="_blank"
+                  className="text-secondary underline"
+                >
+                  Instagram
+                </Link>
               </p>
             </div>
-            <div className=" w-[1px] bg-grey-250"></div>
+            <div className=" w-[1px] bg-grey-250 md:h-28"></div>
             <div>
               <h3 className="text-lg font-semibold lg:text-xl font-basement">
                 3. Create your Own Post
               </h3>
               <p className="text-grey-100 mt-2">
-                Post about Brainz on Twitter, Insta or Tiktok
+                Post on Twitter or Insta and tag @PlayBrainz
+              </p>
+              <p className="text-secondary mt-2">
+                This is how we’ll pick the winner for the 500 USDT!
               </p>
             </div>
           </div>
@@ -152,39 +178,26 @@ export const Waitlist = () => {
           <h1 className="text-3xl font-bold text-white font-basement md:text-4xl">
             THE PRIZES
           </h1>
-          <p className="mt-4 text-sm font-normal uppercase lg:tracking-[3.2px]  text-grey-100 max-w-md">
-            Winners are announced before our first game on July 2 at 3pm ET/ 9pm
+          <p className="mt-4 text-sm font-normal uppercase lg:tracking-[3.2px]  text-grey-100 max-w-lg">
+            Winners are announced before our first game on JULY 2 AT 2PM ET/ 8PM
             CET
           </p>
 
           <div className="relative  grid justify-center gap-8 mt-5 -bottom-14 grid-cols-[repeat(auto-fit,minmax(300px,1fr))]  pb-14 w-full">
-            <WinBox
-              imageSrc={winBoxData[0].imageSrc}
-              title={winBoxData[0].title}
-              height={"h-full"}
-            />
-
-            <WinBox
-              imageSrc={winBoxData[1].imageSrc}
-              title={winBoxData[1].title}
-            />
-
-            <WinBox
-              imageSrc={winBoxData[2].imageSrc}
-              title={winBoxData[2].title}
-              height={"h-full"}
-            />
-
-            <WinBox
-              imageSrc={winBoxData[3].imageSrc}
-              title={winBoxData[3].title}
-              height={"h-full"}
-            />
+            {winBoxData.map((item, index) => (
+              <WinBox
+                key={index}
+                imageSrc={item.imageSrc}
+                title={item.title}
+                height={"h-full"}
+                imageBg={item.imageBg}
+              />
+            ))}
           </div>
           <p className="mt-10 text-sm font-normal lg:tracking-[3.2px] text-grey-100 uppercase">
             We reserve the right to close or ban, temporarily or permanently,
-            any user's account as we deem fraudulent, or any user who violates
-            these terms and conditions.
+            any user&apos;s account as we deem fraudulent, or any user who
+            violates these terms and conditions.
           </p>
           <div className="w-full h-[1px] bg-secondary mt-10"></div>
         </div>
@@ -203,18 +216,18 @@ export const Waitlist = () => {
                     PLAY TRIVIA, WIN CRYPTO
                   </h1>
                   <p className="font-bold text-white font-basement text-sm mt-2 text-center">
-                    July 2, 3pm ET / 9pm CET
+                    JULY 2 AT 2PM ET/ 8PM CET
                   </p>
-                  <div className="mt-12 space-y-2  font-basement text-sm  ">
+                  <div className="mt-12 pb-5 space-y-2  font-basement text-sm  ">
                     <p className=" text-white px-4 ">Crypto 101</p>
                     <p className=" text-secondary border border-secondary bg-[linear-gradient(91deg,_rgba(223,_200,_11,_0.30)_-0.05%,_#2F2A00_99.66%)] font-bold px-4 py-0.5 rounded-md w-max">
                       The Everything Quiz
                     </p>
-                    <p className=" text-white px-4 ">Crypto Tokens</p>
+                    {/* <p className=" text-white px-4 ">Crypto Tokens</p> */}
                   </div>
                   <p className=" text-white px-4 mt-10">Prize Reward</p>
                   <h1 className="text-lg font-bold text-white font-basement md:text-xl border border-secondary rounded-full w-max px-4 py-0.5 mt-1">
-                    2,500 USDT
+                    1,000 USDT
                   </h1>
                 </div>
                 <Image
@@ -236,21 +249,29 @@ export const Waitlist = () => {
                 STARTING IN
               </h1>{" "}
               <div className="mt-6 flex gap-3 items-center">
-                <div className="w-16 h-16 rounded-lg  text-[#000000] font-basement font-black text-3xl bg-secondary flex items-center justify-center">
-                  {String(timeLeft.hours).padStart(2, "0")}
+                {timeLeft.days && (
+                  <>
+                    <div className="w-16 h-16 rounded-lg  text-[#000000] font-basement font-bold text-xl bg-secondary flex items-center justify-center">
+                      {String(timeLeft.days).padStart(2, "0")}d
+                    </div>
+                    <span className="text-4xl font-basement font-bold">:</span>
+                  </>
+                )}
+                <div className="w-16 h-16 rounded-lg  text-[#000000] font-basement font-bold text-xl bg-secondary flex items-center justify-center">
+                  {String(timeLeft.hours).padStart(2, "0")}h
                 </div>
                 <span className="text-4xl font-basement font-bold">:</span>
-                <div className="w-16 h-16 rounded-lg  text-[#000000] font-basement font-black text-3xl bg-secondary flex items-center justify-center">
-                  {String(timeLeft.minutes).padStart(2, "0")}
+                <div className="w-16 h-16 rounded-lg  text-[#000000] font-basement font-bold text-xl bg-secondary flex items-center justify-center">
+                  {String(timeLeft.minutes).padStart(2, "0")}m
                 </div>{" "}
                 <span className="text-4xl font-basement font-bold">:</span>
-                <div className="w-16 h-16 rounded-lg  text-[#000000] font-basement font-black text-3xl bg-secondary flex items-center justify-center">
-                  {String(timeLeft.seconds).padStart(2, "0")}
+                <div className="w-16 h-16 rounded-lg  text-[#000000] font-basement font-bold text-xl bg-secondary flex items-center justify-center">
+                  {String(timeLeft.seconds).padStart(2, "0")}s
                 </div>
               </div>
               <p className=" text-white px-4 mt-10">Prize Rewards</p>
               <h1 className="text-xl font-bold text-white font-basement md:text-2xl mt-1">
-                2,500 USDT
+                1,000 USDT
               </h1>
             </div>
           </div>

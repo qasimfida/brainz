@@ -42,7 +42,7 @@ export const PointsDetails = ({
         </h1>
       </div>
       <div className="flex items-center justify-center gap-4">
-        <div className="relative w-[24px] h-[24px] rounded-full border border-secondary">
+        {/* <div className="relative w-[24px] h-[24px] rounded-full border border-secondary">
           <Image
             src={profileImage}
             alt="profile"
@@ -51,7 +51,7 @@ export const PointsDetails = ({
             draggable={false}
             priority={true}
           />
-        </div>
+        </div> */}
         <h1
           className={`font-basement font-bold text-sm lg:text-base text-nowrap	 ${textStyles}`}
         >
@@ -65,7 +65,7 @@ export const PointsDetails = ({
           {points}
         </p>
       </div>
-      {!participants && (
+      {/* {!participants && (
         <div className="flex items-center justify-center ml-[44px]">
           <p
             className={`font-bold font-basement text-sm lg:text-base text-nowrap	 ${textStyles}`}
@@ -73,7 +73,7 @@ export const PointsDetails = ({
             Reward: {reward}
           </p>
         </div>
-      )}
+      )} */}
     </div>
   );
 };

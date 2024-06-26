@@ -22,6 +22,7 @@ export const ResultCard = ({
   details,
   variant,
   correctAnswer,
+  totalQuestions,
   rankNum = "",
 }) => {
   let cardClassName = classNames.card;
@@ -46,7 +47,8 @@ export const ResultCard = ({
 
       {variant === "primary" ? (
         <h1 className={detailsClassName}>
-          <span className="text-success-100">{correctAnswer}</span>/20
+          <span className="text-success-100">{correctAnswer}</span>/
+          {totalQuestions}
         </h1>
       ) : (
         <h1 className={detailsClassName}>{details}</h1>

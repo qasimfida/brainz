@@ -9,7 +9,7 @@ import { PointsDetails } from "./PointsDetails";
 import { ResultCard } from "./ResultCard";
 import { ConfettiBackground } from "./ConfettiBackground ";
 
-export const SessionResult = () => {
+export const SessionResult = ({ leaderboard, session }) => {
   return (
     <div className="content">
       <ConfettiBackground />
@@ -18,7 +18,7 @@ export const SessionResult = () => {
           <ResultCard
             title="You ranked"
             details="Congratulations"
-            rankNum="10th"
+            rankNum={leaderboard.currentUser.rank}
           />
         </div>
         <div className="flex-1 text-center lg:text-start">
@@ -34,6 +34,7 @@ export const SessionResult = () => {
             details="01 Ticket"
             variant="primary"
             correctAnswer={15}
+            totalQuestions={session.totalQuestions}
           />
         </div>
       </div>
@@ -76,30 +77,30 @@ export const SessionResult = () => {
         <div className="mt-5 lg:mt-9 h-[370px] cursor-grab active:cursor-grabbing	 scrollbar scrollbar-w-[5.6px] scrollbar-h-[5.6px] overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-thumb-[#104061]">
           <div className="flex flex-wrap justify-between gap-0 lg:gap-14">
             <div className="flex-1">
-              {fiveUsersRankData.map((rank, index) => (
+              {leaderboard.top10.slice(0, 5).map((user, index) => (
                 <PointsDetails
                   key={index}
-                  rank={rank.rank}
-                  userName={rank.userName}
-                  points={rank.points}
-                  profileImage={rank.profileImage}
-                  reward={rank.reward}
-                  myRank={rank.myRank}
+                  rank={user.rank}
+                  userName={user.username.slice(0, 10)}
+                  points={user.totalPoints}
+                  // profileImage={rank.profileImage}
+                  // reward={rank.reward}
+                  myRank={leaderboard.currentUser.rank}
                   bgColorGrey
                   showWinnerIcon
                 />
               ))}
             </div>
             <div className="flex-1">
-              {fiveToTenUsersRankData.map((rank, index) => (
+              {leaderboard.top10.slice(5, 10).map((user, index) => (
                 <PointsDetails
                   key={index}
-                  rank={rank.rank}
-                  userName={rank.userName}
-                  points={rank.points}
-                  profileImage={rank.profileImage}
-                  reward={rank.reward}
-                  myRank={rank.myRank}
+                  rank={user.rank}
+                  userName={user.username.slice(0, 10)}
+                  points={user.totalPoints}
+                  // profileImage={rank.profileImage}
+                  // reward={rank.reward}
+                  myRank={leaderboard.currentUser.rank}
                   bgColorGrey
                   showWinnerIcon
                 />

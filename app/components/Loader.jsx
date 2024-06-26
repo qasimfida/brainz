@@ -19,6 +19,11 @@ const Loader = ({ children }) => {
   }
 
   if (ready && authenticated) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      
+    }
+
     return children;
   }
 };

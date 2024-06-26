@@ -5,7 +5,14 @@ import { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-export const WinBox = ({ imageSrc, title, description, height, ...rest }) => {
+export const WinBox = ({
+  imageSrc,
+  title,
+  description,
+  height,
+  imageBg = "#2c8293",
+  ...rest
+}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -21,12 +28,17 @@ export const WinBox = ({ imageSrc, title, description, height, ...rest }) => {
       {isLoading ? (
         <Skeleton height={230} borderRadius={"1.5rem"} count={1} />
       ) : (
-        <div className="relative bg-[#2c8293] rounded-[20px] h-[180px] lg:h-[230px] w-full overflow-hidden">
+        <div
+          className="relative rounded-[20px] h-[180px] lg:h-[230px] w-full overflow-hidden"
+          style={{
+            background: imageBg,
+          }}
+        >
           <Image
             src={imageSrc}
             alt="Reward Box"
             layout="fill"
-            objectFit="cover"
+            objectFit="contain"
             draggable={false}
             priority={true}
           />

@@ -10,12 +10,15 @@ import CountdownTimer from "@/app/components/CountDownTimer";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { NumericFormat } from "react-number-format";
+import { useRouter } from "next/navigation";
+import { apiCall, getSessionEndTime, getTotalSessionTime } from "@/lib/utils";
 
 export const Dashboard = () => {
   const [games, setGames] = useState([]);
   const [nextGame, setNextGame] = useState(null);
   const [nextGameSelectedSession, setNextGameSelectedSession] = useState(0);
-
+  const [sessionStats, setSessionStats] = useState(null);
+  const router = useRouter();
   useEffect(() => {
     const getGames = async () => {
       try {
@@ -32,9 +35,10 @@ export const Dashboard = () => {
         upcomingGames.sort(
           (a, b) => new Date(a.startTime) - new Date(b.startTime)
         );
+        console.log(fetchedGames);
         if (upcomingGames.length > 0) {
-          const nextGame = upcomingGames.shift(); // Remove the first game from the array and set it as nextGame
-          setNextGame(nextGame);
+          console.log(fetchedGames);
+          setNextGame(upcomingGames.shift());
           setGames(upcomingGames); // Set the remaining games
         }
       } catch (err) {
@@ -45,9 +49,29 @@ export const Dashboard = () => {
     getGames();
   }, []);
 
+  // useEffect(() => {
+  //   const getSessionStats = async () => {
+  //     try {
+  //       const data = await apiCall(
+  //         "get",
+  //         `/session-stats/${nextGame.sessions[nextGameSelectedSession].id}`
+  //       );
+  //       console.log(data);
+  //       setSessionStats(data);
+  //     } catch (err) {
+  //       console.error("Error fetching games:", err);
+  //     }
+  //   };
+
+  //   if (nextGame) {
+  //     getSessionStats();
+  //   }
+  // }, [nextGame]);
+
   const formatDuration = (startTime, endTime) => {
     const start = new Date(startTime);
     const end = new Date(endTime);
+    console.log(end)
     const durationMs = end - start;
 
     // Convert milliseconds to hours and minutes
@@ -60,6 +84,7 @@ export const Dashboard = () => {
       "0"
     )} mins`;
   };
+
 
   const handleJoinSession = async (id) => {
     const token = localStorage.getItem("token");
@@ -81,6 +106,7 @@ export const Dashboard = () => {
       // Check for response status and handle messages
       if (res.status === 201) {
         alert("Session state created successfully");
+        router.push(`/dashboard/session/${id}`);
       } else if (res.status === 200) {
         alert(res.data.message || "Success");
       } else {
@@ -126,7 +152,7 @@ export const Dashboard = () => {
                 Session |{" "}
                 {formatDuration(
                   nextGame.sessions[nextGameSelectedSession].startTime,
-                  nextGame.sessions[nextGameSelectedSession].endTime
+                  getSessionEndTime(nextGame.sessions[nextGameSelectedSession])
                 )}
               </p>
               <p className="text-xl font-normal font-basement pt-9">Pot Size</p>
@@ -155,7 +181,7 @@ export const Dashboard = () => {
                 <p className="flex gap-1 text-base font-normal">
                   <span>
                     {" "}
-                    {nextGame.sessions[nextGameSelectedSession].tickets}
+                    {nextGame.sessions[nextGameSelectedSession].ticketsRequired}
                   </span>
                   Ticket Required to attend session
                 </p>
@@ -169,11 +195,17 @@ export const Dashboard = () => {
           <h1 className="pt-4 pl-8 text-xl font-bold font-basement">
             Upcoming Games
           </h1>
-          {games.length && (
+          {games.length > 0 ? (
             <div className="grid grid-cols-1 mt-8 px-14 md:grid-cols-1 gap-14 lg:grid-cols-2 xl:grid-cols-3">
               {games.map((game, index) => (
                 <CryptoCard key={index} data={game} />
               ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center mt-20">
+              <h1 className="text-xl font-bold font-basement">
+                No upcoming games
+              </h1>
             </div>
           )}
         </div>

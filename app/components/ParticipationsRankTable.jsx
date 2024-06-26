@@ -41,7 +41,7 @@ export const ParticipationsRankTable = ({
         </h1>
       </div>
       <div className="flex items-center justify-center gap-4">
-        <div className="relative w-6 h-6 border rounded-full min-w-6 min-h-6 max-w-6 max-h-6 border-secondary">
+        {/* <div className="relative w-6 h-6 border rounded-full min-w-6 min-h-6 max-w-6 max-h-6 border-secondary">
           <Image
             src={profileImage}
             alt="profile"
@@ -50,13 +50,13 @@ export const ParticipationsRankTable = ({
             draggable={false}
             priority={true}
           />
-        </div>
+        </div> */}
         <h1
           className={`text-base font-bold font-basement ${
             isCurrentUser ? "text-dark" : "text-white"
           }`}
         >
-          {userName}
+          {userName.slice(0, 10)}
         </h1>
       </div>
       <div className="flex items-center justify-center ml-11">

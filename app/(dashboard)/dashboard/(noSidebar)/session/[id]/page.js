@@ -1,5 +1,5 @@
 import { Session } from "@/app/container/Session/Session";
 
-export default function Page({ params }) {
+export default async function Page({ params }) {
   return <Session params={params} />;
 }

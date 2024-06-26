@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { DiscordIcon, LinkedInIcon, XIcon } from "./Svgs";
+import { DiscordIcon, InstagramIcon, LinkedInIcon, XIcon } from "./Svgs";
 import logo from "@/public/images/Brainz-logo.png";
 
 const Footer = () => {
@@ -22,22 +22,22 @@ const Footer = () => {
       </div>
       <div className="mt-[60px] custom:mt-[0]">
         <div className="flex custom:justify-end items-center justify-start gap-5  border-white">
-          <Link href="#">
+          <Link href="https://x.com/playbrainz" target="_blank">
             <XIcon
               width={21}
               height={23}
               className={"text-white hover:text-secondary cursor-pointer"}
             />
           </Link>
-          <Link href="#">
+          <Link href="https://discord.gg/f63UZt99" target="_blank">
             <DiscordIcon
               height={28}
               width={28}
               className={"text-white hover:text-secondary cursor-pointer"}
             />
           </Link>
-          <Link href="#">
-            <LinkedInIcon
+          <Link href="https://www.instagram.com/playbrainz/" target="_blank">
+            <InstagramIcon
               height={28}
               width={28}
               className={"text-white hover:text-secondary cursor-pointer"}
