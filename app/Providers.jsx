@@ -4,6 +4,7 @@ import { PrivyProvider } from "@privy-io/react-auth";
 import { Arbitrum, DAppProvider, MetamaskConnector } from "@usedapp/core";
 import { bsc, sepolia } from "viem/chains";
 import WalletProvider from "./contexts/WalletContext";
+import UserProvider from "./contexts/UserContext";
 
 export default function Providers({ children }) {
   const config = {
@@ -37,7 +38,9 @@ export default function Providers({ children }) {
           supportedChains: [bsc],
         }}
       >
-        <WalletProvider>{children}</WalletProvider>
+        <WalletProvider>
+          <UserProvider>{children}</UserProvider>
+        </WalletProvider>
       </PrivyProvider>
     </DAppProvider>
   );

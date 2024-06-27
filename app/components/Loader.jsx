@@ -1,5 +1,5 @@
 "use client";
-import { usePrivy } from "@privy-io/react-auth";
+import { getAccessToken, usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
 
 const Loader = ({ children }) => {
@@ -16,12 +16,12 @@ const Loader = ({ children }) => {
 
   if (ready && !authenticated) {
     router.push("/");
+    localStorage.removeItem("token");
   }
 
   if (ready && authenticated) {
     const token = localStorage.getItem("token");
     if (!token) {
-      
     }
 
     return children;

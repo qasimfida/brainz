@@ -2,13 +2,38 @@
 import Input from "@/app/components/Input";
 import TermsConditionsModal from "@/app/components/TermsConditionsModal";
 import WalletTabs from "@/app/components/WalletTabs";
-import { usePrivy } from "@privy-io/react-auth";
+import { useUser } from "@/app/contexts/UserContext";
+import { getLocalAccessToken } from "@/lib/utils";
+import { useLinkAccount, usePrivy } from "@privy-io/react-auth";
+import axios from "axios";
 import Link from "next/link";
 import { useState } from "react";
 
 export const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user, linkGoogle, unlinkGoogle } = usePrivy();
+  const { user: privyUser } = usePrivy();
+  const { user } = useUser();
+  const { linkGoogle } = useLinkAccount({
+    onSuccess: async (user, linkedAccount) => {
+      console.log({ user, linkedAccount });
+      // try {
+      //   const accessToken = getLocalAccessToken();
+      //   if (accessToken) {
+      //     const res = await axios.patch(
+      //       `${process.env.NEXT_PUBLIC_API_URL}/profile`,
+      //       {},
+      //       {
+      //         headers: {
+      //           Authorization: `Bearer ${accessToken}`,
+      //         },
+      //       }
+      //     );
+      //   }
+      // } catch (error) {
+      //   console.log(error);
+      // }
+    },
+  });
 
   const open = () => {
     setIsOpen(true);
@@ -18,6 +43,25 @@ export const Profile = () => {
     setIsOpen(false);
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const username = formData.get("username");
+    if (username) {
+      const accessToken = getLocalAccessToken();
+      const res = await axios.patch(
+        `${process.env.NEXT_PUBLIC_API_URL}/profile`,
+        { username },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      alert(res.data.message);
+      // setUser(res.data.profile);
+    }
+  };
 
   return (
     <div className="mb-0 md:mb-8">
@@ -30,18 +74,12 @@ export const Profile = () => {
             <Input
               type="text"
               label="Email"
-              value={user?.google?.email}
+              value={privyUser?.google?.email}
               readOnly
               placeholder={"youremail@gmail.com"}
+              className={!privyUser?.google?.subject && "pr-[110px]"}
             />
-            {user?.google?.subject ? (
-              <button
-                onClick={() => unlinkGoogle(user?.google?.subject)}
-                className="absolute right-0 bottom-2.5  h-max text-white py-2 px-6 rounded-md focus:outline-none"
-              >
-                Unlink
-              </button>
-            ) : (
+            {!privyUser?.google?.subject && (
               <button
                 onClick={linkGoogle}
                 className="absolute right-0 bottom-2.5  h-max text-white py-2 px-6 rounded-md focus:outline-none"
@@ -50,18 +88,30 @@ export const Profile = () => {
               </button>
             )}
           </div>
-          <div className="flex-1 min-w-[240px]">
-            <Input label="Username" variant={"default"} />
-          </div>
+          <form onSubmit={handleUpdate} className="flex-1  relative">
+            <Input
+              name="username"
+              label="Username"
+              variant={"default"}
+              defaultValue={user.username}
+              className="pr-[110px]"
+            />
+            <button
+              type="submit"
+              className="absolute right-0 bottom-2.5  h-max text-white py-2 px-6 rounded-md focus:outline-none"
+            >
+              Update
+            </button>
+          </form>
         </div>
         <div className="flex flex-wrap gap-12 mt-8">
           <div className="flex-1 max-w-full lg:max-w-[48%]">
-            <input
+            <Input
               type="text"
-              value={user.wallet.address}
+              label={"Wallet Address"}
+              value={privyUser.wallet.address}
               readOnly
               placeholder={"0x1234567890abcdef1234567890abcdef12345678"}
-              className={`bg-primary w-full pl-4 pr-[110px] py-4 rounded-[20px] border border-primary-275 focus:outline-none focus:ring-1`}
             />
           </div>
         </div>

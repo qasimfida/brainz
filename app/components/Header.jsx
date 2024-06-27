@@ -21,9 +21,10 @@ import Profile from "@/public/images/avatar.jpeg";
 import Link from "next/link";
 import { MobileSidebar } from "./MobileSidebar";
 import LoagoutButton from "./LoagoutButton";
-import { usePrivy} from "@privy-io/react-auth";
+import { usePrivy } from "@privy-io/react-auth";
 import { formatWalletAddress } from "@/lib/utils";
 import { useWallet } from "../contexts/WalletContext";
+import { useUser } from "../contexts/UserContext";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -32,8 +33,9 @@ const Header = () => {
   const dropdownRef = useRef(null);
   const [isCopied, setIsCopied] = useState(false);
 
-  const { user } = usePrivy();
-
+  const { user: privyUser } = usePrivy();
+  const { user } = useUser();
+  console.log(privyUser);
   const toggleDropdown = () => {
     setIsOpenProfile(!isOpenProfile);
     if (isOpenProfile == false) {
@@ -120,7 +122,7 @@ const Header = () => {
               <div>
                 <Ticket
                   mainIcon={TicketIcon}
-                  number={55}
+                  number={user.tickets}
                   label="Tickets"
                   bgColor="danger"
                   href="/dashboard/shop"
@@ -129,7 +131,7 @@ const Header = () => {
               <div>
                 <Ticket
                   mainIcon={DiamondIcon}
-                  number={204}
+                  number={user.diamonds}
                   label="Diamonds"
                   bgColor="success"
                   href="/dashboard/shop"
@@ -157,7 +159,7 @@ const Header = () => {
                     />
                   </div>
                   <p className="ml-2 text-sm font-normal text-white font-basement">
-                    {formatWalletAddress(user.wallet.address)}
+                    {user.username}
                   </p>
                   <div className="flex items-center justify-center ml-4">
                     <ArrowDownLightIcon />
@@ -174,7 +176,7 @@ const Header = () => {
                           !isCopied ? "" : "text-white"
                         }`}
                       >
-                        {formatWalletAddress(user.wallet.address)}
+                        {formatWalletAddress(privyUser.wallet.address)}
                       </p>
                       {isCopied ? (
                         <TextCopyTickIcon
@@ -184,7 +186,9 @@ const Header = () => {
                         />
                       ) : (
                         <button
-                          onClick={() => copyToClipboard(user.wallet.address)}
+                          onClick={() =>
+                            copyToClipboard(privyUser.wallet.address)
+                          }
                         >
                           <TextCopyIcon
                             className="hover:text-white text-grey-200"
