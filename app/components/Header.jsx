@@ -35,7 +35,6 @@ const Header = () => {
 
   const { user: privyUser } = usePrivy();
   const { user } = useUser();
-  console.log(privyUser);
   const toggleDropdown = () => {
     setIsOpenProfile(!isOpenProfile);
     if (isOpenProfile == false) {
