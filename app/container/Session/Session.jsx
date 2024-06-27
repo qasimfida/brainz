@@ -27,6 +27,9 @@ export const Session = ({ params }) => {
   useEffect(() => {
     const getSession = async (id) => {
       const data = await apiCall("get", `/session/${id}`);
+      if (!data || !data.session) {
+        return router.push("/dashboard");
+      }
       setSession(data.session);
       console.log(data.session.startTime);
       if (new Date(data.session.startTime) < new Date()) {
