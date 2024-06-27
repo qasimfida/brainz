@@ -76,7 +76,7 @@ export const Session = ({ params }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const socket = io("http://localhost:3000", {
+    const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL, {
       reconnectionDelayMax: 10000,
       extraHeaders: {
         Authorization: `Bearer ${token}`,

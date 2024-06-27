@@ -21,12 +21,8 @@ import Profile from "@/public/images/avatar.jpeg";
 import Link from "next/link";
 import { MobileSidebar } from "./MobileSidebar";
 import LoagoutButton from "./LoagoutButton";
-import { usePrivy, useWallets } from "@privy-io/react-auth";
+import { usePrivy} from "@privy-io/react-auth";
 import { formatWalletAddress } from "@/lib/utils";
-import { Arbitrum, useTokenBalance } from "@usedapp/core";
-import { TOKEN_ADDRESS } from "@/lib/config";
-import { bsc, sepolia } from "viem/chains";
-import { ethers } from "ethers";
 import { useWallet } from "../contexts/WalletContext";
 
 const Header = () => {

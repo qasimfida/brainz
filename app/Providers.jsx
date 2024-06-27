@@ -22,7 +22,7 @@ export default function Providers({ children }) {
   return (
     <DAppProvider config={config}>
       <PrivyProvider
-        appId="clxddw9ny042rk6t8bzegajhl"
+        appId={process.env.NEXT_PUBLIC_PRIVY_APP_ID}
         config={{
           // Customize Privy's appearance in your app
           appearance: {
