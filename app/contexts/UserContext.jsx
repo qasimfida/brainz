@@ -20,6 +20,7 @@ const UserProvider = ({ children }) => {
               },
             }
           );
+          console.log(res.data.profile);
           setUser(res.data.profile);
         }
       } catch (error) {
@@ -27,9 +28,9 @@ const UserProvider = ({ children }) => {
       }
     };
 
-    if (!user) {
-      getUser();
-    }
+    // if (!user) {
+    //   getUser();
+    // }
   });
 
   return (

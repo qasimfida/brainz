@@ -1,27 +1,123 @@
 import Link from "next/link";
-import {
-  fiveToTenUsersRankData,
-  fiveUsersRankData,
-} from "../container/Session/data";
 import { Button } from "./Button";
 import { Counter } from "./Counter";
 import { PointsDetails } from "./PointsDetails";
 import { ResultCard } from "./ResultCard";
 import { ConfettiBackground } from "./ConfettiBackground ";
+import WheelModal from "./WheelModal";
+import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { getLocalAccessToken } from "@/lib/utils";
+import Image from "next/image";
+
+const SPIN_DURATION = 2 * 1000;
 
 export const SessionResult = ({ leaderboard, session }) => {
   const [remainingWheelTime, setRemainingWheelTime] = useState(
     session.wheelDuration
   );
+  const [totalSessionParticipants, setTotalSessionParticipants] = useState(0);
+  const [isOpenWheelModal, setIsOpenWheelModal] = useState(false);
+  const [sessionWheelData, setSessionWheelData] = useState(null);
+  const [spinning, setSpinning] = useState(false);
+  const [winningPrize, setWiningPrize] = useState(null);
+  const [spinned, setSpinned] = useState(false);
+  const wheelRef = useRef(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setRemainingWheelTime((prev) => prev - 1);
+      setRemainingWheelTime((prev) => {
+        if (prev > 0) {
+          return prev - 1;
+        } else {
+          clearInterval(interval);
+          !spinning && setIsOpenWheelModal(false);
+          return 0;
+        }
+      });
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
-  const [showWheel, setShowWheel] = useState(false);
+  useEffect(() => {
+    const accessToken = getLocalAccessToken();
+    const getWheelData = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/wheels/session/${session.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        setSessionWheelData(res.data.wheel);
+      } catch (err) {
+        console.error("Error fetching games:", err);
+      }
+    };
+    const getParticipants = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_URL}/session-stats/session/${session.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+        if (res.status === 200) {
+          setTotalSessionParticipants(res.data.count);
+        }
+      } catch (err) {
+        console.error("Error fetching games:", err);
+      }
+    };
+    getParticipants();
+    getWheelData();
+  }, []);
+
+  const getWinningPrize = async () => {
+    try {
+      const accessToken = getLocalAccessToken();
+      const res = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/wheels/spin`,
+        {
+          sessionId: session.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (res.status === 200) {
+        setWiningPrize(res.data.message);
+        return res.data.message;
+      } else {
+        alert(res.data.message);
+      }
+    } catch (err) {
+      console.error("Error fetching games:", err);
+    }
+  };
+
+  const handleSpin = async () => {
+    if (spinning || spinned) {
+      return alert("you can spin only one time");
+    }
+    setSpinning(true);
+    const winningPrize = await getWinningPrize();
+    console.log(winningPrize);
+    wheelRef.current.spinToItem(2, SPIN_DURATION, true, 2, 1);
+    setTimeout(() => {
+      setSpinning(false);
+      setIsOpenWheelModal(false);
+      setSpinned(true);
+      setRemainingWheelTime(0);
+      alert(winningPrize);
+    }, SPIN_DURATION);
+  };
 
   return (
     <div className="content">
@@ -77,19 +173,29 @@ export const SessionResult = ({ leaderboard, session }) => {
         <div className="flex-1 text-center lg:text-start">
           <div
             className={
-              "pt-4 lg:pt-4 pb-4 lg:pb-6 pl-4 lg:pl-6 pr-4 lg:pr-12 rounded-[10px] h-full w-full text-nowrap bg-gradient-to-r from-[#3a4d56]/90 to-[#152c3a]"
+              "pt-4 lg:pt-4 pb-4 lg:pb-6 pl-4 lg:pl-6 pr-4 lg:pr-12 rounded-[10px] h-full w-full text-nowrap bg-gradient-to-r from-[#3a4d56]/90 to-[#152c3a] relative overflow-hidden cursor-pointer hover:bg-secondary"
             }
+            onClick={() => remainingWheelTime > 0 && setIsOpenWheelModal(true)}
           >
-            <h1
-              className={`font-basement font-bold text-lg lg:text-xl text-white	tracking-wider	 mb-4`}
-            >
-              Spin the wheel{" "}
-            </h1>
-            <h1
-              className={`font-basement font-bold text-xl lg:text-3xl text-white 	`}
-            >
-              25/{session.wheelDuration}
-            </h1>
+            <div className="z-10 relative">
+              <h1
+                className={`font-basement font-bold text-lg lg:text-xl text-white	tracking-wider	 mb-4`}
+              >
+                Spin the wheel{" "}
+              </h1>
+              <h1
+                className={`font-basement font-bold text-xl lg:text-3xl text-white`}
+              >
+                 {remainingWheelTime}s
+              </h1>
+            </div>
+            <Image
+              src={"/images/wheel.png"}
+              alt="wheel"
+              width={320}
+              height={320}
+              className="absolute -right-20 -bottom-28 "
+            />
           </div>
         </div>
       </div>
@@ -127,7 +233,7 @@ export const SessionResult = ({ leaderboard, session }) => {
       </div>
       <div className="mt-10">
         <h2 className="text-2xl lg:text-4xl font-black text-white font-basement">
-          Participants (122)
+          Participants ({totalSessionParticipants})
         </h2>
         <div className="mt-5 lg:mt-9 h-[370px] cursor-grab active:cursor-grabbing	 scrollbar scrollbar-w-[5.6px] scrollbar-h-[5.6px] overflow-y-scroll scrollbar-thumb-rounded-full scrollbar-thumb-[#104061]">
           <div className="flex flex-wrap justify-between gap-0 lg:gap-14">
@@ -164,6 +270,14 @@ export const SessionResult = ({ leaderboard, session }) => {
           </div>
         </div>
       </div>
+      <WheelModal
+        showModal={isOpenWheelModal}
+        setShowModal={setIsOpenWheelModal}
+        prizesData={sessionWheelData}
+        wheelRef={wheelRef}
+        onSpin={handleSpin}
+        spinning={spinning}
+      />
     </div>
   );
 };

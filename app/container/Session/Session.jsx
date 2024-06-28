@@ -97,7 +97,7 @@ export const Session = ({ params }) => {
 
     socket.on("sessionNotStarted", ({ timeRemaining }) => {
       setRemainingTime(timeRemaining);
-      // console.log({ timeRemaining });
+      console.log({ timeRemaining });
     });
     socket.on("sessionCompleted", () => {
       console.log("Session has ended");
@@ -149,7 +149,7 @@ export const Session = ({ params }) => {
           <div className="hidden md:block">
             <SessionHeader />
           </div>
-          <div className="hidden md:block fixed w-full top-[76px] left-0 w-full h-2 z-30 transition ease-in">
+          <div className="hidden md:block fixed  top-[76px] left-0 w-full h-2 z-30 transition ease-in">
             <ProgressBar progress={progess} step={step} />
           </div>
           <div className="mt-0 md:mt-8 lg:mt-10">

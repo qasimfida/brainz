@@ -1,4 +1,4 @@
-import { convertMillisecondsToHMS } from "@/lib/utils";
+import {  convertSecondsToHMS } from "@/lib/utils";
 import React, { useState, useEffect } from "react";
 
 export const Counter = ({ timeRemaining, onTimerEnd }) => {
@@ -6,7 +6,7 @@ export const Counter = ({ timeRemaining, onTimerEnd }) => {
   const [color, setColor] = useState("bg-secondary");
 
   useEffect(() => {
-    setTime(convertMillisecondsToHMS(timeRemaining));
+    setTime(convertSecondsToHMS(timeRemaining));
   }, [timeRemaining]);
 
   // Function to pad single digit numbers with leading zero

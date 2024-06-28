@@ -21,8 +21,6 @@ export const Dashboard = () => {
   const [sessionStats, setSessionStats] = useState(null);
   const router = useRouter();
 
-  const [isOpenWheelModal, setIsOpenWheelModal] = useState(false);
-
   useEffect(() => {
     const getGames = async () => {
       try {
@@ -131,7 +129,6 @@ export const Dashboard = () => {
 
   return (
     <div className="text-white bg-primary">
-      <button onClick={() => setIsOpenWheelModal(true)}>spin the wheel</button>
       {nextGame && nextGame.sessions.length > 0 && (
         <div className="bg-primary-350  pb-5 w-full rounded-[10px] mt-3 hidden md:block">
           <div className="flex flex-wrap items-center justify-between px-8 pt-4 gap-14">
@@ -325,10 +322,6 @@ export const Dashboard = () => {
           </Tab.Panels>
         </Tab.Group>
       </div>
-      <WheelModal
-        showModal={isOpenWheelModal}
-        setShowModal={setIsOpenWheelModal}
-      />
     </div>
   );
 };

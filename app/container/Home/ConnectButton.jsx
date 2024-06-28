@@ -5,37 +5,16 @@ import { Button } from "@/app/components/Button";
 import Link from "next/link";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
+import { authenticate } from "@/lib/utils";
 
 const ConnectButton = () => {
-  const { ready, authenticated } = usePrivy();
+  const { ready, authenticated, logout } = usePrivy();
   const searchParams = useSearchParams();
   // Disable login when Privy is not ready or the user is already authenticated
   const disableLogin = !ready || (ready && authenticated);
 
   const { login } = useLogin({
-    onComplete: async () => {
-      try {
-        const accessToken = await getAccessToken();
-        const referralId = localStorage.getItem("referralId");
-        const data = {};
-        if (referralId) {
-          localStorage.removeItem("referralId");
-          data.referralId = referralId;
-        }
-        const res = await axios.post(
-          `${process.env.NEXT_PUBLIC_API_URL}/authenticate`,
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        localStorage.setItem("token", res.data.token);
-      } catch (error) {
-        console.log(error);
-      }
-    },
+    onComplete: async () => {},
     onError: (error) => {
       console.log(error);
       // Any logic you'd like to execute after a user exits the login flow or there is an error
