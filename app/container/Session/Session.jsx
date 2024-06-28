@@ -77,6 +77,13 @@ export const Session = ({ params }) => {
     }
   };
 
+  const handleUsePower = (powerType) => {
+    if (socketRef.current) {
+      socketRef.current.emit("usePower", { powerType });
+      console.log("submit power");
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const socket = io(process.env.NEXT_PUBLIC_API_BASE_URL, {
@@ -125,6 +132,19 @@ export const Session = ({ params }) => {
       setLeaderboard(data);
       // console.log(data);
     });
+    socket.on("fiftyFifty", ({ answers }) => {
+      console.log({ answers });
+      console.log({ question });
+      const correctAnswer = question.answers.find((ans) => ans === answers[0]);
+      const wrongAnswers = question.answers.filter(
+        (ans) => ans !== correctAnswer
+      );
+      const randomIndex = Math.floor(Math.random() * wrongAnswers.length);
+      let newAnswers = [correctAnswer, wrongAnswers[randomIndex]];
+      // shuffle(newAnswers);
+      newAnswers = newAnswers.sort(() => Math.random() - 0.5);
+      setQuestion({ ...question, answers: newAnswers, answer: null });
+    });
 
     return () => {
       if (socket.connected) {
@@ -161,6 +181,7 @@ export const Session = ({ params }) => {
               questionTimeRemaining={questionTimeRemaining}
               restTimeRemaining={restTimeRemaining}
               leaderboard={leaderboard}
+              handleUsePower={handleUsePower}
               // handleStageChange={handleStageChange}
             />
           </div>

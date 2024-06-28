@@ -7,7 +7,7 @@ import { ConfettiBackground } from "./ConfettiBackground ";
 import WheelModal from "./WheelModal";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { getLocalAccessToken } from "@/lib/utils";
+import { apiCall, getLocalAccessToken } from "@/lib/utils";
 import Image from "next/image";
 
 const SPIN_DURATION = 2 * 1000;
@@ -19,8 +19,16 @@ export const SessionResult = ({ leaderboard, session }) => {
   const [totalSessionParticipants, setTotalSessionParticipants] = useState(0);
   const [isOpenWheelModal, setIsOpenWheelModal] = useState(false);
   const [sessionWheelData, setSessionWheelData] = useState(null);
+  const [wheelData, setWheelData] = useState([
+    "Better luck next time",
+    "2 Diamonds",
+    "1 Ticket",
+  ]);
   const [spinning, setSpinning] = useState(false);
-  const [winningPrize, setWiningPrize] = useState(null);
+  const [winningPrize, setWiningPrize] = useState({
+    type: "",
+    amount: "",
+  });
   const [spinned, setSpinned] = useState(false);
   const wheelRef = useRef(null);
 
@@ -58,16 +66,12 @@ export const SessionResult = ({ leaderboard, session }) => {
     };
     const getParticipants = async () => {
       try {
-        const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_URL}/session-stats/session/${session.id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
+        const data = await apiCall(
+          "get",
+          `/session-stats/session/${session.id}`
         );
-        if (res.status === 200) {
-          setTotalSessionParticipants(res.data.count);
+        if (data) {
+          setTotalSessionParticipants(data.count);
         }
       } catch (err) {
         console.error("Error fetching games:", err);
@@ -78,27 +82,12 @@ export const SessionResult = ({ leaderboard, session }) => {
   }, []);
 
   const getWinningPrize = async () => {
-    try {
-      const accessToken = getLocalAccessToken();
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/wheels/spin`,
-        {
-          sessionId: session.id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-      if (res.status === 200) {
-        setWiningPrize(res.data.message);
-        return res.data.message;
-      } else {
-        alert(res.data.message);
-      }
-    } catch (err) {
-      console.error("Error fetching games:", err);
+    const data = apiCall("post", `/wheels/spin`, { sessionId: session.id });
+    if (data) {
+      setWiningPrize(data);
+      return data;
+    } else {
+      alert("Error spinning the wheel");
     }
   };
 
@@ -109,15 +98,43 @@ export const SessionResult = ({ leaderboard, session }) => {
     setSpinning(true);
     const winningPrize = await getWinningPrize();
     console.log(winningPrize);
-    wheelRef.current.spinToItem(2, SPIN_DURATION, true, 2, 1);
+    let winningMessage = "";
+    let winningItem = "noPrize";
+    let winningIndex = 0;
+    if (winningPrize.type === "noPrize") {
+      winningMessage = "Better luck next time";
+    } else if (winningPrize.type === "diamonds") {
+      winningMessage = `You won ${winningPrize.amount} diamonds`;
+      winningItem = "2 Diamonds";
+      winningIndex = wheelData.indexOf(winningItem);
+    } else if (winningPrize.type === "tickets") {
+      winningMessage = `You won ${winningPrize.amount} tickets`;
+      winningItem = "1 Ticket";
+      winningIndex = wheelData.indexOf(winningItem);
+    } else {
+      winningMessage = `You won $${winningPrize.amount}`;
+      winningItem = `$${winningPrize.amount}`;
+      winningIndex = wheelData.indexOf(winningItem);
+    }
+    console.log(winningIndex);
+    wheelRef.current.spinToItem(winningIndex, SPIN_DURATION, true, 2, 1);
     setTimeout(() => {
       setSpinning(false);
       setIsOpenWheelModal(false);
       setSpinned(true);
       setRemainingWheelTime(0);
-      alert(winningPrize);
+      alert(winningMessage);
     }, SPIN_DURATION);
   };
+
+  useEffect(() => {
+    if (sessionWheelData) {
+      sessionWheelData.cashPrizes.forEach((item) => {
+        const prize = `$${item.amount}`;
+        setWheelData((prev) => [...prev, prize]);
+      });
+    }
+  }, [sessionWheelData]);
 
   return (
     <div className="content">
@@ -152,7 +169,7 @@ export const SessionResult = ({ leaderboard, session }) => {
                 {leaderboard.currentUser.totalPoints}
               </span>
             </h1>
-            <h1
+            {/* <h1
               className={`font-basement font-bold text-lg lg:text-xl text-white	tracking-wider	 `}
             >
               Correct Answers{" "}
@@ -160,7 +177,7 @@ export const SessionResult = ({ leaderboard, session }) => {
                 {leaderboard.currentUser.totalPoints}
               </span>
               /{session.totalQuestions}
-            </h1>
+            </h1> */}
           </div>
         </div>
         <div className="flex-1 text-center lg:text-start">
@@ -186,7 +203,7 @@ export const SessionResult = ({ leaderboard, session }) => {
               <h1
                 className={`font-basement font-bold text-xl lg:text-3xl text-white`}
               >
-                 {remainingWheelTime}s
+                {remainingWheelTime}s
               </h1>
             </div>
             <Image
@@ -273,7 +290,7 @@ export const SessionResult = ({ leaderboard, session }) => {
       <WheelModal
         showModal={isOpenWheelModal}
         setShowModal={setIsOpenWheelModal}
-        prizesData={sessionWheelData}
+        wheelData={wheelData}
         wheelRef={wheelRef}
         onSpin={handleSpin}
         spinning={spinning}

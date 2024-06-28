@@ -13,6 +13,7 @@ import { ParticipationsRankTable } from "./ParticipationsRankTable";
 import { GameCarousel } from "./GameCarousel";
 import "react-loading-skeleton/dist/skeleton.css";
 import Skeleton from "react-loading-skeleton";
+import { apiCall } from "@/lib/utils";
 
 const alphabets = ["A", "B", "C", "D"];
 
@@ -24,11 +25,26 @@ export const SelectAnswer = ({
   restTimeRemaining,
   progress,
   leaderboard,
+  handleUsePower,
 }) => {
-  const [table, setTable] = useState(usersRankData);
-  const [loading, setLoading] = useState(false);
+  const [totalSessionParticipants, setTotalSessionParticipants] = useState(0);
 
-  useEffect(() => {}, [question]);
+  useEffect(() => {
+    const getParticipants = async () => {
+      try {
+        const data = await apiCall(
+          "get",
+          `/session-stats/session/${session.id}`
+        );
+        if (data) {
+          setTotalSessionParticipants(data.count);
+        }
+      } catch (err) {
+        console.error("Error fetching games:", err);
+      }
+    };
+    getParticipants();
+  }, []);
 
   const moveUser = (currentIndex, targetIndex, data) => {
     if (currentIndex >= targetIndex && currentIndex >= 0 && targetIndex >= 0) {
@@ -78,9 +94,10 @@ export const SelectAnswer = ({
             </h1>
           </div>
           <GameCarousel autoplay={false}>
-            {mobileScreenUsersRankData.map((item, index) => {
-              return <MobilePointsCard data={item} key={index} />;
-            })}
+            {leaderboard &&
+              leaderboard.top10.map((item, index) => {
+                return <MobilePointsCard data={item} key={index} />;
+              })}
           </GameCarousel>
         </div>
         <div className="relative pr-1.5 -bottom-1">
@@ -90,7 +107,10 @@ export const SelectAnswer = ({
       <div className="flex flex-col gap-16 pl-4 pr-4 lg:flex-row md:pl-14 md:pr-9 bg-primary">
         <div className="w-full lg:w-3/4 ">
           <div className="flex items-center gap-4 md:gap-5">
-            <div className=" w-[200px] lg:w-[234px]">
+            <div
+              className=" w-[200px] lg:w-[234px]"
+              onClick={() => handleUsePower("fifty-fifty")}
+            >
               <SessionButton
                 title="50/50"
                 count={7}
@@ -101,20 +121,10 @@ export const SelectAnswer = ({
                 hover
               />
             </div>
-            {/* Desktop session button */}
-            <div className="hidden md:block w-[200px] lg:w-[234px]">
-              <SessionButton
-                title="Auto-correct"
-                svgFill="#1b5d3b"
-                count={8}
-                mainStyles="bg-gradient-to-r from-[#2e414e]/20 to-[#132836]/10"
-                badgeBg="bg-success/5"
-                titleStyles="text-base md:text-xl text-white/20"
-                countSize="text-base text-white/10 "
-              />
-            </div>
-            {/* Mobile session button */}
-            <div className="w-[200px] block md:hidden">
+            <div
+              className="w-[200px] lg:w-[234px]"
+              onClick={() => handleUsePower("auto-correct")}
+            >
               <SessionButton
                 title="Auto-correct"
                 count={10}
@@ -217,7 +227,7 @@ export const SelectAnswer = ({
           </div>
           <div className="px-3 pt-5 bg-gradient-to-b from-[#061F30] to-[#061F30] rounded-lg">
             <h1 className="pt-2.5 font-basement font-bold text-xl text-white ">
-              Participants (122)
+              Participants ({totalSessionParticipants})
             </h1>
             <div className="mt-5">
               {leaderboard &&

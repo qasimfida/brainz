@@ -73,12 +73,12 @@ export const Dashboard = () => {
   const formatDuration = (startTime, endTime) => {
     const start = new Date(startTime);
     const end = new Date(endTime);
-    console.log(end);
     const durationMs = end - start;
 
     // Convert milliseconds to hours and minutes
     const hours = Math.floor(durationMs / (1000 * 60 * 60));
     const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
+    console.log({ durationMs });
 
     // Pad with zero if less than 10
     return `${String(hours).padStart(2, "0")} hours ${String(minutes).padStart(
@@ -153,7 +153,7 @@ export const Dashboard = () => {
                 Session |{" "}
                 {formatDuration(
                   nextGame.sessions[nextGameSelectedSession].startTime,
-                  getSessionEndTime(nextGame.sessions[nextGameSelectedSession])
+                  nextGame.sessions[nextGameSelectedSession].endTime
                 )}
               </p>
               <p className="text-xl font-normal font-basement pt-9">Pot Size</p>

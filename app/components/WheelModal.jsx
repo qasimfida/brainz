@@ -9,61 +9,15 @@ import { wheelColors } from "@/lib/config";
 const WheelModal = ({
   showModal,
   setShowModal,
-  prizesData,
+  wheelData,
   wheelRef,
   onSpin,
   spinning,
 }) => {
   if (!showModal) return null;
   const wheelContainerRef = useRef(null);
-  const wheelData = ["2 Diamonds", "1 Ticket"];
 
   useEffect(() => {
-    // prizesData
-    // // {
-    //     "id": 2,
-    //     "diamondsQty": 12,
-    //     "ticketsQty": 13,
-    //     "isDistributed": false,
-    //     "createdAt": "2024-06-28T10:46:36.062Z",
-    //     "updatedAt": "2024-06-28T10:46:36.062Z",
-    //     "sessionId": 1,
-    //     "cashPrizes": [
-    //         {
-    //             "id": 1,
-    //             "amount": 10,
-    //             "qty": 13,
-    //             "createdAt": "2024-06-28T10:46:36.066Z",
-    //             "updatedAt": "2024-06-28T10:46:36.066Z",
-    //             "wheelId": 2
-    //         },
-    //         {
-    //             "id": 2,
-    //             "amount": 20,
-    //             "qty": 1,
-    //             "createdAt": "2024-06-28T10:46:36.067Z",
-    //             "updatedAt": "2024-06-28T10:46:36.067Z",
-    //             "wheelId": 2
-    //         },
-    //         {
-    //             "id": 3,
-    //             "amount": 30,
-    //             "qty": 13,
-    //             "createdAt": "2024-06-28T10:46:36.067Z",
-    //             "updatedAt": "2024-06-28T10:46:36.067Z",
-    //             "wheelId": 2
-    //         }
-    //     ]
-    // }
-
-    // get cashPrizes from prizesData and add in wheelData array like if amount is 10 add $10
-    prizesData.cashPrizes.forEach((item) => {
-      const prize = `$${item.amount}`;
-      wheelData.push(prize);
-    });
-
-    // shuffle wheelData
-
     const items = [];
     const colorUsage = wheelColors.map(() => 0);
     wheelData.forEach((data) => {
@@ -79,9 +33,6 @@ const WheelModal = ({
       colorUsage[colorIndex]++;
     });
 
-    // shuffler items
-    items.sort(() => Math.random() - 0.5);
-
     const props = {
       items,
       borderWidth: 0,
@@ -90,6 +41,7 @@ const WheelModal = ({
       itemLabelRadius: 0.95,
       overlayImage: "/wheel.png",
       isInteractive: false,
+      pointerAngle: 90,
     };
     const wheel = new Wheel(wheelContainerRef.current, props);
     wheelRef.current = wheel;
