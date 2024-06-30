@@ -73,14 +73,20 @@ export const Session = ({ params }) => {
     setQuestion({ ...question, answer });
     if (socketRef.current) {
       socketRef.current.emit("submitAnswer", { answer });
-      console.log("submit");
     }
   };
 
   const handleUsePower = (powerType) => {
+    if (questionTimeRemaining <= 0) {
+      alert("You cannot use power now");
+      return;
+    }
+    if (powerType === "fifty-fifty" && question.answers.length < 4) {
+      alert("This power cannot be used now");
+      return;
+    }
     if (socketRef.current) {
       socketRef.current.emit("usePower", { powerType });
-      console.log("submit power");
     }
   };
 
@@ -145,6 +151,11 @@ export const Session = ({ params }) => {
       newAnswers = newAnswers.sort(() => Math.random() - 0.5);
       setQuestion({ ...question, answers: newAnswers, answer: null });
     });
+    socket.on("autoCorrect", ({ answer }) => {
+      console.log({ question, answer });
+      setQuestion({ ...question, answer });
+      alert("Your answer has been automatically submitted");
+    });
 
     return () => {
       if (socket.connected) {
@@ -152,6 +163,37 @@ export const Session = ({ params }) => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (socketRef.current) {
+      socketRef.current.on("fiftyFifty", ({ answers }) => {
+        if (!question) return; // Early return if question is undefined
+        console.log({ answers });
+        console.log({ question });
+        const correctAnswer = question.answers.find(
+          (ans) => ans === answers[0]
+        );
+        const wrongAnswers = question.answers.filter(
+          (ans) => ans !== correctAnswer
+        );
+        const randomIndex = Math.floor(Math.random() * wrongAnswers.length);
+        let newAnswers = [correctAnswer, wrongAnswers[randomIndex]];
+        newAnswers = newAnswers.sort(() => Math.random() - 0.5);
+        setQuestion({ ...question, answers: newAnswers, answer: null });
+      });
+
+      socketRef.current.on("autoCorrect", ({ answer }) => {
+        if (!question) return; // Early return if question is undefined
+        console.log({ question, answer });
+        setQuestion({ ...question, answer });
+        alert("Your answer has been automatically submitted");
+      });
+    }
+    return () => {
+      socketRef.current.off("fiftyFifty");
+      socketRef.current.off("autoCorrect");
+    };
+  }, [question]);
 
   const progess = (step / session.totalQuestions) * 100 - 1;
   return (
