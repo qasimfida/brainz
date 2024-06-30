@@ -82,7 +82,7 @@ const Header = () => {
     navigator.clipboard.writeText(string);
   };
 
-  const { usdtBalance } = useWallet();
+  const { walletBalances } = useWallet();
 
   return (
     <div className="sticky top-0 z-40">
@@ -104,19 +104,9 @@ const Header = () => {
             </Link>
             <div className="flex items-center gap-10 max-md:hidden">
               <div className="block max-[1200px]:hidden">
-                <div
-                  className={`bg-primary-350 flex items-center relative w-full border border-primary-275 rounded-lg py-2 pl-2.5 pr-4 focus:shadow-outline z-[11] hover:bg-primary-275 transition duration-200`}
-                >
-                  <div className="flex items-center font-basement">
-                    <div className="bg-primary flex items-center py-1.5 px-2 rounded mr-2.5 font-bold text-grey-200">
-                      <span className="mr-2">
-                        <UsdtIcon />
-                      </span>
-                      <p className="mr-2 text-sm">{usdtBalance}</p>
-                    </div>
-                    <p className="text-white text-sm">USDT</p>
-                  </div>
-                </div>
+                {walletBalances.length > 0 && (
+                  <SelectDropdown options={walletBalances} />
+                )}
               </div>
               <div>
                 <Ticket

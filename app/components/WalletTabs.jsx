@@ -18,13 +18,16 @@ import { usePrivy } from "@privy-io/react-auth";
 import QRCode from "qrcode.react";
 import { ethers } from "ethers";
 import { useWallet } from "../contexts/WalletContext";
+import { erc20Abi } from "viem";
 
 const WalletTabs = () => {
+  const { walletBalances, tokens } = useWallet();
+
   const [network, setNetwork] = useState("eth");
-  const tokenOptions = [
-    { icon: <EthIcon width="20" height="20" />, price: 12.0503, label: "ETH" },
-    { icon: <BtcIcon width="21" height="22" />, price: 44.0503, label: "BTC" },
-  ];
+  const [depositToken, setDepositToken] = useState("USDT");
+  const handleDepositTokenChange = (token) => {
+    setDepositToken(token.symbol);
+  };
 
   const { user } = usePrivy();
   const [recipient, setRecipient] = useState("");
@@ -50,12 +53,25 @@ const WalletTabs = () => {
     }
 
     try {
-      const tx = await signer.sendTransaction({
-        to: recipient,
-        value: ethers.utils.parseEther(amount.toString()),
-      });
+      const token_address = tokens.find(
+        (token) => token.symbol === depositToken
+      );
+      const tokenContract = new ethers.Contract(
+        token_address,
+        erc20Abi,
+        signer
+      );
+
+      const decimals = await tokenContract.decimals();
+      const tx = await tokenContract.transfer(
+        recipient,
+        ethers.utils.parseUnits(amount.toString(), Number(decimals))
+      );
 
       const receipt = await tx.wait();
+      if (receipt.status === 1) {
+        console.log(receipt.transactionHash);
+      }
       setTxHash(receipt.transactionHash);
     } catch (error) {
       console.error("Error sending transaction:", error);
@@ -231,7 +247,7 @@ const WalletTabs = () => {
                 <Tab.Panel>
                   <div className="mt-8 mb-8 md:mt-14">
                     <h1 className="text-lg font-bold text-white lg:text-xl font-basement">
-                      Deposit USDT
+                      Deposit Token
                     </h1>
                   </div>
                   <div className="grid grid-cols-1 gap-12 mt-8 lg:mt-0 lg:grid-cols-2 lg:gap-20 ">
@@ -262,10 +278,10 @@ const WalletTabs = () => {
                     </div>
                     <div>
                       <h1 className="text-lg font-bold text-white lg:text-xl font-basement ">
-                        Deposit USDT
+                        Deposit Token
                       </h1>
                       <p className=" text-grey-600 font-inter font-normal lg:text-lg mt-4 max-w-[500px] ">
-                        Send the amount of USDT of your choice to the following
+                        Send the amount of Token of your choice to the following
                         Address to receive the equivalent in the account.
                       </p>
                       <div className="flex items-center gap-8 mt-8">
@@ -274,15 +290,14 @@ const WalletTabs = () => {
                         </p>
                         <div className="w-full max-w-[206px]">
                           <TokenSelectDropdown
-                            options={tokenOptions}
+                            options={walletBalances}
                             // onChange={handleTokenChange}
-                            defaultOption={tokenOptions[1].label}
                           />
                         </div>
                       </div>
                       <div className="mt-8 max-w-[420px]">
                         <label className="text-sm font-medium lg:text-lg font-inter text-grey-550 ">
-                          Your Personal USDT Deposit Address
+                          Your Personal Deposit Address
                         </label>
                         <input
                           type="text"
@@ -295,10 +310,10 @@ const WalletTabs = () => {
                           Copy Address
                         </Button>
                       </div>
-                      <p className="mt-8 text-base font-normal lg:text-lg text-grey-600 font-inter">
+                      {/* <p className="mt-8 text-base font-normal lg:text-lg text-grey-600 font-inter">
                         Send the amount of USDT of your choice to the following
                         Address to receive the equivalent in the account.
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </Tab.Panel>
@@ -307,32 +322,26 @@ const WalletTabs = () => {
                     <h1 className="text-lg font-bold text-white font-basement lg:text-xl">
                       Withdraw Balance
                     </h1>
-                    <p className="text-grey-600 font-inter font-normal text-base lg:text-lg mt-4 max-w-[712px] ">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry.
-                    </p>
                     <div className="flex items-center gap-8 mt-8">
                       <p className="font-normal font-inter text-grey-600">
                         Select the Token:
                       </p>
                       <div className="w-full max-w-[206px]">
-                        <DepositSelectDropdown
-                          options={tokenOptions}
-                          // onChange={handleSelectChange}
-                          defaultOption={tokenOptions[1].label}
+                        <TokenSelectDropdown
+                          options={walletBalances}
+                          onChange={handleDepositTokenChange}
                         />
                       </div>
                     </div>
                     <div className="mt-8 max-w-[712px]">
                       <label className="text-base font-bold text-white lg:text-xl font-basement ">
-                        Receiving USDT Address
+                        Receiving Address
                       </label>
                       <input
                         type="text"
                         value={recipient}
                         onChange={(e) => setRecipient(e.target.value)}
-                        placeholder={"Paste your USDT Wallet Address here"}
+                        placeholder={`Paste your ${depositToken} Wallet Address here`}
                         className={`mt-2.5 text-gray-500 z-0	bg-primary text-white w-full pl-4 pr-[88px] py-4 rounded-[20px] border border-primary-275 focus:outline-none `}
                       />
                     </div>
@@ -343,7 +352,7 @@ const WalletTabs = () => {
                       <div className=" mt-2.5">
                         <PriceAdjuster
                           value={amount}
-                          currency={network}
+                          currency={depositToken}
                           onChange={(value) => setAmount(value)}
                         />
                       </div>
@@ -356,12 +365,6 @@ const WalletTabs = () => {
                     >
                       Request Withdrawal
                     </Button>
-
-                    <p className="mt-9 text-grey-600 font-inter font-normal text-base lg:text-lg w-full max-w-[700px]">
-                      Lorem Ipsum is simply dummy text of the printing and
-                      typesetting industry Lorem Ipsum is simply dummy text of
-                      the printing and typesetting industry.
-                    </p>
                   </div>
                 </Tab.Panel>
               </Tab.Panels>

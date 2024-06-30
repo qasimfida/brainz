@@ -1,15 +1,24 @@
 "use client";
-import { apiCall, authenticate } from "@/lib/utils";
+import { apiCall, authenticate, getWalletBalance } from "@/lib/utils";
 import { getAccessToken, usePrivy } from "@privy-io/react-auth";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
+import { useWallet } from "../contexts/WalletContext";
 
 const Loader = ({ children }) => {
   const { ready, authenticated } = usePrivy();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const { user, setUser } = useUser();
+  const {
+    walletAddress,
+    tokens,
+    setTokens,
+    walletBalances,
+    setWalletBalances,
+    provider,
+  } = useWallet();
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -43,13 +52,33 @@ const Loader = ({ children }) => {
         localStorage.removeItem("expiresAt");
       }
 
+      const tokens = await apiCall("get", "/token");
+      if (tokens) {
+        setTokens(tokens.items);
+        if (provider && walletBalances.length < 1) {
+          tokens.items.forEach(async (token) => {
+            const balance = await getWalletBalance({
+              provider,
+              walletAddress,
+              tokenAddress: token.contractAddress,
+            });
+            const balanceDetails = {
+              balance,
+              symbol: token.symbol,
+              imageUrl: token.imageUrl,
+            };
+            setWalletBalances((prev) => [...prev, balanceDetails]);
+          });
+        }
+      }
+
       setLoading(false);
     };
 
     if (ready) {
       checkAuthentication();
     }
-  }, [ready, authenticated, router]);
+  }, [ready, authenticated, router, provider]);
 
   if (!ready || loading) {
     return (

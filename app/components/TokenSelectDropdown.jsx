@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { ArrowDownLightIcon } from "./Svgs";
+import Image from "next/image";
 
-const TokenSelectDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
+const TokenSelectDropdown = ({ options, onChange, className }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(defaultOption);
+  const [selectedOption, setSelectedOption] = useState(options[0]);
   const dropdownRef = useRef(null);
 
   const toggleDropdown = () => {
@@ -39,10 +40,16 @@ const TokenSelectDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
       >
         <div className=" bg-primary w-full flex items-center font-basement justify-between py-3 lg:py-4 pl-3 lg:pl-5 pr-4 border border-primary-275 rounded-[10px] ">
           <div className="flex items-center gap-3 text-white">
-            <span>{selectedOption.icon || options[0].icon}</span>
-            <h1 className="text-sm lg:text-base">
-              {selectedOption.label || options[0].label}
-            </h1>
+            <span className="mr-2">
+              <Image
+                src={selectedOption.imageUrl}
+                alt={selectedOption.name}
+                width={20}
+                height={20}
+                className="object-cover"
+              />
+            </span>
+            <h1 className="text-sm lg:text-base">{selectedOption.symbol}</h1>
           </div>
 
           <div className="flex items-center text-white ">
@@ -53,7 +60,9 @@ const TokenSelectDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
         </div>
       </div>
       {isOpen && (
-        <div className="absolute z-10 w-full -mt-1 rounded bg-dark-100 text-grey-200 ">
+        <div
+          className={`absolute z-10 w-full -mt-1 rounded bg-dark-100 text-grey-200 overflow-y-auto overflow-x-hidden ${className}`}
+        >
           {options.map((option, index) => (
             <div
               key={index}
@@ -66,11 +75,19 @@ const TokenSelectDropdown = ({ options, onChange, defaultOption = "ETH" }) => {
             >
               <div className="flex items-center pb-2 pt-2.5 justify-between pl-3 lg:pl-6 pr-4">
                 <div className="flex gap-3 font-normal font-basement">
-                  <span>{option.icon}</span>
-                  <p className="text-sm">{option.label}</p>
+                  <span>
+                    <Image
+                      src={option.imageUrl}
+                      alt={option.name}
+                      width={20}
+                      height={20}
+                      className="object-cover"
+                    />
+                  </span>
+                  <p className="text-sm">{option.symbol}</p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <p className="text-sm">{option.price}</p>
+                  <p className="text-sm">{option.balance}</p>
                 </div>
               </div>
             </div>

@@ -2,7 +2,9 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { ethers } from "ethers";
 
 import { useWallets } from "@privy-io/react-auth";
-import { bsc } from "viem/chains";
+import { bsc, bscTestnet } from "viem/chains";
+import { useUser } from "./UserContext";
+import { getWalletBalance } from "@/lib/utils";
 
 const WalletContext = createContext(null);
 
@@ -10,13 +12,16 @@ const WalletProvider = ({ children }) => {
   const { wallets } = useWallets();
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
-  const [usdtBalance, setUsdtBalance] = useState(0);
+  const [tokens, setTokens] = useState(null);
+  const [walletAddress, setWalletAddress] = useState([]);
+  const [walletBalances, setWalletBalances] = useState([]);
 
   useEffect(() => {
     const getProvider = async () => {
       const wallet = wallets[0];
       if (!wallet) return;
-      await wallet.switchChain(bsc.id);
+      setWalletAddress(wallet.address);
+      await wallet.switchChain(bscTestnet.id);
       const provider = await wallet.getEthersProvider();
       setProvider(provider);
       const signer = provider.getSigner();
@@ -26,32 +31,43 @@ const WalletProvider = ({ children }) => {
     if (!provider) {
       getProvider();
     }
-  });
+  }, [wallets]);
 
   useEffect(() => {
-    const erc20ABI = [
-      "function balanceOf(address owner) view returns (uint256)",
-    ];
+
     async function fetchBSCUSDBalance(walletAddress, provider) {
-      const tokenAddress = "0x55d398326f99059ff775485246999027b3197955";
-      const tokenContract = new ethers.Contract(
+      const tokenAddress = process.env.NEXT_PUBLIC_USDT_ADDRESS;
+      const balance = await getWalletBalance({
+        provider,
+        walletAddress,
         tokenAddress,
-        erc20ABI,
-        provider
-      );
-      const balance = await tokenContract.balanceOf(walletAddress);
-      const formattedBalance = ethers.utils.formatUnits(balance, 18);
-      return formattedBalance;
+      });
+      return balance;
     }
     if (provider) {
       fetchBSCUSDBalance(wallets[0].address, provider).then((balance) => {
-        setUsdtBalance(balance);
+        const balanceDetails = {
+          balance,
+          symbol: "USDT",
+          imageUrl: "https://cryptologos.cc/logos/tether-usdt-logo.png",
+        };
+        setWalletBalances((prev) => [...prev, balanceDetails]);
       });
     }
   }, [provider]);
 
   return (
-    <WalletContext.Provider value={{ provider, signer, usdtBalance }}>
+    <WalletContext.Provider
+      value={{
+        provider,
+        signer,
+        walletAddress,
+        tokens,
+        setTokens,
+        walletBalances,
+        setWalletBalances,
+      }}
+    >
       {children}
     </WalletContext.Provider>
   );
