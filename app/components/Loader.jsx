@@ -10,6 +10,7 @@ const Loader = ({ children }) => {
   const { ready, authenticated } = usePrivy();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const { user, setUser } = useUser();
   const {
     walletAddress,
@@ -18,6 +19,8 @@ const Loader = ({ children }) => {
     walletBalances,
     setWalletBalances,
     provider,
+    platformAddress,
+    setPlatformAddress,
   } = useWallet();
 
   useEffect(() => {
@@ -37,14 +40,13 @@ const Loader = ({ children }) => {
         }
 
         if (!user) {
-          if (token) {
-            const userData = await apiCall("get", "/profile");
-            if (!userData) {
-              logout();
-              return;
-            }
-            setUser(userData.profile);
+          const userData = await apiCall("get", "/profile");
+          if (!userData) {
+            logout();
+            return;
           }
+          setUser(userData.profile);
+          setLoggedIn(true);
         }
       } else if (ready && !authenticated) {
         router.push("/");
@@ -52,10 +54,20 @@ const Loader = ({ children }) => {
         localStorage.removeItem("expiresAt");
       }
 
+      setLoading(false);
+    };
+
+    if (ready) {
+      checkAuthentication();
+    }
+  }, [ready, authenticated, router]);
+
+  useEffect(() => {
+    const getBalances = async () => {
       const tokens = await apiCall("get", "/token");
       if (tokens) {
         setTokens(tokens.items);
-        if (provider && walletBalances.length < 1) {
+        if (provider && walletBalances.length <= 1) {
           tokens.items.forEach(async (token) => {
             const balance = await getWalletBalance({
               provider,
@@ -71,14 +83,24 @@ const Loader = ({ children }) => {
           });
         }
       }
-
-      setLoading(false);
     };
 
-    if (ready) {
-      checkAuthentication();
+    const getPlatformAddress = async () => {
+      const data = await apiCall("get", "/platformWallet");
+      console.log(data);
+      if (data) {
+        setPlatformAddress(data.platformWallet);
+      }
+    };
+
+    if (loggedIn) {
+      getBalances();
     }
-  }, [ready, authenticated, router, provider]);
+
+    if (loggedIn && !platformAddress) {
+      getPlatformAddress();
+    }
+  }, [loggedIn, provider]);
 
   if (!ready || loading) {
     return (
@@ -89,7 +111,7 @@ const Loader = ({ children }) => {
     );
   }
 
-  if (ready && authenticated && !loading) {
+  if (ready && authenticated && loggedIn && !loading) {
     return children;
   }
 

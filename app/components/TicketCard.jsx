@@ -14,12 +14,20 @@ import PurchaseDropdown from "./PurchaseDropdown";
 import { useWallet } from "../contexts/WalletContext";
 import { ethers } from "ethers";
 import TokenSelectDropdown from "./TokenSelectDropdown";
+import {
+  getOtherTokenAmountForExactUSDT,
+  getTokenDecimals,
+  uniswapAbi,
+} from "@/lib/utils";
+import { erc20Abi } from "viem";
 
-export const TicketCard = ({ ticketAmount, diamondAmount, price }) => {
-  const { walletBalances } = useWallet();
+export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
+  const { walletBalances, provider, signer, tokens, platformAddress } =
+    useWallet();
   const [isPurchased, setIsPurchased] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("USDT");
+  const [priceInOtherToken, setPriceInOtherToken] = useState(0);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -32,11 +40,30 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price }) => {
     await sendTransaction();
   };
 
-  const handleTokenChange = (value) => {
+  const handleTokenChange = async (value) => {
     setSelectedOption(value.symbol);
+    if (value.symbol === "USDT") {
+      setPriceInOtherToken(0);
+      return;
+    }
+    const tokenAddress = tokens.find(
+      (token) => token.symbol === value.symbol
+    )?.contractAddress;
+    let priceInOtherToken = await getOtherTokenAmountForExactUSDT(
+      0.1,
+      1,
+      tokenAddress,
+      signer
+    );
+    // limit 5 decimal places if there are more
+    if (priceInOtherToken.includes(".")) {
+      const parts = priceInOtherToken.split(".");
+      if (parts[1].length > 5) {
+        priceInOtherToken = `${parts[0]}.${parts[1].slice(0, 5)}`;
+      }
+    }
+    setPriceInOtherToken(priceInOtherToken);
   };
-
-  const { signer } = useWallet();
 
   const sendTransaction = async () => {
     if (!signer) {
@@ -44,18 +71,197 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price }) => {
       return;
     }
 
-    try {
-      const tx = await signer.sendTransaction({
-        to: "0x55d398326f99059ff775485246999027b3197955",
-        value: ethers.utils.parseEther("20"),
-      });
-
-      const receipt = await tx.wait();
-      // setTxHash(receipt.transactionHash);
-    } catch (error) {
-      console.error("Error sending transaction:", error);
+    if (selectedOption === "USDT") {
+      await depositToken(0.000001);
+    } else {
+      await convertOtherTokenToUSDTAndTransferToPlatformAddress(price, 1);
     }
   };
+
+  async function depositToken(amount) {
+    try {
+      if (!process.env.NEXT_PUBLIC_USDT_ADDRESS) {
+        throw new Error(
+          "USDT_ADDRESS is not defined in the environment variables"
+        );
+      }
+      const usdtTokenContract = new ethers.Contract(
+        process.env.NEXT_PUBLIC_USDT_ADDRESS,
+        erc20Abi,
+        signer
+      );
+      const decimals = await usdtTokenContract.decimals();
+
+      const depositTx = await usdtTokenContract.transfer(
+        platformAddress,
+        ethers.utils.parseUnits(amount.toString(), Number(decimals))
+      );
+
+      console.log("Deposit transaction hash: ", depositTx.hash);
+
+      const depositResultData = {
+        packId: id,
+        senderWalletAddress: signer.address, // user's wallet address
+        targetWalletAddress: platformAddress,
+        txnHash: depositTx.hash,
+        swapToken: process.env.NEXT_PUBLIC_USDT_ADDRESS,
+        amountIn: amount.toString(),
+        amountOut: amount.toString(),
+      };
+      // // POST API CREATE TRANSACTION (/transaction) WITH ABOVE DATA
+      const data = await apiCall("post", "/transaction", depositResultData);
+
+      const depositReceipt = await depositTx.wait();
+
+      // Check if the transaction was successful
+      if (depositReceipt.status === 1) {
+        console.log("Deposit successful");
+      } else {
+        console.log("Deposit transaction failed");
+        return;
+      }
+    } catch (err) {
+      console.log("Deposit Error", err);
+    }
+  }
+
+  async function convertOtherTokenToUSDTAndTransferToPlatformAddress(
+    USDTRequired,
+    slippageTolerance
+  ) {
+    console.log("USDTRequired===>", USDTRequired);
+
+    const tokenAddress = tokens.find(
+      (token) => token.symbol === selectedOption
+    )?.contractAddress;
+
+    const tokenContract = new ethers.Contract(tokenAddress, erc20Abi, signer);
+
+    // Get decimals for USDT and OtherToken
+    const usdtDecimals = await getTokenDecimals(
+      process.env.NEXT_PUBLIC_USDT_ADDRESS,
+      signer
+    );
+    const otherTokenDecimals = await getTokenDecimals(tokenAddress, signer);
+    console.log("usdtDecimals===>", usdtDecimals);
+    console.log("otherTokenDecimals===>", otherTokenDecimals);
+
+    // Calculate the exact amount of USDT required
+    const amountOutExactUSDT = ethers.utils.parseUnits(
+      USDTRequired.toString(),
+      usdtDecimals
+    );
+    console.log(
+      "amountOutExactUSDT===>",
+      ethers.utils.formatUnits(amountOutExactUSDT, usdtDecimals)
+    );
+
+    const routerContract = new ethers.Contract(
+      process.env.NEXT_PUBLIC_ROUTER_V2_ADDRESS,
+      uniswapAbi,
+      signer
+    );
+
+    // Get the amount of OtherToken needed for the exact amount of USDT required
+    const amountsIn = await routerContract.getAmountsIn(amountOutExactUSDT, [
+      tokenAddress,
+      process.env.NEXT_PUBLIC_USDT_ADDRESS,
+    ]);
+
+    const amountInOtherToken = amountsIn[0];
+    console.log(
+      "amountInOtherToken===>",
+      ethers.utils.formatUnits(amountInOtherToken, otherTokenDecimals)
+    );
+
+    const slippage = 1 + slippageTolerance / 100;
+    const amountInMaxWithSlippage = amountInOtherToken
+      .mul(ethers.BigNumber.from(Math.floor(slippage * 100)))
+      .div(ethers.BigNumber.from(100));
+    console.log(
+      "amountInMaxWithSlippage===>",
+      ethers.utils.formatUnits(amountInMaxWithSlippage, otherTokenDecimals)
+    );
+
+    const otherTokenAllowance = await checkAllowance(tokenAddress);
+    console.log(
+      "otherTokenAllowance===>",
+      ethers.utils.formatUnits(otherTokenAllowance, otherTokenDecimals)
+    );
+
+    if (otherTokenAllowance.lt(amountInMaxWithSlippage)) {
+      console.log("ALLOWANCE LOW, TRANSACTION TO APPROVE TOKEN SPEND");
+      try {
+        const approveTx = await tokenContract.approve(
+          process.env.NEXT_PUBLIC_ROUTER_V2_ADDRESS,
+          amountInOtherToken
+        );
+
+        const approveReceipt = await approveTx.wait();
+
+        // Check if the transaction was successful
+        if (approveReceipt.status === 1) {
+          const newOtherTokenAllowance = await checkAllowance(tokenAddress);
+          console.log(
+            "newOtherTokenAllowance===>",
+            ethers.utils.formatUnits(newOtherTokenAllowance, otherTokenDecimals)
+          );
+        } else {
+          console.log("Approve transaction failed");
+          return;
+        }
+      } catch (err) {
+        console.log("Approve Failed", err);
+        return;
+      }
+    } else {
+      console.log("ALLOWANCE MATCHED, CONTINUE");
+    }
+
+    try {
+      const deadline = Math.floor(Date.now() / 1000) + 60 * 20; // 20 minutes from now
+
+      console.log("SWAP TRANSACTION");
+
+      const swapTx = await routerContract.swapTokensForExactTokens(
+        amountOutExactUSDT,
+        amountInMaxWithSlippage,
+        [tokenAddress, process.env.NEXT_PUBLIC_USDT_ADDRESS],
+        platformAddress,
+        deadline,
+        {
+          gasLimit: 1000000,
+        }
+      );
+
+      const swapResultData = {
+        packId: id,
+        senderWalletAddress: signer.address, // user's wallet address
+        targetWalletAddress: platformAddress,
+        txnHash: swapTx.hash,
+        swapToken: tokenAddress,
+        amountIn: ethers.utils.formatUnits(
+          amountInOtherToken,
+          otherTokenDecimals
+        ),
+        amountOut: ethers.utils.formatUnits(amountOutExactUSDT, usdtDecimals),
+      };
+
+      const data = await apiCall("post", "/transaction", swapResultData);
+
+      const swapReceipt = await swapTx.wait();
+
+      // Check if the transaction was successful
+      if (swapReceipt.status === 1) {
+        console.log("Swap successful");
+      } else {
+        console.log("Swap transaction failed");
+        return;
+      }
+    } catch (err) {
+      console.log("Swap Error", err);
+    }
+  }
 
   return (
     <div className="bg-primary-350 rounded-[20px] border border-primary-275 py-5 px-[18px] text-center w-full">
@@ -158,12 +364,14 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price }) => {
                         <h2 className="text-lg md:text-2xl font-basement font-bold mt-10 max-w-[458px]">
                           You are purchasing{" "}
                           {ticketAmount > 0 && (
-                            <span>{ticketAmount} tickets</span>
+                            <span>{ticketAmount} tickets </span>
                           )}
                           {diamondAmount > 0 && (
                             <span> {diamondAmount} diamonds </span>
                           )}
-                          for {price} USDT.
+                          for{" "}
+                          {priceInOtherToken > 0 ? priceInOtherToken : price}{" "}
+                          {selectedOption}.
                         </h2>
                       </div>
                       <div className="flex justify-center mt-8">
@@ -172,15 +380,15 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price }) => {
                           bundles
                         </p>
                       </div>
-                      <div className="flex items-start justify-between max-w-xs mx-auto text-left mt-5">
-                        <div className="flex flex-col gap-3">
-                          <p>You pay</p>
-                          <h1 className="font-bold font-basement text-3xl">
-                            {price}
-                          </h1>
-                        </div>
-                        <div className="flex flex-col gap-3">
-                          <p>
+                      <div className="flex flex-col gap-4  max-w-xs mx-auto text-left mt-5">
+                        <div className="flex flex-col gap-3 w-full">
+                          <TokenSelectDropdown
+                            options={walletBalances}
+                            onChange={handleTokenChange}
+                            className={"max-h-44 "}
+                          />
+
+                          <p className="text-right text-sm">
                             Balance:{" "}
                             {
                               walletBalances.find(
@@ -188,13 +396,14 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price }) => {
                               )?.balance
                             }
                           </p>
-                          <div>
-                            <TokenSelectDropdown
-                              options={walletBalances}
-                                onChange={handleTokenChange}
-                                className={"max-h-28 "}
-                            />
-                          </div>
+                        </div>
+                        <div className="flex justify-between gap-3">
+                          <h1 className="font-bold font-basement text-xl">
+                            You pay
+                          </h1>
+                          <h1 className="font-bold font-basement text-xl">
+                            {priceInOtherToken > 0 ? priceInOtherToken : price}{" "}
+                          </h1>
                         </div>
                       </div>
                       <div className="mt-[48px] flex justify-center gap-[34px] ">

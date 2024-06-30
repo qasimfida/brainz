@@ -16,6 +16,7 @@ export const Session = ({ params }) => {
   const [showModal, setShowModal] = useState(false);
   const [step, setStep] = useState(0);
   const [session, setSession] = useState({});
+  const [game, setGame] = useState({});
   const [remainingTime, setRemainingTime] = useState(0);
   const [questionTimeRemaining, setQuestionTimeRemaining] = useState(0);
   const [restTimeRemaining, setRestTimeRemaining] = useState(0);
@@ -40,6 +41,15 @@ export const Session = ({ params }) => {
 
     getSession(params.id);
   }, []);
+
+  useEffect(() => {
+    const getGame = async () => {
+      console.log("getting game");
+      const data = await apiCall("get", `/game/${session.gameID}`);
+      setGame(data.game);
+    };
+    session.gameID && getGame();
+  }, [session]);
 
   const handleContinue = () => {
     setShowModal(false);
@@ -200,7 +210,7 @@ export const Session = ({ params }) => {
     <div className="relative">
       {stage === "countdown" && (
         <>
-          <SessionHeader />
+          <SessionHeader title={game.title} />
           <div className="px-6 pt-8 pb-3 lg:pt-10 lg:pb-7 lg:px-7">
             <CountDown session={session} timeRemaining={remainingTime} />
           </div>
@@ -224,6 +234,7 @@ export const Session = ({ params }) => {
               restTimeRemaining={restTimeRemaining}
               leaderboard={leaderboard}
               handleUsePower={handleUsePower}
+              title={game.title}
               // handleStageChange={handleStageChange}
             />
           </div>
@@ -233,7 +244,7 @@ export const Session = ({ params }) => {
         <>
           <SessionHeader />
           <div className="pt-8 pl-6 pr-6 lg:pt-10 md:pl-14 md:pr-16">
-            <SessionResult leaderboard={leaderboard} session={session} />
+            <SessionResult leaderboard={leaderboard} session={session} game={game} />
           </div>
         </>
       )}

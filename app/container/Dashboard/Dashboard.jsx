@@ -11,8 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { NumericFormat } from "react-number-format";
 import { useRouter } from "next/navigation";
-import { apiCall, getSessionEndTime, getTotalSessionTime } from "@/lib/utils";
-import WheelModal from "@/app/components/WheelModal";
+import { apiCall } from "@/lib/utils";
 
 export const Dashboard = () => {
   const [games, setGames] = useState([]);
@@ -24,9 +23,8 @@ export const Dashboard = () => {
   useEffect(() => {
     const getGames = async () => {
       try {
-        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/game`);
-        const fetchedGames = res.data.games;
-
+        const data = await apiCall("get,"`/game`);
+        const fetchedGames = data.games;
         // Filter out games that have already started
         const currentDateTime = new Date();
         const upcomingGames = fetchedGames.filter(
@@ -37,7 +35,6 @@ export const Dashboard = () => {
         upcomingGames.sort(
           (a, b) => new Date(a.startTime) - new Date(b.startTime)
         );
-        console.log(fetchedGames);
         if (upcomingGames.length > 0) {
           console.log(fetchedGames);
           setNextGame(upcomingGames.shift());

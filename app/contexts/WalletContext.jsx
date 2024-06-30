@@ -15,6 +15,7 @@ const WalletProvider = ({ children }) => {
   const [tokens, setTokens] = useState(null);
   const [walletAddress, setWalletAddress] = useState([]);
   const [walletBalances, setWalletBalances] = useState([]);
+  const [platformAddress, setPlatformAddress] = useState(null);
 
   useEffect(() => {
     const getProvider = async () => {
@@ -34,7 +35,6 @@ const WalletProvider = ({ children }) => {
   }, [wallets]);
 
   useEffect(() => {
-
     async function fetchBSCUSDBalance(walletAddress, provider) {
       const tokenAddress = process.env.NEXT_PUBLIC_USDT_ADDRESS;
       const balance = await getWalletBalance({
@@ -66,6 +66,8 @@ const WalletProvider = ({ children }) => {
         setTokens,
         walletBalances,
         setWalletBalances,
+        platformAddress,
+        setPlatformAddress,
       }}
     >
       {children}

@@ -26,6 +26,7 @@ export const SelectAnswer = ({
   progress,
   leaderboard,
   handleUsePower,
+  title,
 }) => {
   const [totalSessionParticipants, setTotalSessionParticipants] = useState(0);
 
@@ -87,7 +88,7 @@ export const SelectAnswer = ({
         <div className="px-5 pt-7 pb-3.5">
           <div className="flex items-center justify-between w-full gap-4 mb-5 text-4xl rounded-lg ">
             <h1 className="text-xl font-bold text-white font-basement max-w-36">
-              Title of the Session
+              {title}
             </h1>
             <h1 className="text-2xl font-bold text-white font-basement">
               {questionTimeRemaining} s
