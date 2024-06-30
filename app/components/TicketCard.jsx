@@ -50,7 +50,7 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
       (token) => token.symbol === value.symbol
     )?.contractAddress;
     let priceInOtherToken = await getOtherTokenAmountForExactUSDT(
-      0.1,
+      price,
       1,
       tokenAddress,
       signer
@@ -72,7 +72,7 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
     }
 
     if (selectedOption === "USDT") {
-      await depositToken(0.000001);
+      await depositToken(price);
     } else {
       await convertOtherTokenToUSDTAndTransferToPlatformAddress(price, 1);
     }
