@@ -7,6 +7,7 @@ import { winBoxData } from "./data";
 import WaveAnimation from "@/app/components/Wave";
 import Footer from "@/app/components/Footer";
 import ConnectButton from "./ConnectButton";
+import { Suspense } from "react";
 
 export const Home = () => {
   return (
@@ -42,7 +43,9 @@ export const Home = () => {
             Use Any Crypto to Join a Session
           </p>
           <div className="mt-9">
-            <ConnectButton />
+            <Suspense fallback={<div>Loading...</div>}>
+              <ConnectButton />
+            </Suspense>
           </div>
           {/* {token ? <Notification open={true} /> : null} */}
           {/* <ConditionsModal

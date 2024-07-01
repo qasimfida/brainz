@@ -307,14 +307,16 @@ export const SessionResult = ({ leaderboard, session, game }) => {
           </div>
         </div>
       </div>
-      <WheelModal
-        showModal={isOpenWheelModal}
-        setShowModal={setIsOpenWheelModal}
-        wheelData={wheelData}
-        wheelRef={wheelRef}
-        onSpin={handleSpin}
-        spinning={spinning}
-      />
+      {isOpenWheelModal && (
+        <WheelModal
+          showModal={isOpenWheelModal}
+          setShowModal={setIsOpenWheelModal}
+          wheelData={wheelData}
+          wheelRef={wheelRef}
+          onSpin={handleSpin}
+          spinning={spinning}
+        />
+      )}
     </div>
   );
 };

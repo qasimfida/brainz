@@ -14,7 +14,6 @@ const WheelModal = ({
   onSpin,
   spinning,
 }) => {
-  if (!showModal) return null;
   const wheelContainerRef = useRef(null);
 
   useEffect(() => {

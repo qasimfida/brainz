@@ -87,7 +87,6 @@ const Loader = ({ children }) => {
 
     const getPlatformAddress = async () => {
       const data = await apiCall("get", "/platformWallet");
-      console.log(data);
       if (data) {
         setPlatformAddress(data.platformWallet);
       }

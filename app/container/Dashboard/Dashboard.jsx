@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { NumericFormat } from "react-number-format";
 import { useRouter } from "next/navigation";
-import { apiCall } from "@/lib/utils";
+import { apiCall, getSessionEndTime } from "@/lib/utils";
 
 export const Dashboard = () => {
   const [games, setGames] = useState([]);
@@ -23,7 +23,7 @@ export const Dashboard = () => {
   useEffect(() => {
     const getGames = async () => {
       try {
-        const data = await apiCall("get,"`/game`);
+        const data = await apiCall("get", `/game`);
         const fetchedGames = data.games;
         // Filter out games that have already started
         const currentDateTime = new Date();
@@ -36,7 +36,6 @@ export const Dashboard = () => {
           (a, b) => new Date(a.startTime) - new Date(b.startTime)
         );
         if (upcomingGames.length > 0) {
-          console.log(fetchedGames);
           setNextGame(upcomingGames.shift());
           setGames(upcomingGames); // Set the remaining games
         }
@@ -68,6 +67,7 @@ export const Dashboard = () => {
   // }, [nextGame]);
 
   const formatDuration = (startTime, endTime) => {
+    console.log({ endTime });
     const start = new Date(startTime);
     const end = new Date(endTime);
     const durationMs = end - start;
@@ -100,7 +100,6 @@ export const Dashboard = () => {
           },
         }
       );
-      console.log(res);
       // Check for response status and handle messages
       if (res.status === 201) {
         alert("Session state created successfully");
@@ -150,7 +149,7 @@ export const Dashboard = () => {
                 Session |{" "}
                 {formatDuration(
                   nextGame.sessions[nextGameSelectedSession].startTime,
-                  nextGame.sessions[nextGameSelectedSession].endTime
+                  getSessionEndTime(nextGame.sessions[nextGameSelectedSession])
                 )}
               </p>
               <p className="text-xl font-normal font-basement pt-9">Pot Size</p>
