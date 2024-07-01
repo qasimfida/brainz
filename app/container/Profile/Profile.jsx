@@ -3,17 +3,17 @@ import Input from "@/app/components/Input";
 import TermsConditionsModal from "@/app/components/TermsConditionsModal";
 import WalletTabs from "@/app/components/WalletTabs";
 import { useUser } from "@/app/contexts/UserContext";
-import { getLocalAccessToken } from "@/lib/utils";
+import { apiCall, formatNumber, getLocalAccessToken } from "@/lib/utils";
 import { useLinkAccount, usePrivy } from "@privy-io/react-auth";
 import axios from "axios";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user: privyUser } = usePrivy();
-  const { user } = useUser();
-  console.log(privyUser);
+  const { user, setUser } = useUser();
+
   const { linkEmail } = useLinkAccount({
     onSuccess: async (user, linkedAccount) => {
       console.log({ user, linkedAccount });
@@ -64,6 +64,14 @@ export const Profile = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchUserRewards = async () => {
+      const data = await apiCall("get", "/rewards/total");
+      setUser((prev) => ({ ...prev, ...data }));
+    };
+    fetchUserRewards();
+  }, []);
+
   return (
     <div className="mb-0 md:mb-8">
       <div className="bg-primary-350 pt-9 pb-12 w-full rounded-[10px] mt-6 pl-4 pr-4 sm:pl-6 sm:pr-6 md:pl-8 md:pr-12 text-white">
@@ -95,7 +103,6 @@ export const Profile = () => {
             <Input
               name="username"
               label="Username"
-              variant={"default"}
               defaultValue={user.username}
               className="pr-[110px]"
               showCheckIcon
@@ -137,12 +144,9 @@ export const Profile = () => {
             <div className="mt-5">
               <Input
                 label="Your referral link"
-                variant={"copy"}
-                buttonText="Copy"
-                readOnlyInput
-                showCopy
                 readOnly
-                placeholder={"https://www.example.com/referral?code=123456"}
+                showCopy
+                value={`${process.env.NEXT_PUBLIC_WEB_URL}/referral?code=${user.referralId}`}
               />
             </div>
           </div>
@@ -152,7 +156,7 @@ export const Profile = () => {
                 Invites
               </p>
               <h1 className="text-base font-bold text-white font-basement lg:text-xl">
-                10,900
+                {formatNumber(user.total_referred, 0)}
               </h1>
             </div>
             <div>
@@ -160,7 +164,7 @@ export const Profile = () => {
                 Earned
               </p>
               <h1 className="text-base font-bold font-basement text-secondary lg:text-xl">
-                $ 100k
+                $ {formatNumber(user?.totalRewards?.referral || 0)}
               </h1>
             </div>
           </div>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { CrossIcon } from "./Svgs";
+import { formatNumber } from "@/lib/utils";
 
 const bgColors = {
   success: "bg-success/25",
@@ -19,12 +20,7 @@ const Ticket = ({
 }) => {
   const backgroundColor = bgColors[bgColor];
   const IconBackgroundColor = bgIconColors[bgColor];
-  const formatNumber = (number) => {
-    if (number >= 1000) {
-      return `${(number / 1000).toFixed(1)}k`;
-    }
-    return number.toString();
-  };
+
   return (
     <Link href={href} className="w-fit	 flex gap-2.5 group">
       <div
