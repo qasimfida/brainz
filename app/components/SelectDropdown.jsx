@@ -35,7 +35,7 @@ const SelectDropdown = ({ options }) => {
         onClick={toggleDropdown}
         className={`   ${
           isOpen ? "bg-primary-275" : "bg-primary-350"
-        } flex items-center relative w-full border border-primary-275 rounded-lg py-2 pl-2.5 pr-4 focus:shadow-outline z-[11] hover:bg-primary-275 transition duration-200
+        } flex items-center justify-between relative w-full border border-primary-275 rounded-lg py-2 pl-2.5 pr-4 focus:shadow-outline z-[11] hover:bg-primary-275 transition duration-200
          `}
       >
         <div className="flex items-center font-basement">

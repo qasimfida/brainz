@@ -86,7 +86,7 @@ const WalletTabs = () => {
           "justify-center md:justify-start px-3 md:px-0 flex flex-row gap-4 md:gap-6 lg:gap-8"
         }
       >
-        <Tab className="w-full outline-none max-w-40 md:max-w-fit">
+        {/* <Tab className="w-full outline-none max-w-40 md:max-w-fit">
           {({ selected }) => (
             <div
               className={`transition  ease-in-out border border-[#132836] text-nowrap text-base lg:text-xl font-basement  bg-gradient-to-r from-[#2e414e] to-[#132836] font-bold rounded-[10px] inline-flex items-center duration-200 px-6 md:px-10 py-3  ${
@@ -98,7 +98,7 @@ const WalletTabs = () => {
               Transactions
             </div>
           )}
-        </Tab>
+        </Tab> */}
 
         <Tab className={"outline-none md:ml-0 w-full max-w-40 md:max-w-fit"}>
           {({ selected }) => (
@@ -115,7 +115,7 @@ const WalletTabs = () => {
         </Tab>
       </Tab.List>
       <Tab.Panels>
-        <Tab.Panel className={"bg-primary-350  rounded-[10px] pb-6"}>
+        {/* <Tab.Panel className={"bg-primary-350  rounded-[10px] pb-6"}>
           <div className="pt-6 pl-0 pr-0 mt-6 md:pl-8 md:pr-16">
             <Tab.Group>
               <Tab.List
@@ -201,7 +201,7 @@ const WalletTabs = () => {
               </Tab.Panels>
             </Tab.Group>
           </div>
-        </Tab.Panel>
+        </Tab.Panel> */}
         {/* Wallet */}
         <Tab.Panel className={"bg-primary-350  rounded-[10px] pb-6"}>
           <div className="pt-6 pl-6 pr-6 mt-6 md:pl-8 md:pr-16">

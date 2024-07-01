@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { DiscordIcon, InstagramIcon, LinkedInIcon, XIcon } from "./Svgs";
 import logo from "@/public/images/Brainz-logo.png";
+import { socialLinks } from "@/lib/config";
 
 const Footer = () => {
   return (
@@ -22,27 +23,15 @@ const Footer = () => {
       </div>
       <div className="mt-[60px] custom:mt-[0]">
         <div className="flex custom:justify-end items-center justify-start gap-5  border-white">
-          <Link href="https://x.com/playbrainz" target="_blank">
-            <XIcon
-              width={21}
-              height={23}
-              className={"text-white hover:text-secondary cursor-pointer"}
-            />
-          </Link>
-          <Link href="https://discord.gg/f63UZt99" target="_blank">
-            <DiscordIcon
-              height={28}
-              width={28}
-              className={"text-white hover:text-secondary cursor-pointer"}
-            />
-          </Link>
-          <Link href="https://www.instagram.com/playbrainz/" target="_blank">
-            <InstagramIcon
-              height={28}
-              width={28}
-              className={"text-white hover:text-secondary cursor-pointer"}
-            />
-          </Link>
+          {socialLinks.map((link, index) => (
+            <Link key={index} href={link.url} target="_blank">
+              <link.icon
+                width={21}
+                height={23}
+                className={"text-white hover:text-secondary cursor-pointer"}
+              />
+            </Link>
+          ))}
         </div>
         <div className="flex gap-4 pt-10 text-grey-425 text-sm ">
           <Link href={"#"} className=" hover:text-secondary">

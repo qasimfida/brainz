@@ -42,14 +42,14 @@ const TokenSelectDropdown = ({ options, onChange, className }) => {
           <div className="flex items-center gap-3 text-white">
             <span className="mr-2">
               <Image
-                src={selectedOption.imageUrl}
-                alt={selectedOption.name}
+                src={selectedOption?.imageUrl}
+                alt={selectedOption?.name}
                 width={20}
                 height={20}
                 className="object-cover"
               />
             </span>
-            <h1 className="text-sm lg:text-base">{selectedOption.symbol}</h1>
+            <h1 className="text-sm lg:text-base">{selectedOption?.symbol}</h1>
           </div>
 
           <div className="flex items-center text-white ">

@@ -27,7 +27,9 @@ const WalletProvider = ({ children }) => {
       const wallet = wallets[0];
       if (!wallet) return;
       setWalletAddress(wallet.address);
-      await wallet.switchChain(bscTestnet.id);
+      await wallet.switchChain(
+        process.env.NEXT_PUBLIC_CHAIN === "bsc" ? bsc.id : bscTestnet.id
+      );
       const provider = await wallet.getEthersProvider();
       setProvider(provider);
       const signer = provider.getSigner();
@@ -49,7 +51,7 @@ const WalletProvider = ({ children }) => {
       });
       return balance;
     }
-    if (provider) {
+    if (provider && !walletBalances.length) {
       fetchBSCUSDBalance(wallets[0].address, provider).then((balance) => {
         const balanceDetails = {
           balance,

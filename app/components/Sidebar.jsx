@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useMemo, useState } from "react";
 import { DiscordIcon, LinkedInIcon, TickIcon, XIcon } from "./Svgs";
+import { socialLinks } from "@/lib/config";
 
 export const Sidebar = () => {
   const [activeLink, setActiveLink] = useState("");
@@ -73,7 +74,7 @@ export const Sidebar = () => {
               ))}
             </ul>
           </div>
-          <div className=" mt-9 w-[200px] bg-primary-350 rounded-[10px] px-[13px] py-3">
+          {/* <div className=" mt-9 w-[200px] bg-primary-350 rounded-[10px] px-[13px] py-3">
             <div className="flex justify-center items-center border-b border-b-[4px] border-white pb-2">
               <p className="text-white font-basement font-normal text-[14px]">
                 Complete Steps & win 10 diamonds
@@ -103,42 +104,24 @@ export const Sidebar = () => {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
         <div className="mt-[13%] pb-[5%] text-center">
           <div className="border-white flex justify-center gap-5">
-            <Link
-              href="#"
-              className="group py-[8px] transition-colors flex items-center justify-center w-[36px] h-[38px] rounded-[4px] bg-primary-350 hover:bg-secondary duration-200"
-            >
-              <XIcon
-                height="22"
-                width="22"
-                className={"text-white cursor-pointer group-hover:text-dark"}
-              />
-            </Link>
-
-            <Link
-              href="#"
-              className="group py-[8px] transition-colors flex items-center justify-center w-[36px] h-[38px] rounded-[4px] bg-primary-350 hover:bg-secondary duration-200"
-            >
-              <DiscordIcon
-                width="24"
-                height="24"
-                className={"text-white cursor-pointer group-hover:text-dark"}
-              />
-            </Link>
-
-            <Link
-              href="#"
-              className="group py-[8px] transition-colors flex items-center justify-center w-[36px] h-[38px] rounded-[4px] bg-primary-350 hover:bg-secondary duration-200"
-            >
-              <LinkedInIcon
-                width="20"
-                height="20"
-                className={"text-white cursor-pointer group-hover:text-dark"}
-              />
-            </Link>
+            {socialLinks.map((link, index) => (
+              <Link
+                key={index}
+                href={link.url}
+                target="_blank"
+                className="group py-[8px] transition-colors flex items-center justify-center w-[36px] h-[38px] rounded-[4px] bg-primary-350 hover:bg-secondary duration-200"
+              >
+                <link.icon
+                  width={21}
+                  height={23}
+                  className={"text-white cursor-pointer group-hover:text-dark"}
+                />
+              </Link>
+            ))}
           </div>
           <p className="mt-4 text-grey-100">Brainz © 2024</p>
         </div>

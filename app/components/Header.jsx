@@ -63,20 +63,6 @@ const Header = () => {
     }
   }, [isOpenProfile]);
 
-  const defaultOption = "ETH";
-  const [selectedOption, setSelectedOption] = useState(defaultOption);
-
-  const handleSelectChange = (value) => {
-    setSelectedOption(value);
-  };
-
-  const options = [
-    { icon: <EthIcon height="20" width="20" />, price: 12.0503, label: "ETH" },
-    { icon: <EthIcon height="20" width="20" />, price: 44.0503, label: "BTC" },
-    { icon: <EthIcon height="20" width="20" />, price: 44.0503, label: "LTC" },
-    { icon: <EthIcon height="20" width="20" />, price: 44.0503, label: "XRP" },
-  ];
-
   const copyToClipboard = (string) => {
     setIsCopied(true);
     navigator.clipboard.writeText(string);
