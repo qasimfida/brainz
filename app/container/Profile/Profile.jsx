@@ -13,7 +13,8 @@ export const Profile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { user: privyUser } = usePrivy();
   const { user } = useUser();
-  const { linkGoogle } = useLinkAccount({
+  console.log(privyUser);
+  const { linkEmail } = useLinkAccount({
     onSuccess: async (user, linkedAccount) => {
       console.log({ user, linkedAccount });
       // try {
@@ -74,14 +75,14 @@ export const Profile = () => {
             <Input
               type="text"
               label="Email"
-              value={privyUser?.google?.email}
+              value={privyUser?.email?.address}
               readOnly
               placeholder={"youremail@gmail.com"}
-              className={!privyUser?.google?.subject && "pr-[110px]"}
+              className={!privyUser?.email?.address && "pr-[110px]"}
             />
-            {!privyUser?.google?.subject && (
+            {!privyUser?.email?.address && (
               <button
-                onClick={linkGoogle}
+                onClick={linkEmail}
                 className="absolute right-0 bottom-2.5  h-max text-white py-2 px-6 rounded-md focus:outline-none"
               >
                 Link
