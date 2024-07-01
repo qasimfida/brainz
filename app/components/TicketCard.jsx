@@ -281,6 +281,17 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
     }
   }
 
+  async function checkAllowance(token) {
+    const tokenContract = new ethers.Contract(token, erc20Abi, signer);
+  
+    const allowance = await tokenContract.allowance(
+      walletAddress, // user's wallet address
+      process.env.ROUTER_V2_ADDRESS
+    );
+  
+    return allowance;
+  }
+
   return (
     <div className="bg-primary-350 rounded-[20px] border border-primary-275 py-5 px-[18px] text-center w-full">
       <div className="flex items-center justify-center gap-5">
