@@ -15,6 +15,7 @@ import { useWallet } from "../contexts/WalletContext";
 import { ethers } from "ethers";
 import TokenSelectDropdown from "./TokenSelectDropdown";
 import {
+  apiCall,
   getOtherTokenAmountForExactUSDT,
   getTokenDecimals,
   uniswapAbi,
@@ -22,7 +23,7 @@ import {
 import { erc20Abi } from "viem";
 
 export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
-  const { walletBalances, provider, signer, tokens, platformAddress } =
+  const { walletBalances,walletAddress, provider, signer, tokens, platformAddress } =
     useWallet();
   const [isPurchased, setIsPurchased] = useState(false);
   let [isOpen, setIsOpen] = useState(false);
@@ -100,8 +101,8 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
       console.log("Deposit transaction hash: ", depositTx.hash);
 
       const depositResultData = {
-        packId: id,
-        senderWalletAddress: signer.address, // user's wallet address
+        packID: id,
+        senderWalletAddress: walletAddress, // user's wallet address
         targetWalletAddress: platformAddress,
         txnHash: depositTx.hash,
         swapToken: process.env.NEXT_PUBLIC_USDT_ADDRESS,
@@ -235,8 +236,8 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
       );
 
       const swapResultData = {
-        packId: id,
-        senderWalletAddress: signer.address, // user's wallet address
+        packID: id,
+        senderWalletAddress: walletAddress, // user's wallet address
         targetWalletAddress: platformAddress,
         txnHash: swapTx.hash,
         swapToken: tokenAddress,
