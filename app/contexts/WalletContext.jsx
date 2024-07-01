@@ -12,7 +12,12 @@ const WalletProvider = ({ children }) => {
   const { wallets } = useWallets();
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
-  const [tokens, setTokens] = useState(null);
+  const [tokens, setTokens] = useState([
+    {
+      symbol: "USDT",
+      contractAddress: process.env.NEXT_PUBLIC_USDT_ADDRESS,
+    },
+  ]);
   const [walletAddress, setWalletAddress] = useState([]);
   const [walletBalances, setWalletBalances] = useState([]);
   const [platformAddress, setPlatformAddress] = useState(null);

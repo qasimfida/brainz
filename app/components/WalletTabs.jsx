@@ -56,6 +56,7 @@ const WalletTabs = () => {
       const token_address = tokens.find(
         (token) => token.symbol === depositToken
       ).contractAddress;
+
       const tokenContract = new ethers.Contract(
         token_address,
         erc20Abi,

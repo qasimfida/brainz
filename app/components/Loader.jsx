@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import { useWallet } from "../contexts/WalletContext";
 
-
 const Loader = ({ children }) => {
   const { ready, authenticated } = usePrivy();
   const router = useRouter();
@@ -67,7 +66,7 @@ const Loader = ({ children }) => {
     const getBalances = async () => {
       const tokens = await apiCall("get", "/token");
       if (tokens) {
-        setTokens(tokens.items);
+        setTokens((prev) => [...prev, ...tokens.items]);
         if (provider && walletBalances.length <= 1) {
           tokens.items.forEach(async (token) => {
             const balance = await getWalletBalance({
