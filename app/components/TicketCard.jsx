@@ -7,10 +7,10 @@ import {
   DiamondIcon,
   EthIcon,
   ModalCrossIcon,
+  TickIcon,
   TicketIcon,
   UsdtIcon,
 } from "./Svgs";
-import PurchaseDropdown from "./PurchaseDropdown";
 import { useWallet } from "../contexts/WalletContext";
 import { ethers } from "ethers";
 import TokenSelectDropdown from "./TokenSelectDropdown";
@@ -21,14 +21,23 @@ import {
   uniswapAbi,
 } from "@/lib/utils";
 import { erc20Abi } from "viem";
+import Link from "next/link";
 
 export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
-  const { walletBalances,walletAddress, provider, signer, tokens, platformAddress } =
-    useWallet();
-  const [isPurchased, setIsPurchased] = useState(false);
+  const {
+    walletBalances,
+    walletAddress,
+    provider,
+    signer,
+    tokens,
+    platformAddress,
+  } = useWallet();
   let [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState("USDT");
   const [priceInOtherToken, setPriceInOtherToken] = useState(0);
+  const [txPending, setTxPending] = useState(false);
+  const [purchased, setPurchased] = useState(false);
+  const [txHash, setTxHash] = useState("");
 
   const closeModal = () => {
     setIsOpen(false);
@@ -86,6 +95,7 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
           "USDT_ADDRESS is not defined in the environment variables"
         );
       }
+      setTxPending(true);
       const usdtTokenContract = new ethers.Contract(
         process.env.NEXT_PUBLIC_USDT_ADDRESS,
         erc20Abi,
@@ -117,12 +127,19 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
       // Check if the transaction was successful
       if (depositReceipt.status === 1) {
         console.log("Deposit successful");
+        setPurchased(true);
+        setTxHash(depositTx.hash);
       } else {
         console.log("Deposit transaction failed");
+        alert("Transaction failed. Please try again.");
+
         return;
       }
     } catch (err) {
       console.log("Deposit Error", err);
+      alert("Transaction failed. Please try again.");
+    } finally {
+      setTxPending(false);
     }
   }
 
@@ -327,99 +344,110 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
                 leaveTo="opacity-0 scale-95"
               >
                 <Dialog.Panel className="w-full max-w-[724px] text-center text-white transform overflow-hidden rounded-[20px] bg-primary-275 py-6 px-6 md:px-12  align-middle shadow-xl transition-all">
-                  {isPurchased ? (
-                    <div>
-                      <h1 className="text-2xl lg:text-3xl font-basement font-bold">
-                        Buy
-                      </h1>
-                      <div className="flex justify-center">
-                        <h2 className="text-lg  md:text-2xl font-basement font-bold mt-6 md:mt-10 max-w-[458px]">
-                          You purchased
-                          {ticketAmount > 0 && (
-                            <span>
-                              {ticketAmount}{" "}
-                              <TicketIcon className={"text-danger-100"} />
-                            </span>
-                          )}
-                          {diamondAmount > 0 && (
-                            <span>
-                              {diamondAmount}{" "}
-                              <DiamondIcon className={"text-success"} />
-                            </span>
-                          )}
-                          for {price} USDT.
-                        </h2>
-                      </div>
-                      <div className="flex justify-center mt-[140px] pb-8">
-                        <p className="text-base md:text-lg font-basement font-normal max-w-[458px] ">
-                          Your purchase was successful!
-                        </p>
-                      </div>
+                  <div>
+                    <h1 className="text-[26px] md:text-4xl font-basement font-bold">
+                      Buy
+                    </h1>
+                    <div className="flex justify-center">
+                      <h2 className="text-lg md:text-2xl font-basement font-bold mt-10 max-w-[458px]">
+                        You are purchasing{" "}
+                        {ticketAmount > 0 && (
+                          <span>{ticketAmount} tickets </span>
+                        )}
+                        {diamondAmount > 0 && (
+                          <span> {diamondAmount} diamonds </span>
+                        )}
+                        for {priceInOtherToken > 0 ? priceInOtherToken : price}{" "}
+                        {selectedOption}.
+                      </h2>
                     </div>
-                  ) : (
-                    <div>
-                      <h1 className="text-[26px] md:text-4xl font-basement font-bold">
-                        Buy
-                      </h1>
-                      <div className="flex justify-center">
-                        <h2 className="text-lg md:text-2xl font-basement font-bold mt-10 max-w-[458px]">
-                          You are purchasing{" "}
-                          {ticketAmount > 0 && (
-                            <span>{ticketAmount} tickets </span>
-                          )}
-                          {diamondAmount > 0 && (
-                            <span> {diamondAmount} diamonds </span>
-                          )}
-                          for{" "}
-                          {priceInOtherToken > 0 ? priceInOtherToken : price}{" "}
-                          {selectedOption}.
-                        </h2>
-                      </div>
-                      <div className="flex justify-center mt-8">
-                        <p className="text-sm e md:text-lg font-basement font-normal max-w-[458px] ">
-                          Select USDT or Equivalent Token to purchase the
-                          bundles
-                        </p>
-                      </div>
-                      <div className="flex flex-col gap-4  max-w-xs mx-auto text-left mt-5">
-                        <div className="flex flex-col gap-3 w-full">
-                          <TokenSelectDropdown
-                            options={walletBalances}
-                            onChange={handleTokenChange}
-                            className={"max-h-44 "}
-                          />
+                    <div className="flex justify-center mt-8">
+                      <p className="text-sm e md:text-lg font-basement font-normal max-w-[458px] ">
+                        Select USDT or Equivalent Token to purchase the bundles
+                      </p>
+                    </div>
+                    <div className="flex flex-col gap-4  max-w-xs mx-auto text-left mt-5">
+                      <div className="flex flex-col gap-3 w-full">
+                        <TokenSelectDropdown
+                          options={walletBalances}
+                          onChange={handleTokenChange}
+                          className={"max-h-44 "}
+                        />
 
-                          <p className="text-right text-sm">
-                            Balance:{" "}
-                            {
-                              walletBalances.find(
-                                (balance) => balance.symbol === selectedOption
-                              )?.balance
-                            }
-                          </p>
-                        </div>
-                        <div className="flex justify-between gap-3">
-                          <h1 className="font-bold font-basement text-xl">
-                            You pay
-                          </h1>
-                          <h1 className="font-bold font-basement text-xl">
-                            {priceInOtherToken > 0 ? priceInOtherToken : price}{" "}
-                          </h1>
-                        </div>
+                        <p className="text-right text-sm">
+                          Balance:{" "}
+                          {
+                            walletBalances.find(
+                              (balance) => balance.symbol === selectedOption
+                            )?.balance
+                          }
+                        </p>
                       </div>
-                      <div className="mt-[48px] flex justify-center gap-[34px] ">
-                        <Button variant={"outlined"} onClick={handlePurchase}>
-                          Purchase
-                        </Button>
-                        <button
-                          className="text-nowrap font-basement font-bold bg-transparent border border-white border-2 text-white font-bold py-2 rounded-full inline-flex items-center duration-200 hover:bg-white hover:text-dark px-[41px] py-[4px]"
-                          onClick={closeModal}
-                        >
-                          Cancel
-                        </button>
+                      <div className="flex justify-between gap-3">
+                        <h1 className="font-bold font-basement text-xl">
+                          You pay
+                        </h1>
+                        <h1 className="font-bold font-basement text-xl">
+                          {priceInOtherToken > 0 ? priceInOtherToken : price}{" "}
+                        </h1>
                       </div>
                     </div>
-                  )}
+                    <div className="mt-[48px] flex justify-center gap-[34px] ">
+                      {purchased ? (
+                        <Link
+                          href={`https://bscscan.com/tx/${txHash}`}
+                          className=" gap-4 outline-none	text-nowrap font-basement  bg-transparent  border-secondary border-2 text-white font-bold py-2 rounded-full inline-flex items-center duration-200 hover:bg-secondary hover:text-dark px-10 "
+                        >
+                          <TickIcon className={"text-success "} />
+                          <p className="text-lg font-basement font-bold">
+                            Purchase successful
+                          </p>
+                        </Link>
+                      ) : txPending ? (
+                        <Button
+                          variant={"outlined"}
+                          disabled
+                          className={
+                            "flex items-center gap-4 hover:bg-opacity-0 hover:text-white"
+                          }
+                        >
+                          <div role="status">
+                            <svg
+                              aria-hidden="true"
+                              class="w-6 h-6 text-[#ddd] animate-spin  fill-primary-100"
+                              viewBox="0 0 100 101"
+                              fill="none"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                                fill="currentColor"
+                              />
+                              <path
+                                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                                fill="currentFill"
+                              />
+                            </svg>
+                            <span class="sr-only">Loading...</span>
+                          </div>
+                          Transaction processing...
+                        </Button>
+                      ) : (
+                        <>
+                          <Button variant={"outlined"} onClick={handlePurchase}>
+                            Purchase
+                          </Button>
+                          <button
+                            className="text-nowrap font-basement font-bold bg-transparent border border-white border-2 text-white font-bold py-2 rounded-full inline-flex items-center duration-200 hover:bg-white hover:text-dark px-[41px] py-[4px]"
+                            onClick={closeModal}
+                          >
+                            Cancel
+                          </button>
+                        </>
+                      )}
+                    </div>
+                  </div>
+
                   <button
                     onClick={closeModal}
                     className="absolute top-[38px] right-[50px] "
