@@ -286,7 +286,7 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
   
     const allowance = await tokenContract.allowance(
       walletAddress, // user's wallet address
-      process.env.ROUTER_V2_ADDRESS
+      process.env.NEXT_PUBLIC_ROUTER_V2_ADDRESS
     );
   
     return allowance;
