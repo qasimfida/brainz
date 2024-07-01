@@ -210,6 +210,7 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
     if (otherTokenAllowance.lt(amountInMaxWithSlippage)) {
       console.log("ALLOWANCE LOW, TRANSACTION TO APPROVE TOKEN SPEND");
       try {
+        setTxPending(true);
         const approveTx = await tokenContract.approve(
           process.env.NEXT_PUBLIC_ROUTER_V2_ADDRESS,
           amountInOtherToken
@@ -272,23 +273,29 @@ export const TicketCard = ({ ticketAmount, diamondAmount, price, id }) => {
       // Check if the transaction was successful
       if (swapReceipt.status === 1) {
         console.log("Swap successful");
+        setPurchased(true);
       } else {
         console.log("Swap transaction failed");
+        alert("Transaction failed. Please try again.");
         return;
       }
     } catch (err) {
       console.log("Swap Error", err);
+      alert("Transaction failed. Please try again.");
+      return;
+    } finally {
+      setTxPending(false);
     }
   }
 
   async function checkAllowance(token) {
     const tokenContract = new ethers.Contract(token, erc20Abi, signer);
-  
+
     const allowance = await tokenContract.allowance(
       walletAddress, // user's wallet address
       process.env.NEXT_PUBLIC_ROUTER_V2_ADDRESS
     );
-  
+
     return allowance;
   }
 
