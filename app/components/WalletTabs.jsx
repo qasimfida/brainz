@@ -306,7 +306,15 @@ const WalletTabs = () => {
                           value={user?.wallet?.address}
                           className={`mt-2.5 text-gray-500 z-0	bg-primary w-full px-4  py-4 rounded-[20px] border border-primary-275 focus:outline-none text-white`}
                         />
-                        <Button variant={"outlined"} className={"mt-8"}>
+                        <Button
+                          variant={"outlined"}
+                          className={"mt-8"}
+                          onClick={() => {
+                            navigator.clipboard.writeText(
+                              user?.wallet?.address
+                            );
+                          }}
+                        >
                           Copy Address
                         </Button>
                       </div>

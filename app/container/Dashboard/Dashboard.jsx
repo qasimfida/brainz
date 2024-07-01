@@ -67,21 +67,32 @@ export const Dashboard = () => {
   // }, [nextGame]);
 
   const formatDuration = (startTime, endTime) => {
-    console.log({ endTime });
     const start = new Date(startTime);
     const end = new Date(endTime);
     const durationMs = end - start;
 
-    // Convert milliseconds to hours and minutes
-    const hours = Math.floor(durationMs / (1000 * 60 * 60));
-    const minutes = Math.floor((durationMs % (1000 * 60 * 60)) / (1000 * 60));
-    console.log({ durationMs });
+    // Convert milliseconds to hours, minutes, and seconds
+    const hours = Math.floor(durationMs / 1000 / 60 / 60);
+    const minutes = Math.floor((durationMs / 1000 / 60) % 60);
+    const seconds = Math.floor((durationMs / 1000) % 60);
 
-    // Pad with zero if less than 10
-    return `${String(hours).padStart(2, "0")} hours ${String(minutes).padStart(
-      2,
-      "0"
-    )} mins`;
+    // Build the duration string
+    let durationStr = "";
+
+    if (hours > 0) {
+      durationStr += `${hours} hours `;
+    }
+
+    if (minutes > 0) {
+      durationStr += `${minutes} mins `;
+    }
+
+    if (seconds > 0 || durationStr === "") {
+      // show seconds if no hours/minutes
+      durationStr += `${seconds} secs`;
+    }
+
+    return durationStr.trim();
   };
 
   const handleJoinSession = async (id) => {
@@ -264,7 +275,9 @@ export const Dashboard = () => {
                       {nextGame.sessions.length} Session |{" "}
                       {formatDuration(
                         nextGame.sessions[nextGameSelectedSession].startTime,
-                        nextGame.sessions[nextGameSelectedSession].endTime
+                        getSessionEndTime(
+                          nextGame.sessions[nextGameSelectedSession]
+                        )
                       )}
                     </p>
                     <p className="pt-5 text-lg font-normal lg:text-xl font-basement lg:pt-9">

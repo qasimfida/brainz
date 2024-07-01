@@ -79,6 +79,8 @@ export const Profile = () => {
               readOnly
               placeholder={"youremail@gmail.com"}
               className={!privyUser?.email?.address && "pr-[110px]"}
+              showCheckIcon
+              isSaved={!!privyUser?.email?.address}
             />
             {!privyUser?.email?.address && (
               <button
@@ -96,6 +98,8 @@ export const Profile = () => {
               variant={"default"}
               defaultValue={user.username}
               className="pr-[110px]"
+              showCheckIcon
+              isSaved={!!user.username}
             />
             <button
               type="submit"
@@ -112,6 +116,7 @@ export const Profile = () => {
               label={"Wallet Address"}
               value={privyUser.wallet.address}
               readOnly
+              showCopy
               placeholder={"0x1234567890abcdef1234567890abcdef12345678"}
             />
           </div>
@@ -135,6 +140,8 @@ export const Profile = () => {
                 variant={"copy"}
                 buttonText="Copy"
                 readOnlyInput
+                showCopy
+                readOnly
                 placeholder={"https://www.example.com/referral?code=123456"}
               />
             </div>

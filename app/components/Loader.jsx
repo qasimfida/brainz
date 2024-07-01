@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useUser } from "../contexts/UserContext";
 import { useWallet } from "../contexts/WalletContext";
 
+
 const Loader = ({ children }) => {
   const { ready, authenticated } = usePrivy();
   const router = useRouter();
